@@ -48,7 +48,7 @@ export default function ClusteringForm() {
   const apiForm = useForm<z.infer<typeof apiSchema>>({
     resolver: zodResolver(apiSchema),
     defaultValues: {
-      endpoint: apiConfig.endpoint || "https://06d2eadb5d12.ngrok-free.app",
+      endpoint: apiConfig.endpoint || "https://7d95bfb3774b.ngrok-free.app/",
     },
   });
 
