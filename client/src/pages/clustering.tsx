@@ -38,20 +38,12 @@ export default function ClusteringPage() {
             <h1 className="text-xl font-semibold text-foreground">
               Clustering Control Panel
             </h1>
-            <div className="flex gap-2">
-              <Link href="/industry-map">
-                <Button variant="outline" size="sm" className="flex items-center gap-2">
-                  <Map className="h-4 w-4" />
-                  Industry Map
-                </Button>
-              </Link>
-              <Link href="/mock-test">
-                <Button variant="outline" size="sm" className="flex items-center gap-2">
-                  <TestTube className="h-4 w-4" />
-                  Mock Test
-                </Button>
-              </Link>
-            </div>
+            <Link href="/mock-test">
+              <Button variant="outline" size="sm" className="flex items-center gap-2">
+                <TestTube className="h-4 w-4" />
+                Mock Test
+              </Button>
+            </Link>
           </div>
           <p className="text-sm text-muted-foreground">
             Upload data files and configure clustering parameters
