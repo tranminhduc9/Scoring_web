@@ -89,36 +89,6 @@ export default function IndustryMapTab({
     loadIndustryData();
   }, []);
 
-  // Update highlighted sector when selectedSectorCode changes
-  useEffect(() => {
-    if (selectedSectorCode && industryData.length > 0) {
-      // Find matching sector in the data - handle different code formats
-      const matchingSector = industryData.find(item => {
-        // Direct match
-        if (item.sector_code === selectedSectorCode || item.full_id === selectedSectorCode) {
-          return true;
-        }
-        
-        // Handle API code format (e.g., "A1110" -> "1110")
-        const codeWithoutPrefix = selectedSectorCode.replace(/^[A-Z]/, '');
-        if (item.sector_code === codeWithoutPrefix) {
-          return true;
-        }
-        
-        // Handle reverse format (e.g., "1110" -> sector with code "1110")
-        return item.sector_code === selectedSectorCode;
-      });
-      
-      if (matchingSector) {
-        setHighlightedSector(matchingSector.sector_code);
-        updatePlotHighlight(matchingSector.sector_code);
-      }
-    } else {
-      setHighlightedSector(null);
-      updatePlotHighlight(null);
-    }
-  }, [selectedSectorCode, industryData, updatePlotHighlight]);
-
   const updatePlotHighlight = useCallback((sectorCode: string | null) => {
     if (!plotRef.current || !plotReady) return;
 
@@ -160,6 +130,36 @@ export default function IndustryMapTab({
       });
     }
   }, [industryData, plotReady]);
+
+  // Update highlighted sector when selectedSectorCode changes
+  useEffect(() => {
+    if (selectedSectorCode && industryData.length > 0) {
+      // Find matching sector in the data - handle different code formats
+      const matchingSector = industryData.find(item => {
+        // Direct match
+        if (item.sector_code === selectedSectorCode || item.full_id === selectedSectorCode) {
+          return true;
+        }
+        
+        // Handle API code format (e.g., "A1110" -> "1110")
+        const codeWithoutPrefix = selectedSectorCode.replace(/^[A-Z]/, '');
+        if (item.sector_code === codeWithoutPrefix) {
+          return true;
+        }
+        
+        // Handle reverse format (e.g., "1110" -> sector with code "1110")
+        return item.sector_code === selectedSectorCode;
+      });
+      
+      if (matchingSector) {
+        setHighlightedSector(matchingSector.sector_code);
+        updatePlotHighlight(matchingSector.sector_code);
+      }
+    } else {
+      setHighlightedSector(null);
+      updatePlotHighlight(null);
+    }
+  }, [selectedSectorCode, industryData, updatePlotHighlight]);
 
   // Handle plot clicks
   const handlePlotClick = useCallback((data: any) => {
