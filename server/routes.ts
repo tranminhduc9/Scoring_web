@@ -72,7 +72,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // File download proxy (for accessing clustering results)
   app.get("/api/files/*", async (req, res) => {
     try {
-      const filePath = req.params[0];
+      const filePath = (req.params as { [key: string]: string })[0];
       
       // In a real implementation, this would proxy to the actual clustering service
       // For now, return appropriate mock responses based on file type
