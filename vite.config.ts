@@ -41,7 +41,7 @@ export default defineConfig({
       deny: ["**/.*"],
     },
     allowedHosts: [
-      "http://94708068-fe48-4284-ba9a-3d0b54a909c3-00-21ckydiahoqn2.riker.replit.dev/",
+      "94708068-fe48-4284-ba9a-3d0b54a909c3-00-21ckydiahoqn2.riker.replit.dev",
     ],
   },
 });

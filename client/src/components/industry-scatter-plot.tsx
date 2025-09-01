@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import Plotly from 'plotly.js-dist';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Download, FileImage, Maximize, Move, ZoomIn, Lasso } from "lucide-react";
+import { Download, FileImage, Maximize, Move, ZoomIn, Lasso, Square } from "lucide-react";
 import Papa from 'papaparse';
 
 interface IndustryDataPoint {
@@ -28,7 +28,10 @@ export default function IndustryScatterPlot({
   const [industryData, setIndustryData] = useState<IndustryDataPoint[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [activeTool, setActiveTool] = useState<"pan" | "zoom" | "lasso">("lasso");
+  const [activeTool, setActiveTool] = useState<"pan" | "zoom" | "lasso" | "select">("lasso");
+  const [selectedArea, setSelectedArea] = useState<{xmin: number, xmax: number, ymin: number, ymax: number} | null>(null);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   // Load and parse industry data
   useEffect(() => {
@@ -154,7 +157,7 @@ export default function IndustryScatterPlot({
       paper_bgcolor: 'white',
       plot_bgcolor: 'white',
       margin: { l: 60, r: 60, t: 80, b: 60 },
-      dragmode: activeTool === 'pan' ? 'pan' : activeTool === 'zoom' ? 'zoom' : 'lasso'
+      dragmode: activeTool === 'pan' ? 'pan' : activeTool === 'zoom' ? 'zoom' : activeTool === 'select' ? 'select' : 'lasso'
     };
 
     const config = {
@@ -167,7 +170,38 @@ export default function IndustryScatterPlot({
     Plotly.newPlot(plotRef.current, traces, layout, config).then(() => {
       setPlotReady(true);
       console.log('Industry plot rendered successfully');
+      
+      // Add selection event handler
+      if (plotRef.current) {
+        (plotRef.current as any).on('plotly_selected', (eventData: any) => {
+          if (eventData && eventData.range && activeTool === 'select') {
+            const range = eventData.range;
+            if (range.x && range.y) {
+              const selectedArea = {
+                xmin: range.x[0],
+                xmax: range.x[1],
+                ymin: range.y[0],
+                ymax: range.y[1]
+              };
+              setSelectedArea(selectedArea);
+              zoomToSelection(selectedArea);
+            }
+          }
+        });
+      }
     });
+
+    
+    // Cleanup function
+    return () => {
+      if (plotRef.current) {
+        try {
+          (plotRef.current as any).removeAllListeners('plotly_selected');
+        } catch (e) {
+          // Ignore cleanup errors
+        }
+      }
+    };
 
   }, [industryData, loading, activeTool]);
 
@@ -190,6 +224,97 @@ export default function IndustryScatterPlot({
       height: 800,
       filename: 'industry_sector_map'
     });
+  };
+
+  const zoomToSelection = (area: {xmin: number, xmax: number, ymin: number, ymax: number}) => {
+    if (!plotRef.current || !plotReady) return;
+    
+    const xRange = area.xmax - area.xmin;
+    const yRange = area.ymax - area.ymin;
+    const padding = 0.1;
+    
+    const update = {
+      'xaxis.range': [area.xmin - xRange * padding, area.xmax + xRange * padding],
+      'yaxis.range': [area.ymin - yRange * padding, area.ymax + yRange * padding],
+    };
+    
+    Plotly.relayout(plotRef.current, update);
+  };
+
+  const resetZoom = () => {
+    if (!plotRef.current || !plotReady) return;
+    
+    const update = {
+      'xaxis.range': null,
+      'yaxis.range': null,
+    };
+    
+    Plotly.relayout(plotRef.current, update);
+    setSelectedArea(null);
+  };
+
+  const scaleBetweenPoints = () => {
+    if (!plotRef.current || !plotReady || !selectedArea) return;
+    
+    const pointsInArea = industryData.filter(point => 
+      point.emb_x >= selectedArea.xmin && point.emb_x <= selectedArea.xmax &&
+      point.emb_y >= selectedArea.ymin && point.emb_y <= selectedArea.ymax
+    );
+    
+    if (pointsInArea.length === 0) return;
+
+    let totalDistance = 0;
+    let pairCount = 0;
+    
+    for (let i = 0; i < pointsInArea.length; i++) {
+      for (let j = i + 1; j < pointsInArea.length; j++) {
+        const distance = Math.sqrt(
+          Math.pow(pointsInArea[i].emb_x - pointsInArea[j].emb_x, 2) + 
+          Math.pow(pointsInArea[i].emb_y - pointsInArea[j].emb_y, 2)
+        );
+        totalDistance += distance;
+        pairCount++;
+      }
+    }
+    
+    if (pairCount === 0) return;
+
+    const avgDistance = totalDistance / pairCount;
+    const scaleFactor = Math.max(2, Math.min(10, 1 / avgDistance));
+    
+    const centerX = (selectedArea.xmin + selectedArea.xmax) / 2;
+    const centerY = (selectedArea.ymin + selectedArea.ymax) / 2;
+    const rangeX = (selectedArea.xmax - selectedArea.xmin) / scaleFactor;
+    const rangeY = (selectedArea.ymax - selectedArea.ymin) / scaleFactor;
+    
+    const update = {
+      'xaxis.range': [centerX - rangeX/2, centerX + rangeX/2],
+      'yaxis.range': [centerY - rangeY/2, centerY + rangeY/2],
+    };
+    
+    Plotly.relayout(plotRef.current, update);
+  };
+
+  const toggleFullscreen = async () => {
+    const el = containerRef.current || plotRef.current;
+    if (!el) return;
+
+    try {
+      if (!document.fullscreenElement) {
+        await el.requestFullscreen();
+        setIsFullscreen(true);
+      } else {
+        await document.exitFullscreen();
+        setIsFullscreen(false);
+      }
+      setTimeout(() => {
+        if (plotRef.current && (Plotly as any).Plots && (Plotly as any).Plots.resize) {
+          try { (Plotly as any).Plots.resize(plotRef.current); } catch (e) { /* noop */ }
+        }
+      }, 200);
+    } catch (err) {
+      // ignore fullscreen errors
+    }
   };
 
   if (loading) {
@@ -219,7 +344,7 @@ export default function IndustryScatterPlot({
   }
 
   return (
-    <div className="w-full space-y-4">
+    <div className="w-full space-y-4" ref={containerRef}>
       {/* Controls */}
       <Card>
         <CardHeader>
@@ -250,12 +375,46 @@ export default function IndustryScatterPlot({
                   variant={activeTool === "zoom" ? "default" : "ghost"}
                   size="sm"
                   onClick={() => setActiveTool("zoom")}
-                  className="rounded-l-none"
+                  className="rounded-none border-l border-r"
                   data-testid="tool-zoom"
                 >
                   <ZoomIn className="h-4 w-4" />
                 </Button>
+                <Button
+                  variant={activeTool === "select" ? "default" : "ghost"}
+                  size="sm"
+                  onClick={() => setActiveTool("select")}
+                  className="rounded-l-none"
+                  title="Box Select Tool - Chọn vùng không gian để phóng to"
+                  data-testid="tool-select"
+                >
+                  <Square className="h-4 w-4" />
+                </Button>
               </div>
+
+              {/* Zoom Actions */}
+              {selectedArea && (
+                <div className="flex gap-1 mr-2">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={scaleBetweenPoints}
+                    title="Tăng scale distance giữa các điểm trong vùng đã chọn"
+                    data-testid="scale-points"
+                  >
+                    🔍 Scale Up
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={resetZoom}
+                    title="Reset zoom về ban đầu"
+                    data-testid="reset-zoom"
+                  >
+                    🔄 Reset
+                  </Button>
+                </div>
+              )}
 
               {/* Download Options */}
               <Button
@@ -278,13 +437,27 @@ export default function IndustryScatterPlot({
                 <FileImage className="h-4 w-4 mr-1" />
                 SVG
               </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={toggleFullscreen}
+                title={isFullscreen ? "Exit fullscreen" : "Fullscreen"}
+                data-testid="fullscreen-industry"
+              >
+                <Maximize className="h-4 w-4 mr-1" />
+                {isFullscreen ? 'Exit' : 'Fullscreen'}
+              </Button>
             </div>
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="text-sm text-muted-foreground mb-4">
             Displaying {industryData.length} industry sectors across {Array.from(new Set(industryData.map(d => d.labels))).length} major categories.
-            Use the tools above to interact with the plot.
+            {selectedArea && (
+              <span className="text-blue-600 font-medium ml-2">
+                Vùng đã chọn: ({selectedArea.xmin.toFixed(2)}, {selectedArea.ymin.toFixed(2)}) to ({selectedArea.xmax.toFixed(2)}, {selectedArea.ymax.toFixed(2)})
+              </span>
+            )}
           </div>
           <div
             ref={plotRef}

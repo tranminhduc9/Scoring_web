@@ -2,8 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { ClusterResult } from '../../../shared/schema';
 import Plotly from 'plotly.js-dist';
 import { Button } from "@/components/ui/button";
-import { Download, FileImage } from "lucide-react";
-import { Maximize } from "lucide-react";
+import { Download, FileImage, Maximize, Move, ZoomIn, Square } from "lucide-react";
 
 interface ClusterVisualizationProps {
   clusterResult: ClusterResult;
@@ -43,6 +42,8 @@ export default function ClusterVisualization({
   const [data, setData] = useState<DataPoint[]>([]);
   const [plotReady, setPlotReady] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [activeTool, setActiveTool] = useState<"orbit" | "zoom" | "pan" | "select">("orbit");
+  const [selectedArea, setSelectedArea] = useState<{xmin: number, xmax: number, ymin: number, ymax: number} | null>(null);
 
   // Add timestamp to verify code reload
   console.log("🚀 ClusterVisualization component loaded at:", new Date().toLocaleTimeString());
@@ -291,7 +292,7 @@ export default function ClusterVisualization({
           eye: { x: 1.5, y: 1.5, z: 1.5 }
         },
         // Enable full 3D interaction: orbit, zoom, pan
-        dragmode: 'orbit'
+        dragmode: activeTool === 'orbit' ? 'orbit' : activeTool === 'zoom' ? 'zoom' : activeTool === 'pan' ? 'pan' : 'select'
       },
       plot_bgcolor: 'white',
       paper_bgcolor: 'white',
@@ -316,17 +317,41 @@ export default function ClusterVisualization({
       displayModeBar: true,
       displaylogo: false,
       // Enable all 3D interactions
-      modeBarButtonsToRemove: ['pan2d', 'lasso2d', 'select2d'],
+      modeBarButtonsToRemove: [],
       // allow scroll wheel zoom
       scrollZoom: true,
     };
 
   Plotly.newPlot(plotRef.current, traces, layout, config).then(() => {
       setPlotReady(true);
+      
+      // Add selection event handler
+      if (plotRef.current) {
+        (plotRef.current as any).on('plotly_selected', (eventData: any) => {
+          if (eventData && eventData.range && activeTool === 'select') {
+            const range = eventData.range;
+            if (range.x && range.y) {
+              const selectedArea = {
+                xmin: range.x[0],
+                xmax: range.x[1],
+                ymin: range.y[0],
+                ymax: range.y[1]
+              };
+              setSelectedArea(selectedArea);
+              zoomToSelection(selectedArea);
+            }
+          }
+        });
+      }
     });
 
     return () => {
       if (plotRef.current) {
+        try {
+          (plotRef.current as any).removeAllListeners('plotly_selected');
+        } catch (e) {
+          // Ignore cleanup errors
+        }
         Plotly.purge(plotRef.current);
       }
     };
@@ -377,6 +402,80 @@ export default function ClusterVisualization({
     }
   };
 
+  const zoomToSelection = (area: {xmin: number, xmax: number, ymin: number, ymax: number}) => {
+    if (!plotRef.current || !plotReady) return;
+    
+    // Calculate zoom factor to expand the selected area
+    const xRange = area.xmax - area.xmin;
+    const yRange = area.ymax - area.ymin;
+    const padding = 0.1; // 10% padding
+    
+    const update = {
+      'scene.xaxis.range': [area.xmin - xRange * padding, area.xmax + xRange * padding],
+      'scene.yaxis.range': [area.ymin - yRange * padding, area.ymax + yRange * padding],
+    };
+    
+    Plotly.relayout(plotRef.current, update);
+  };
+
+  const resetZoom = () => {
+    if (!plotRef.current || !plotReady) return;
+    
+    const update = {
+      'scene.xaxis.range': null,
+      'scene.yaxis.range': null,
+      'scene.zaxis.range': [0, null]
+    };
+    
+    Plotly.relayout(plotRef.current, update);
+    setSelectedArea(null);
+  };
+
+  const scaleBetweenPoints = () => {
+    if (!plotRef.current || !plotReady || !selectedArea) return;
+    
+    // Find points in selected area
+    const pointsInArea = data.filter(point => 
+      point.x >= selectedArea.xmin && point.x <= selectedArea.xmax &&
+      point.y >= selectedArea.ymin && point.y <= selectedArea.ymax
+    );
+    
+    if (pointsInArea.length === 0) return;
+
+    // Calculate average distance between points in selected area
+    let totalDistance = 0;
+    let pairCount = 0;
+    
+    for (let i = 0; i < pointsInArea.length; i++) {
+      for (let j = i + 1; j < pointsInArea.length; j++) {
+        const distance = Math.sqrt(
+          Math.pow(pointsInArea[i].x - pointsInArea[j].x, 2) + 
+          Math.pow(pointsInArea[i].y - pointsInArea[j].y, 2)
+        );
+        totalDistance += distance;
+        pairCount++;
+      }
+    }
+    
+    if (pairCount === 0) return;
+
+    const avgDistance = totalDistance / pairCount;
+    const scaleFactor = Math.max(2, Math.min(10, 1 / avgDistance)); // Scale factor between 2x and 10x
+    
+    // Apply scaling by adjusting the range
+    const centerX = (selectedArea.xmin + selectedArea.xmax) / 2;
+    const centerY = (selectedArea.ymin + selectedArea.ymax) / 2;
+    const rangeX = (selectedArea.xmax - selectedArea.xmin) / scaleFactor;
+    const rangeY = (selectedArea.ymax - selectedArea.ymin) / scaleFactor;
+    
+    const update = {
+      'scene.xaxis.range': [centerX - rangeX/2, centerX + rangeX/2],
+      'scene.yaxis.range': [centerY - rangeY/2, centerY + rangeY/2],
+    };
+    
+    Plotly.relayout(plotRef.current, update);
+  };
+
   useEffect(() => {
     const handler = () => {
       if (plotRef.current && (Plotly as any).Plots && (Plotly as any).Plots.resize) {
@@ -404,6 +503,64 @@ export default function ClusterVisualization({
           </p>
         </div>
         <div className="flex gap-2">
+          {/* Interaction Tools */}
+          <div className="flex border rounded-md mr-2">
+            <Button
+              variant={activeTool === "orbit" ? "default" : "ghost"}
+              size="sm"
+              onClick={() => setActiveTool("orbit")}
+              className="rounded-r-none"
+              title="3D Orbit Tool"
+              data-testid="tool-orbit"
+            >
+              <Move className="h-4 w-4" />
+            </Button>
+            <Button
+              variant={activeTool === "zoom" ? "default" : "ghost"}
+              size="sm"
+              onClick={() => setActiveTool("zoom")}
+              className="rounded-none border-l border-r"
+              title="Zoom Tool"
+              data-testid="tool-zoom"
+            >
+              <ZoomIn className="h-4 w-4" />
+            </Button>
+            <Button
+              variant={activeTool === "select" ? "default" : "ghost"}
+              size="sm"
+              onClick={() => setActiveTool("select")}
+              className="rounded-l-none"
+              title="Box Select Tool - Chọn vùng không gian để phóng to"
+              data-testid="tool-select"
+            >
+              <Square className="h-4 w-4" />
+            </Button>
+          </div>
+
+          {/* Zoom Actions */}
+          {selectedArea && (
+            <div className="flex gap-1 mr-2">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={scaleBetweenPoints}
+                title="Tăng scale distance giữa các điểm trong vùng đã chọn"
+                data-testid="scale-points"
+              >
+                🔍 Scale Up
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={resetZoom}
+                title="Reset zoom về ban đầu"
+                data-testid="reset-zoom"
+              >
+                🔄 Reset
+              </Button>
+            </div>
+          )}
+
           <Button
             variant="outline"
             size="sm"
@@ -438,11 +595,11 @@ export default function ClusterVisualization({
           </Button>
         </div>
       </div>
-      <div className="border border-gray-200 rounded overflow-hidden" style={{ width: '100%' }}>
+      <div className="border border-gray-200 rounded overflow-auto" style={{ width: '100%', height: `${height}px`, maxHeight: '80vh' }}>
         <div
           ref={plotRef}
-          className="w-full h-full"
-          style={{ width: '100%', height: `${height}px` }}
+          className="w-full h-full min-h-full"
+          style={{ width: '100%', height: '100%', minHeight: `${height}px` }}
         />
       </div>
     </div>
