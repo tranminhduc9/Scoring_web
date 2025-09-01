@@ -1,0 +1,139 @@
+Web-App Phân Cụm Doanh Nghiệp (Embedding + Info → PCA 2D + Clustering)
+
+Vai trò: Senior Software Architect & Full-stack Engineer (10+ năm kinh nghiệm).
+Mục tiêu: Xây dựng web-app phân cụm doanh nghiệp. Người dùng kéo-thả 2 tệp dữ liệu (embedding và info), nhập tham số lambda và k, cấu hình API clustering, bấm Run → hiển thị scatter plot 2D (PCA) tô màu theo nhãn cụm.
+
+----------------------------------------------------------------------
+1. Yêu cầu tính năng (Functional)
+
+1.1 Sidebar trái (Control Panel)
+- Drag & Drop 2 tệp:
+  + Embeddings file: .csv, .txt (không cố định tên).
+  + Info file: .csv, .txt.
+  + Hỗ trợ map id giữa 2 file, tự phát hiện delimiter, header.
+- Tham số thuật toán:
+  + lambda: số thực > 0.
+  + k: số nguyên ≥ 2.
+- Cấu hình API:
+  + Endpoint URL, API key.
+  + Nút Run Clustering.
+- Trạng thái: hiển thị tiến trình, log lỗi.
+
+1.2 Canvas trung tâm (Kết quả)
+- Scatter plot 2D (PCA):
+  + Mỗi điểm = 1 doanh nghiệp.
+  + Màu theo cluster.
+  + Tooltip: id, quy mô, tọa độ PCA.
+  + Zoom, pan, lasso, filter theo cụm.
+- Xuất dữ liệu:
+  + CSV/JSON: id, cluster, pca_x, pca_y.
+  + Export ảnh: PNG/SVG.
+  + Lưu cấu hình session (không lưu API key).
+
+----------------------------------------------------------------------
+2. Pipeline xử lý dữ liệu
+
+1. Parse files → phát hiện delimiter, header.
+2. Chuẩn hóa schema: map id, chọn cột numeric.
+3. Join theo id.
+4. Concatenate: [embedding || info_numeric].
+5. PCA 2D client-side (Web Worker).
+6. Gọi API clustering → nhận labels từ file labels_csv.
+7. Render scatter plot.
+
+----------------------------------------------------------------------
+3. UI/UX & Validations
+
+- Drag-and-drop + preview file (20 dòng đầu).
+- Validation:
+  + Đủ 2 file, map id thành công.
+  + Có ≥1 cột numeric (hoặc chỉ embedding).
+  + lambda > 0, k ≥ 2, endpoint hợp lệ.
+- Thông báo lỗi: mismatch id, cột không numeric, lỗi CORS/API.
+
+----------------------------------------------------------------------
+4. API Specification (theo server hiện tại)
+
+4.1 GET /meta
+- Trả về thông tin mô tả dịch vụ, giá trị mặc định, đường dẫn tệp.
+Ví dụ:
+{
+  "message": "KMeans clustering service",
+  "defaults": { "lambda": 0.5, "k_list": [3,4,5,6,7,8] },
+  "files": {
+    "vector_ratio.csv": "./data/vector_ratio.csv",
+    "vector_ratio.meta.json": "./data/vector_ratio.meta.json"
+  },
+  "outputs_dir": "/abs/path/to/outputs"
+}
+
+4.2 POST /cluster/run
+Request:
+{
+  "lambda": 0.5,
+  "k_list": [3, 4, 5, 6, 7, 8]
+}
+
+Response (chuẩn mới):
+{
+  "lambda": 0.5,
+  "k_candidates": [3, 4, 5, 6, 7, 8],
+  "best_k": 6,
+  "metrics_csv": "/files/metrics/2025-08-25-123456/metrics.csv",
+  "metric_plots": {
+    "elbow": "/files/metrics/2025-08-25-123456/elbow.png",
+    "silhouette": "/files/metrics/2025-08-25-123456/silhouette.png"
+  },
+  "labels_csv": "/files/labels/2025-08-25-123456/labels_k6.csv",
+  "projection_plots": {
+    "pca2d": "/files/projections/2025-08-25-123456/pca2d_k6.png",
+    "tsne2d": null
+  }
+}
+
+Error:
+{ "error": "k must be >= 2" }
+
+----------------------------------------------------------------------
+5. Phi chức năng (Non-Functional)
+
+- Hiệu năng: tối thiểu ~50k điểm, dùng Web Workers.
+- Bảo mật: không log API key, chỉ chấp nhận HTTPS.
+- Khả dụng: zoom, contrast màu cụm, dark mode.
+- I18n: EN/VI.
+- CORS: hỗ trợ proxy backend.
+
+----------------------------------------------------------------------
+6. Công nghệ khuyến nghị
+
+- Frontend: Next.js + TypeScript, Tailwind + shadcn/ui, Zustand, React Hook Form + Zod, PapaParse, react-echarts/plotly, Web Workers.
+- PCA: ml-pca hoặc SVD trong Worker.
+- Backend proxy: FastAPI / Express.
+- Testing: Vitest, Playwright.
+
+----------------------------------------------------------------------
+7. Acceptance
+
+- Upload 2 file (10k dòng), lambda=0.5, k=8 → scatter plot hiển thị 8 cụm.
+- Missing id → sinh id theo index + cảnh báo.
+- Cột text trong info → loại bỏ + thông báo.
+- API lỗi → hiển thị banner lỗi.
+
+----------------------------------------------------------------------
+8. Mở rộng tương lai
+
+- Tính silhouette score, Dunn index.
+- Tuỳ chỉnh màu cụm.
+- So sánh 2 lần chạy clustering.
+- Import/Export project config.
+
+----------------------------------------------------------------------
+9. Tiêu chuẩn code
+
+- Module hoá: data/, workers/, api/, charts/, store/.
+- Tính toán nặng trong Worker.
+- Type an toàn (TS), strict mode.
+- Error boundary, toast đồng nhất.
+
+----------------------------------------------------------------------
+Kết quả: Web-app chạy được, UI/UX đúng mô tả, xử lý tốt file .csv/.txt, PCA 2D, gọi API clustering với lambda và k, hiển thị scatter màu theo cụm, hỗ trợ export dữ liệu và quản lý lỗi rõ ràng.

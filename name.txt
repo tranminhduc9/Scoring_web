@@ -1,0 +1,1250 @@
+A-Tên ngành: NÔNG NGHIỆP, LÂM NGHIỆP VÀ THUỶ SẢN
+A-1-11-111-Tên ngành: Trồng lúa
+A-1-11-111-1110-Tên ngành: Trồng lúa
+A-1-11-112-Tên ngành: Trồng ngô và cây lương thực có hạt khác
+A-1-11-112-1120-Tên ngành: Trồng ngô và cây lương thực có hạt khác
+A-1-11-113-Tên ngành: Trồng cây lấy củ có chất bột
+A-1-11-113-1130-Tên ngành: Trồng cây lấy củ có chất bột
+A-1-11-114-Tên ngành: Trồng cây mía
+A-1-11-114-1140-Tên ngành: Trồng cây mía
+A-1-11-115-Tên ngành: Trồng cây thuốc lá, thuốc lào
+A-1-11-115-1150-Tên ngành: Trồng cây thuốc lá, thuốc lào
+A-1-11-116-Tên ngành: Trồng cây lấy sợi
+A-1-11-116-1160-Tên ngành: Trồng cây lấy sợi
+A-1-11-117-Tên ngành: Trồng cây có hạt chứa dầu
+A-1-11-117-1170-Tên ngành: Trồng cây có hạt chứa dầu
+A-1-11-118-1181-Tên ngành: Trồng rau các loại
+A-1-11-118-1182-Tên ngành: Trồng đậu các loại
+A-1-11-118-1183-Tên ngành: Trồng hoa hàng năm
+A-1-11-119-1191-Tên ngành: Trồng cây gia vị hàng năm
+A-1-11-119-1192-Tên ngành: Trồng cây dược liệu, hương liệu hàng năm
+A-1-11-119-1199-Tên ngành: Trồng cây hàng năm khác còn lại
+A-1-12-121-1211-Tên ngành: Trồng nho
+A-1-12-121-1212-Tên ngành: Trồng cây ăn quả vùng nhiệt đới và cận nhiệt đới
+A-1-12-121-1213-Tên ngành: Trồng cam, quýt và các loại quả có múi khác
+A-1-12-121-1214-Tên ngành: Trồng táo, mận và các loại quả có hạt như táo
+A-1-12-121-1215-Tên ngành: Trồng nhãn, vải, chôm chôm
+A-1-12-121-1219-Tên ngành: Trồng cây ăn quả khác
+A-1-12-122-Tên ngành: Trồng cây lấy quả chứa dầu
+A-1-12-122-1220-Tên ngành: Trồng cây lấy quả chứa dầu
+A-1-12-123-Tên ngành: Trồng cây điều
+A-1-12-123-1230-Tên ngành: Trồng cây điều
+A-1-12-124-Tên ngành: Trồng cây hồ tiêu
+A-1-12-124-1240-Tên ngành: Trồng cây hồ tiêu
+A-1-12-125-Tên ngành: Trồng cây cao su
+A-1-12-125-1250-Tên ngành: Trồng cây cao su
+A-1-12-126-Tên ngành: Trồng cây cà phê
+A-1-12-126-1260-Tên ngành: Trồng cây cà phê
+A-1-12-127-Tên ngành: Trồng cây chè
+A-1-12-127-1270-Tên ngành: Trồng cây chè
+A-1-12-128-1281-Tên ngành: Trồng cây gia vị lâu năm
+A-1-12-128-1282-Tên ngành: Trồng cây dược liệu, hương liệu lâu năm
+A-1-12-129-1291-Tên ngành: Trồng cây cảnh lâu năm
+A-1-12-129-1299-Tên ngành: Trồng cây lâu năm khác còn lại
+A-1-13-131-Tên ngành: Nhân và chăm sóc cây giống hàng năm
+A-1-13-131-1310-Tên ngành: Nhân và chăm sóc cây giống hàng năm
+A-1-13-132-Tên ngành: Nhân và chăm sóc cây giống lâu năm
+A-1-13-132-1320-Tên ngành: Nhân và chăm sóc cây giống lâu năm
+A-1-14-141-1411-Tên ngành: Sản xuất giống trâu, bò
+A-1-14-141-1412-Tên ngành: Chăn nuôi trâu, bò
+A-1-14-142-1421-Tên ngành: Sản xuất giống ngựa, lừa
+A-1-14-142-1422-Tên ngành: Chăn nuôi ngựa, lừa, la
+A-1-14-144-1441-Tên ngành: Sản xuất giống dê, cừu, hươu, nai
+A-1-14-144-1442-Tên ngành: Chăn nuôi dê, cừu, hươu, nai
+A-1-14-145-1451-Tên ngành: Sản xuất giống lợn
+A-1-14-145-1452-Tên ngành: Chăn nuôi lợn
+A-1-14-146-1461-Tên ngành: Hoạt động ấp trứng và sản xuất giống gia cầm
+A-1-14-146-1462-Tên ngành: Chăn nuôi gà
+A-1-14-146-1463-Tên ngành: Chăn nuôi vịt, ngan, ngỗng
+A-1-14-146-1469-Tên ngành: Chăn nuôi gia cầm khác
+A-1-14-149-Tên ngành: Chăn nuôi khác
+A-1-14-149-1490-Tên ngành: Chăn nuôi khác
+A-1-15-Tên ngành: Trồng trọt, chăn nuôi hỗn hợp
+A-1-15-150-Tên ngành: Trồng trọt, chăn nuôi hỗn hợp
+A-1-15-150-1500-Tên ngành: Trồng trọt, chăn nuôi hỗn hợp
+A-1-16-161-Tên ngành: Hoạt động dịch vụ trồng trọt
+A-1-16-161-1610-Tên ngành: Hoạt động dịch vụ trồng trọt
+A-1-16-162-Tên ngành: Hoạt động dịch vụ chăn nuôi
+A-1-16-162-1620-Tên ngành: Hoạt động dịch vụ chăn nuôi
+A-1-16-163-Tên ngành: Hoạt động dịch vụ sau thu hoạch
+A-1-16-163-1630-Tên ngành: Hoạt động dịch vụ sau thu hoạch
+A-1-16-164-Tên ngành: Xử lý hạt giống để nhân giống
+A-1-16-164-1640-Tên ngành: Xử lý hạt giống để nhân giống
+A-1-17-Tên ngành: Săn bắt, đánh bẫy và hoạt động dịch vụ có liên quan
+A-1-17-170-Tên ngành: Săn bắt, đánh bẫy và hoạt động dịch vụ có liên quan
+A-1-17-170-1700-Tên ngành: Săn bắt, đánh bẫy và hoạt động dịch vụ có liên quan
+A-2-21-Tên ngành: Trồng rừng, chăm sóc rừng và ươm giống cây lâm nghiệp
+A-2-21-210-2101-Tên ngành: Trồng rừng và chăm sóc rừng cây thân gỗ
+A-2-21-210-2102-Tên ngành: Trồng rừng và chăm sóc rừng họ tre
+A-2-21-210-2103-Tên ngành: Trồng rừng và chăm sóc rừng khác
+A-2-21-210-2104-Tên ngành: Ươm giống cây lâm nghiệp
+A-2-22-Tên ngành: Khai thác gỗ
+A-2-22-220-Tên ngành: Khai thác gỗ
+A-2-22-220-2200-Tên ngành: Khai thác gỗ
+A-2-23-231-Tên ngành: Khai thác lâm sản khác trừ gỗ
+A-2-23-231-2310-Tên ngành: Khai thác lâm sản khác trừ gỗ
+A-2-23-232-Tên ngành: Thu nhặt lâm sản khác trừ gỗ
+A-2-23-232-2320-Tên ngành: Thu nhặt lâm sản khác trừ gỗ
+A-2-24-Tên ngành: Hoạt động dịch vụ lâm nghiệp
+A-2-24-240-Tên ngành: Hoạt động dịch vụ lâm nghiệp
+A-2-24-240-2400-Tên ngành: Hoạt động dịch vụ lâm nghiệp
+A-3-31-311-Tên ngành: Khai thác thủy sản biển
+A-3-31-311-3110-Tên ngành: Khai thác thủy sản biển
+A-3-31-312-Tên ngành: Khai thác thủy sản nội địa
+A-3-31-312-3120-Tên ngành: Khai thác thủy sản nội địa
+A-3-32-321-3211-Tên ngành: Nuôi cá
+A-3-32-321-3212-Tên ngành: Nuôi tôm
+A-3-32-321-3213-Tên ngành: Nuôi thủy sản khác
+A-3-32-321-3214-Tên ngành: Sản xuất giống thủy sản biển
+A-3-32-322-3221-Tên ngành: Nuôi cá
+A-3-32-322-3222-Tên ngành: Nuôi tôm
+A-3-32-322-3223-Tên ngành: Nuôi thủy sản khác
+A-3-32-322-3224-Tên ngành: Sản xuất giống thủy sản nội địa
+B-Tên ngành: KHAI KHOÁNG
+B-5-51-Tên ngành: Khai thác và thu gom than cứng
+B-5-51-510-Tên ngành: Khai thác và thu gom than cứng
+B-5-51-510-5100-Tên ngành: Khai thác và thu gom than cứng
+B-5-52-Tên ngành: Khai thác và thu gom than non
+B-5-52-520-Tên ngành: Khai thác và thu gom than non
+B-5-52-520-5200-Tên ngành: Khai thác và thu gom than non
+B-6-61-Tên ngành: Khai thác dầu thô
+B-6-61-610-Tên ngành: Khai thác dầu thô
+B-6-61-610-6100-Tên ngành: Khai thác dầu thô
+B-6-62-Tên ngành: Khai thác khí đốt tự nhiên
+B-6-62-620-Tên ngành: Khai thác khí đốt tự nhiên
+B-6-62-620-6200-Tên ngành: Khai thác khí đốt tự nhiên
+B-7-71-Tên ngành: Khai thác quặng sắt
+B-7-71-710-Tên ngành: Khai thác quặng sắt
+B-7-71-710-7100-Tên ngành: Khai thác quặng sắt
+B-7-72-721-Tên ngành: Khai thác quặng uranium và quặng thorium
+B-7-72-721-7210-Tên ngành: Khai thác quặng uranium và quặng thorium
+B-7-72-722-7221-Tên ngành: Khai thác quặng bôxít
+B-7-72-722-7229-Tên ngành: Khai thác quặng kim loại khác không chứa sắt chưa được phân vào đâu
+B-7-73-Tên ngành: Khai thác quặng kim loại quý hiếm
+B-7-73-730-Tên ngành: Khai thác quặng kim loại quý hiếm
+B-7-73-730-7300-Tên ngành: Khai thác quặng kim loại quý hiếm
+B-8-81-Tên ngành: Khai thác đá, cát, sỏi, đất sét
+B-8-81-810-8101-Tên ngành: Khai thác đá
+B-8-81-810-8102-Tên ngành: Khai thác cát, sỏi
+B-8-81-810-8103-Tên ngành: Khai thác đất sét
+B-8-89-891-Tên ngành: Khai thác khoáng hoá chất và khoáng phân bón
+B-8-89-891-8910-Tên ngành: Khai thác khoáng hoá chất và khoáng phân bón
+B-8-89-892-Tên ngành: Khai thác và thu gom than bùn
+B-8-89-892-8920-Tên ngành: Khai thác và thu gom than bùn
+B-8-89-893-Tên ngành: Khai thác muối
+B-8-89-893-8930-Tên ngành: Khai thác muối
+B-8-89-899-Tên ngành: Khai khoáng khác chưa được phân vào đâu
+B-8-89-899-8990-Tên ngành: Khai khoáng khác chưa được phân vào đâu
+B-9-91-Tên ngành: Hoạt động dịch vụ hỗ trợ khai thác dầu thô và khí tự nhiên
+B-9-91-910-Tên ngành: Hoạt động dịch vụ hỗ trợ khai thác dầu thô và khí tự nhiên
+B-9-91-910-9100-Tên ngành: Hoạt động dịch vụ hỗ trợ khai thác dầu thô và khí tự nhiên
+B-9-99-Tên ngành: Hoạt động dịch vụ hỗ trợ khai khoáng khác
+B-9-99-990-Tên ngành: Hoạt động dịch vụ hỗ trợ khai khoáng khác
+B-9-99-990-9900-Tên ngành: Hoạt động dịch vụ hỗ trợ khai khoáng khác
+C-Tên ngành: CÔNG NGHIỆP CHẾ BIẾN, CHẾ TẠO
+C-10-101-Tên ngành: Chế biến, bảo quản thịt và các sản phẩm từ thịt
+C-10-101-1010-10101-Tên ngành: Giết mổ gia súc, gia cầm
+C-10-101-1010-10102-Tên ngành: Chế biến và bảo quản thịt
+C-10-101-1010-10109-Tên ngành: Chế biến và bảo quản các sản phẩm từ thịt
+C-10-102-Tên ngành: Chế biến, bảo quản thuỷ sản và các sản phẩm từ thuỷ sản
+C-10-102-1020-10201-Tên ngành: Chế biến và bảo quản thủy sản đông lạnh
+C-10-102-1020-10202-Tên ngành: Chế biến và bảo quản thủy sản khô
+C-10-102-1020-10203-Tên ngành: Chế biến và bảo quản nước mắm
+C-10-102-1020-10209-Tên ngành: Chế biến và bảo quản các sản phẩm khác từ thủy sản
+C-10-103-Tên ngành: Chế biến và bảo quản rau quả
+C-10-103-1030-10301-Tên ngành: Sản xuất nước ép từ rau quả
+C-10-103-1030-10309-Tên ngành: Chế biến và bảo quản rau quả khác
+C-10-104-Tên ngành: Sản xuất dầu, mỡ động, thực vật
+C-10-104-1040-10401-Tên ngành: Sản xuất dầu, mỡ động vật
+C-10-104-1040-10402-Tên ngành: Sản xuất dầu, bơ thực vật
+C-10-105-Tên ngành: Chế biến sữa và các sản phẩm từ sữa
+C-10-105-1050-Tên ngành: Chế biến sữa và các sản phẩm từ sữa
+C-10-105-1050-10500-Tên ngành: Chế biến sữa và các sản phẩm từ sữa
+C-10-106-1061-10611-Tên ngành: Xay xát
+C-10-106-1061-10612-Tên ngành: Sản xuất bột thô
+C-10-106-1062-Tên ngành: Sản xuất tinh bột và các sản phẩm từ tinh bột
+C-10-106-1062-10620-Tên ngành: Sản xuất tinh bột và các sản phẩm từ tinh bột
+C-10-107-1071-Tên ngành: Sản xuất các loại bánh từ bột
+C-10-107-1071-10710-Tên ngành: Sản xuất các loại bánh từ bột
+C-10-107-1072-Tên ngành: Sản xuất đường
+C-10-107-1072-10720-Tên ngành: Sản xuất đường
+C-10-107-1073-Tên ngành: Sản xuất ca cao, sôcôla và bánh kẹo
+C-10-107-1073-10730-Tên ngành: Sản xuất ca cao, sôcôla và bánh kẹo
+C-10-107-1074-Tên ngành: Sản xuất mì ống, mỳ sợi và sản phẩm tương tự
+C-10-107-1074-10740-Tên ngành: Sản xuất mì ống, mỳ sợi và sản phẩm tương tự
+C-10-107-1075-10751-Tên ngành: Sản xuất món ăn, thức ăn chế biến sẵn từ thịt
+C-10-107-1075-10752-Tên ngành: Sản xuất món ăn, thức ăn chế biến sẵn từ thủy sản
+C-10-107-1075-10759-Tên ngành: Sản xuất món ăn, thức ăn chế biến sẵn khác
+C-10-107-1076-Tên ngành: Sản xuất chè
+C-10-107-1076-10760-Tên ngành: Sản xuất chè
+C-10-107-1077-Tên ngành: Sản xuất cà phê
+C-10-107-1077-10770-Tên ngành: Sản xuất cà phê
+C-10-107-1079-Tên ngành: Sản xuất thực phẩm khác chưa được phân vào đâu
+C-10-107-1079-10790-Tên ngành: Sản xuất thực phẩm khác chưa được phân vào đâu
+C-10-108-Tên ngành: Sản xuất thức ăn gia súc, gia cầm và thuỷ sản
+C-10-108-1080-Tên ngành: Sản xuất thức ăn gia súc, gia cầm và thuỷ sản
+C-10-108-1080-10800-Tên ngành: Sản xuất thức ăn gia súc, gia cầm và thuỷ sản
+C-11-Tên ngành: Sản xuất đồ uống
+C-11-110-1101-Tên ngành: Chưng, tinh cất và pha chế các loại rượu mạnh
+C-11-110-1101-11010-Tên ngành: Chưng, tinh cất và pha chế các loại rượu mạnh
+C-11-110-1102-Tên ngành: Sản xuất rượu vang
+C-11-110-1102-11020-Tên ngành: Sản xuất rượu vang
+C-11-110-1103-Tên ngành: Sản xuất bia và mạch nha ủ men bia
+C-11-110-1103-11030-Tên ngành: Sản xuất bia và mạch nha ủ men bia
+C-11-110-1104-11041-Tên ngành: Sản xuất nước khoáng, nước tinh khiết đóng chai
+C-11-110-1104-11042-Tên ngành: Sản xuất đồ uống không cồn
+C-12-Tên ngành: Sản xuất sản phẩm thuốc lá
+C-12-120-Tên ngành: Sản xuất sản phẩm thuốc lá
+C-12-120-1200-12001-Tên ngành: Sản xuất thuốc lá
+C-12-120-1200-12009-Tên ngành: Sản xuất thuốc hút khác
+C-13-131-1311-Tên ngành: Sản xuất sợi
+C-13-131-1311-13110-Tên ngành: Sản xuất sợi
+C-13-131-1312-Tên ngành: Sản xuất vải dệt thoi
+C-13-131-1312-13120-Tên ngành: Sản xuất vải dệt thoi
+C-13-131-1313-Tên ngành: Hoàn thiện sản phẩm dệt
+C-13-131-1313-13130-Tên ngành: Hoàn thiện sản phẩm dệt
+C-13-139-1391-Tên ngành: Sản xuất vải dệt kim, vải đan móc và vải không dệt khác
+C-13-139-1391-13910-Tên ngành: Sản xuất vải dệt kim, vải đan móc và vải không dệt khác
+C-13-139-1392-Tên ngành: Sản xuất hàng dệt sẵn (trừ trang phục)
+C-13-139-1392-13920-Tên ngành: Sản xuất hàng dệt sẵn (trừ trang phục)
+C-13-139-1393-Tên ngành: Sản xuất thảm, chăn, đệm
+C-13-139-1393-13930-Tên ngành: Sản xuất thảm, chăn, đệm
+C-13-139-1394-Tên ngành: Sản xuất các loại dây bện và lưới
+C-13-139-1394-13940-Tên ngành: Sản xuất các loại dây bện và lưới
+C-13-139-1399-Tên ngành: Sản xuất các loại hàng dệt khác chưa được phân vào đâu
+C-13-139-1399-13990-Tên ngành: Sản xuất các loại hàng dệt khác chưa được phân vào đâu
+C-14-141-Tên ngành: May trang phục (trừ trang phục từ da lông thú)
+C-14-141-1410-Tên ngành: May trang phục (trừ trang phục từ da lông thú)
+C-14-141-1410-14100-Tên ngành: May trang phục (trừ trang phục từ da lông thú)
+C-14-142-Tên ngành: Sản xuất sản phẩm từ da lông thú
+C-14-142-1420-Tên ngành: Sản xuất sản phẩm từ da lông thú
+C-14-142-1420-14200-Tên ngành: Sản xuất sản phẩm từ da lông thú
+C-14-143-Tên ngành: Sản xuất trang phục dệt kim, đan móc
+C-14-143-1430-Tên ngành: Sản xuất trang phục dệt kim, đan móc
+C-14-143-1430-14300-Tên ngành: Sản xuất trang phục dệt kim, đan móc
+C-15-151-1511-Tên ngành: Thuộc, sơ chế da; sơ chế và nhuộm da lông thú
+C-15-151-1511-15110-Tên ngành: Thuộc, sơ chế da; sơ chế và nhuộm da lông thú
+C-15-151-1512-Tên ngành: Sản xuất vali, túi xách và các loại tương tự, sản xuất yên đệm
+C-15-151-1512-15120-Tên ngành: Sản xuất vali, túi xách và các loại tương tự, sản xuất yên đệm
+C-15-152-Tên ngành: Sản xuất giày, dép
+C-15-152-1520-Tên ngành: Sản xuất giày, dép
+C-15-152-1520-15200-Tên ngành: Sản xuất giày, dép
+C-16-161-Tên ngành: Cưa, xẻ, bào gỗ và bảo quản gỗ
+C-16-161-1610-16101-Tên ngành: Cưa, xẻ và bào gỗ
+C-16-161-1610-16102-Tên ngành: Bảo quản gỗ
+C-16-162-1621-Tên ngành: Sản xuất gỗ dán, gỗ lạng, ván ép và ván mỏng khác
+C-16-162-1621-16210-Tên ngành: Sản xuất gỗ dán, gỗ lạng, ván ép và ván mỏng khác
+C-16-162-1622-Tên ngành: Sản xuất đồ gỗ xây dựng
+C-16-162-1622-16220-Tên ngành: Sản xuất đồ gỗ xây dựng
+C-16-162-1623-Tên ngành: Sản xuất bao bì bằng gỗ
+C-16-162-1623-16230-Tên ngành: Sản xuất bao bì bằng gỗ
+C-16-162-1629-16291-Tên ngành: Sản xuất sản phẩm khác từ gỗ
+C-16-162-1629-16292-Tên ngành: Sản xuất sản phẩm từ lâm sản (trừ gỗ), cói và vật liệu tết bện
+C-17-Tên ngành: Sản xuất giấy và sản phẩm từ giấy
+C-17-170-1701-Tên ngành: Sản xuất bột giấy, giấy và bìa
+C-17-170-1701-17010-Tên ngành: Sản xuất bột giấy, giấy và bìa
+C-17-170-1702-17021-Tên ngành: Sản xuất bao bì bằng giấy, bìa
+C-17-170-1702-17022-Tên ngành: Sản xuất giấy nhăn và bìa nhăn
+C-17-170-1709-Tên ngành: Sản xuất các sản phẩm khác từ giấy và bìa chưa được phân vào đâu
+C-17-170-1709-17090-Tên ngành: Sản xuất các sản phẩm khác từ giấy và bìa chưa được phân vào đâu
+C-18-181-1811-Tên ngành: In ấn
+C-18-181-1811-18110-Tên ngành: In ấn
+C-18-181-1812-Tên ngành: Dịch vụ liên quan đến in
+C-18-181-1812-18120-Tên ngành: Dịch vụ liên quan đến in
+C-18-182-Tên ngành: Sao chép bản ghi các loại
+C-18-182-1820-Tên ngành: Sao chép bản ghi các loại
+C-18-182-1820-18200-Tên ngành: Sao chép bản ghi các loại
+C-19-191-Tên ngành: Sản xuất than cốc
+C-19-191-1910-Tên ngành: Sản xuất than cốc
+C-19-191-1910-19100-Tên ngành: Sản xuất than cốc
+C-19-192-Tên ngành: Sản xuất sản phẩm dầu mỏ tinh chế
+C-19-192-1920-Tên ngành: Sản xuất sản phẩm dầu mỏ tinh chế
+C-19-192-1920-19200-Tên ngành: Sản xuất sản phẩm dầu mỏ tinh chế
+C-20-201-2011-20111-Tên ngành: Sản xuất khí công nghiệp
+C-20-201-2011-20112-Tên ngành: Sản xuất chất nhuộm và chất màu
+C-20-201-2011-20113-Tên ngành: Sản xuất hóa chất vô cơ cơ bản khác
+C-20-201-2011-20114-Tên ngành: Sản xuất hoá chất hữu cơ cơ bản khác
+C-20-201-2011-20119-Tên ngành: Sản xuất hóa chất cơ bản khác
+C-20-201-2012-Tên ngành: Sản xuất phân bón và hợp chất ni tơ
+C-20-201-2012-20120-Tên ngành: Sản xuất phân bón và hợp chất ni tơ
+C-20-201-2013-20131-Tên ngành: Sản xuất plastic nguyên sinh
+C-20-201-2013-20132-Tên ngành: Sản xuất cao su tổng hợp dạng nguyên sinh
+C-20-202-2021-Tên ngành: Sản xuất thuốc trừ sâu và sản phẩm hoá chất khác dùng trong nông nghiệp
+C-20-202-2021-20210-Tên ngành: Sản xuất thuốc trừ sâu và sản phẩm hoá chất khác dùng trong nông nghiệp
+C-20-202-2022-20221-Tên ngành: Sản xuất sơn, véc ni và các chất sơn, quét tương tự, ma tít
+C-20-202-2022-20222-Tên ngành: Sản xuất mực in
+C-20-202-2023-20231-Tên ngành: Sản xuất mỹ phẩm
+C-20-202-2023-20232-Tên ngành: Sản xuất xà phòng, chất tẩy rửa, làm bóng và chế phẩm vệ sinh
+C-20-202-2029-Tên ngành: Sản xuất sản phẩm hoá chất khác chưa được phân vào đâu
+C-20-202-2029-20290-Tên ngành: Sản xuất sản phẩm hoá chất khác chưa được phân vào đâu
+C-20-203-Tên ngành: Sản xuất sợi nhân tạo
+C-20-203-2030-Tên ngành: Sản xuất sợi nhân tạo
+C-20-203-2030-20300-Tên ngành: Sản xuất sợi nhân tạo
+C-21-210-Tên ngành: Sản xuất thuốc, hoá dược và dược liệu
+C-21-210-2100-21001-Tên ngành: Sản xuất thuốc các loại
+C-21-210-2100-21002-Tên ngành: Sản xuất hoá dược và dược liệu
+C-22-221-2211-Tên ngành: Sản xuất săm, lốp cao su; đắp và tái chế lốp cao su
+C-22-221-2211-22110-Tên ngành: Sản xuất săm, lốp cao su; đắp và tái chế lốp cao su
+C-22-221-2219-Tên ngành: Sản xuất sản phẩm khác từ cao su
+C-22-221-2219-22190-Tên ngành: Sản xuất sản phẩm khác từ cao su
+C-22-222-Tên ngành: Sản xuất sản phẩm từ plastic
+C-22-222-2220-22201-Tên ngành: Sản xuất bao bì từ plastic
+C-22-222-2220-22209-Tên ngành: Sản xuất sản phẩm khác từ plastic
+C-23-231-Tên ngành: Sản xuất thủy tinh và sản phẩm từ thủy tinh
+C-23-231-2310-23101-Tên ngành: Sản xuất thủy tinh phẳng và sản phẩm từ thủy tinh phẳng
+C-23-231-2310-23102-Tên ngành: Sản xuất thủy tinh rỗng và sản phẩm từ thủy tinh rỗng
+C-23-231-2310-23103-Tên ngành: Sản xuất sợi thủy tinh và sản phẩm từ sợi thủy tinh
+C-23-231-2310-23109-Tên ngành: Sản xuất thủy tinh khác và các sản phẩm từ thủy tinh
+C-23-239-2391-Tên ngành: Sản xuất sản phẩm chịu lửa
+C-23-239-2391-23910-Tên ngành: Sản xuất sản phẩm chịu lửa
+C-23-239-2392-Tên ngành: Sản xuất vật liệu xây dựng từ đất sét
+C-23-239-2392-23920-Tên ngành: Sản xuất vật liệu xây dựng từ đất sét
+C-23-239-2393-Tên ngành: Sản xuất sản phẩm gốm sứ khác
+C-23-239-2393-23930-Tên ngành: Sản xuất sản phẩm gốm sứ khác
+C-23-239-2394-23941-Tên ngành: Sản xuất xi măng
+C-23-239-2394-23942-Tên ngành: Sản xuất vôi
+C-23-239-2394-23943-Tên ngành: Sản xuất thạch cao
+C-23-239-2395-Tên ngành: Sản xuất bê tông và các sản phẩm từ bê tông, xi măng và thạch cao
+C-23-239-2395-23950-Tên ngành: Sản xuất bê tông và các sản phẩm từ bê tông, xi măng và thạch cao
+C-23-239-2396-Tên ngành: Cắt tạo dáng và hoàn thiện đá
+C-23-239-2396-23960-Tên ngành: Cắt tạo dáng và hoàn thiện đá
+C-23-239-2399-Tên ngành: Sản xuất sản phẩm từ chất khoáng phi kim loại khác chưa được phân vào đâu
+C-23-239-2399-23990-Tên ngành: Sản xuất sản phẩm từ chất khoáng phi kim loại khác chưa được phân vào đâu
+C-24-241-Tên ngành: Sản xuất sắt, thép, gang
+C-24-241-2410-Tên ngành: Sản xuất sắt, thép, gang
+C-24-241-2410-24100-Tên ngành: Sản xuất sắt, thép, gang
+C-24-242-Tên ngành: Sản xuất kim loại quý và kim loại màu
+C-24-242-2420-24201-Tên ngành: Sản xuất kim loại quý
+C-24-242-2420-24202-Tên ngành: Sản xuất kim loại màu
+C-24-243-2431-Tên ngành: Đúc sắt, thép
+C-24-243-2431-24310-Tên ngành: Đúc sắt, thép
+C-24-243-2432-Tên ngành: Đúc kim loại màu
+C-24-243-2432-24320-Tên ngành: Đúc kim loại màu
+C-25-251-2511-Tên ngành: Sản xuất các cấu kiện kim loại
+C-25-251-2511-25110-Tên ngành: Sản xuất các cấu kiện kim loại
+C-25-251-2512-Tên ngành: Sản xuất thùng, bể chứa và dụng cụ chứa đựng bằng kim loại
+C-25-251-2512-25120-Tên ngành: Sản xuất thùng, bể chứa và dụng cụ chứa đựng bằng kim loại
+C-25-251-2513-Tên ngành: Sản xuất nồi hơi (trừ nồi hơi trung tâm)
+C-25-251-2513-25130-Tên ngành: Sản xuất nồi hơi (trừ nồi hơi trung tâm)
+C-25-252-Tên ngành: Sản xuất vũ khí và đạn dược
+C-25-252-2520-Tên ngành: Sản xuất vũ khí và đạn dược
+C-25-252-2520-25200-Tên ngành: Sản xuất vũ khí và đạn dược
+C-25-259-2591-Tên ngành: Rèn, dập, ép và cán kim loại; luyện bột kim loại
+C-25-259-2591-25910-Tên ngành: Rèn, dập, ép và cán kim loại; luyện bột kim loại
+C-25-259-2592-Tên ngành: Gia công cơ khí; xử lý và tráng phủ kim loại
+C-25-259-2592-25920-Tên ngành: Gia công cơ khí; xử lý và tráng phủ kim loại
+C-25-259-2593-Tên ngành: Sản xuất dao kéo, dụng cụ cầm tay và đồ kim loại thông dụng
+C-25-259-2593-25930-Tên ngành: Sản xuất dao kéo, dụng cụ cầm tay và đồ kim loại thông dụng
+C-25-259-2599-25991-Tên ngành: Sản xuất đồ dùng bằng kim loại cho nhà bếp, nhà vệ sinh và nhà ăn
+C-25-259-2599-25999-Tên ngành: Sản xuất sản phẩm khác còn lại bằng kim loại chưa được phân vào đâu
+C-26-261-Tên ngành: Sản xuất linh kiện điện tử
+C-26-261-2610-Tên ngành: Sản xuất linh kiện điện tử
+C-26-261-2610-26100-Tên ngành: Sản xuất linh kiện điện tử
+C-26-262-Tên ngành: Sản xuất máy vi tính và thiết bị ngoại vi của máy vi tính
+C-26-262-2620-Tên ngành: Sản xuất máy vi tính và thiết bị ngoại vi của máy vi tính
+C-26-262-2620-26200-Tên ngành: Sản xuất máy vi tính và thiết bị ngoại vi của máy vi tính
+C-26-263-Tên ngành: Sản xuất thiết bị truyền thông
+C-26-263-2630-Tên ngành: Sản xuất thiết bị truyền thông
+C-26-263-2630-26300-Tên ngành: Sản xuất thiết bị truyền thông
+C-26-264-Tên ngành: Sản xuất sản phẩm điện tử dân dụng
+C-26-264-2640-Tên ngành: Sản xuất sản phẩm điện tử dân dụng
+C-26-264-2640-26400-Tên ngành: Sản xuất sản phẩm điện tử dân dụng
+C-26-265-2651-Tên ngành: Sản xuất thiết bị đo lường, kiểm tra, định hướng và điều khiển
+C-26-265-2651-26510-Tên ngành: Sản xuất thiết bị đo lường, kiểm tra, định hướng và điều khiển
+C-26-265-2652-Tên ngành: Sản xuất đồng hồ
+C-26-265-2652-26520-Tên ngành: Sản xuất đồng hồ
+C-26-266-Tên ngành: Sản xuất thiết bị bức xạ, thiết bị điện tử trong y học, điện liệu pháp
+C-26-266-2660-Tên ngành: Sản xuất thiết bị bức xạ, thiết bị điện tử trong y học, điện liệu pháp
+C-26-266-2660-26600-Tên ngành: Sản xuất thiết bị bức xạ, thiết bị điện tử trong y học, điện liệu pháp
+C-26-267-Tên ngành: Sản xuất thiết bị và dụng cụ quang học
+C-26-267-2670-Tên ngành: Sản xuất thiết bị và dụng cụ quang học
+C-26-267-2670-26700-Tên ngành: Sản xuất thiết bị và dụng cụ quang học
+C-26-268-Tên ngành: Sản xuất băng, đĩa từ tính và quang học
+C-26-268-2680-Tên ngành: Sản xuất băng, đĩa từ tính và quang học
+C-26-268-2680-26800-Tên ngành: Sản xuất băng, đĩa từ tính và quang học
+C-27-271-Tên ngành: Sản xuất mô tơ, máy phát, biến thế điện, thiết bị phân phối và điều khiển điện
+C-27-271-2710-27101-Tên ngành: Sản xuất mô tơ, máy phát
+C-27-271-2710-27102-Tên ngành: Sản xuất biến thế điện, thiết bị phân phối và điều khiển điện
+C-27-272-Tên ngành: Sản xuất pin và ắc quy
+C-27-272-2720-Tên ngành: Sản xuất pin và ắc quy
+C-27-272-2720-27200-Tên ngành: Sản xuất pin và ắc quy
+C-27-273-2731-Tên ngành: Sản xuất dây cáp, sợi cáp quang học
+C-27-273-2731-27310-Tên ngành: Sản xuất dây cáp, sợi cáp quang học
+C-27-273-2732-Tên ngành: Sản xuất dây, cáp điện và điện tử khác
+C-27-273-2732-27320-Tên ngành: Sản xuất dây, cáp điện và điện tử khác
+C-27-273-2733-Tên ngành: Sản xuất thiết bị dây dẫn điện các loại
+C-27-273-2733-27330-Tên ngành: Sản xuất thiết bị dây dẫn điện các loại
+C-27-274-Tên ngành: Sản xuất thiết bị điện chiếu sáng
+C-27-274-2740-Tên ngành: Sản xuất thiết bị điện chiếu sáng
+C-27-274-2740-27400-Tên ngành: Sản xuất thiết bị điện chiếu sáng
+C-27-275-Tên ngành: Sản xuất đồ điện dân dụng
+C-27-275-2750-Tên ngành: Sản xuất đồ điện dân dụng
+C-27-275-2750-27500-Tên ngành: Sản xuất đồ điện dân dụng
+C-27-279-Tên ngành: Sản xuất thiết bị điện khác
+C-27-279-2790-Tên ngành: Sản xuất thiết bị điện khác
+C-27-279-2790-27900-Tên ngành: Sản xuất thiết bị điện khác
+C-28-281-2811-Tên ngành: Sản xuất động cơ, tua bin (trừ động cơ máy bay, ô tô, mô tô và xe máy)
+C-28-281-2811-28110-Tên ngành: Sản xuất động cơ, tua bin (trừ động cơ máy bay, ô tô, mô tô và xe máy)
+C-28-281-2812-Tên ngành: Sản xuất thiết bị sử dụng năng lượng chiết lưu
+C-28-281-2812-28120-Tên ngành: Sản xuất thiết bị sử dụng năng lượng chiết lưu
+C-28-281-2813-Tên ngành: Sản xuất máy bơm, máy nén, vòi và van khác
+C-28-281-2813-28130-Tên ngành: Sản xuất máy bơm, máy nén, vòi và van khác
+C-28-281-2814-Tên ngành: Sản xuất bi, bánh răng, hộp số, các bộ phận điều khiển và truyền chuyển động
+C-28-281-2814-28140-Tên ngành: Sản xuất bi, bánh răng, hộp số, các bộ phận điều khiển và truyền chuyển động
+C-28-281-2815-Tên ngành: Sản xuất lò nướng, lò luyện và lò nung
+C-28-281-2815-28150-Tên ngành: Sản xuất lò nướng, lò luyện và lò nung
+C-28-281-2816-Tên ngành: Sản xuất các thiết bị nâng, hạ và bốc xếp
+C-28-281-2816-28160-Tên ngành: Sản xuất các thiết bị nâng, hạ và bốc xếp
+C-28-281-2817-Tên ngành: Sản xuất máy móc và thiết bị văn phòng (trừ máy vi tính và thiết bị ngoại vi của máy vi tính)
+C-28-281-2817-28170-Tên ngành: Sản xuất máy móc và thiết bị văn phòng (trừ máy vi tính và thiết bị ngoại vi của máy vi tính)
+C-28-281-2818-Tên ngành: Sản xuất dụng cụ cầm tay chạy bằng mô tơ hoặc khí nén
+C-28-281-2818-28180-Tên ngành: Sản xuất dụng cụ cầm tay chạy bằng mô tơ hoặc khí nén
+C-28-281-2819-Tên ngành: Sản xuất máy thông dụng khác
+C-28-281-2819-28190-Tên ngành: Sản xuất máy thông dụng khác
+C-28-282-2821-Tên ngành: Sản xuất máy nông nghiệp và lâm nghiệp
+C-28-282-2821-28210-Tên ngành: Sản xuất máy nông nghiệp và lâm nghiệp
+C-28-282-2822-Tên ngành: Sản xuất máy công cụ và máy tạo hình kim loại
+C-28-282-2822-28220-Tên ngành: Sản xuất máy công cụ và máy tạo hình kim loại
+C-28-282-2823-Tên ngành: Sản xuất máy luyện kim
+C-28-282-2823-28230-Tên ngành: Sản xuất máy luyện kim
+C-28-282-2824-Tên ngành: Sản xuất máy khai thác mỏ và xây dựng
+C-28-282-2824-28240-Tên ngành: Sản xuất máy khai thác mỏ và xây dựng
+C-28-282-2825-Tên ngành: Sản xuất máy chế biến thực phẩm, đồ uống và thuốc lá
+C-28-282-2825-28250-Tên ngành: Sản xuất máy chế biến thực phẩm, đồ uống và thuốc lá
+C-28-282-2826-Tên ngành: Sản xuất máy cho ngành dệt, may và da
+C-28-282-2826-28260-Tên ngành: Sản xuất máy cho ngành dệt, may và da
+C-28-282-2829-28291-Tên ngành: Sản xuất máy sản xuất vật liệu xây dựng
+C-28-282-2829-28299-Tên ngành: Sản xuất máy chuyên dụng khác chưa được phân vào đâu
+C-29-291-Tên ngành: Sản xuất ô tô và xe có động cơ khác
+C-29-291-2910-Tên ngành: Sản xuất ô tô và xe có động cơ khác
+C-29-291-2910-29100-Tên ngành: Sản xuất ô tô và xe có động cơ khác
+C-29-292-Tên ngành: Sản xuất thân xe ô tô và xe có động cơ khác, rơ moóc và bán rơ moóc
+C-29-292-2920-Tên ngành: Sản xuất thân xe ô tô và xe có động cơ khác, rơ moóc và bán rơ moóc
+C-29-292-2920-29200-Tên ngành: Sản xuất thân xe ô tô và xe có động cơ khác, rơ moóc và bán rơ moóc
+C-29-293-Tên ngành: Sản xuất phụ tùng và bộ phận phụ trợ cho xe ô tô và xe có động cơ khác
+C-29-293-2930-Tên ngành: Sản xuất phụ tùng và bộ phận phụ trợ cho xe ô tô và xe có động cơ khác
+C-29-293-2930-29300-Tên ngành: Sản xuất phụ tùng và bộ phận phụ trợ cho xe ô tô và xe có động cơ khác
+C-30-301-3011-Tên ngành: Đóng tàu và cấu kiện nổi
+C-30-301-3011-30110-Tên ngành: Đóng tàu và cấu kiện nổi
+C-30-301-3012-Tên ngành: Đóng thuyền, xuồng thể thao và giải trí
+C-30-301-3012-30120-Tên ngành: Đóng thuyền, xuồng thể thao và giải trí
+C-30-302-Tên ngành: Sản xuất đầu máy xe lửa, xe điện và toa xe
+C-30-302-3020-Tên ngành: Sản xuất đầu máy xe lửa, xe điện và toa xe
+C-30-302-3020-30200-Tên ngành: Sản xuất đầu máy xe lửa, xe điện và toa xe
+C-30-303-Tên ngành: Sản xuất máy bay, tàu vũ trụ và máy móc liên quan
+C-30-303-3030-Tên ngành: Sản xuất máy bay, tàu vũ trụ và máy móc liên quan
+C-30-303-3030-30300-Tên ngành: Sản xuất máy bay, tàu vũ trụ và máy móc liên quan
+C-30-304-Tên ngành: Sản xuất xe cơ giới chiến đấu dùng trong quân đội
+C-30-304-3040-Tên ngành: Sản xuất xe cơ giới chiến đấu dùng trong quân đội
+C-30-304-3040-30400-Tên ngành: Sản xuất xe cơ giới chiến đấu dùng trong quân đội
+C-30-309-3091-Tên ngành: Sản xuất mô tô, xe máy
+C-30-309-3091-30910-Tên ngành: Sản xuất mô tô, xe máy
+C-30-309-3092-Tên ngành: Sản xuất xe đạp và xe cho người khuyết tật
+C-30-309-3092-30920-Tên ngành: Sản xuất xe đạp và xe cho người khuyết tật
+C-30-309-3099-Tên ngành: Sản xuất phương tiện và thiết bị vận tải khác chưa được phân vào đâu
+C-30-309-3099-30990-Tên ngành: Sản xuất phương tiện và thiết bị vận tải khác chưa được phân vào đâu
+C-31-Tên ngành: Sản xuất giường, tủ, bàn, ghế
+C-31-310-Tên ngành: Sản xuất giường, tủ, bàn, ghế
+C-31-310-3100-31001-Tên ngành: Sản xuất giường, tủ, bàn, ghế bằng gỗ
+C-31-310-3100-31002-Tên ngành: Sản xuất giường, tủ, bàn, ghế bằng kim loại
+C-31-310-3100-31009-Tên ngành: Sản xuất giường, tủ, bàn, ghế bằng vật liệu khác
+C-32-321-3211-Tên ngành: Sản xuất đồ kim hoàn và chi tiết liên quan
+C-32-321-3211-32110-Tên ngành: Sản xuất đồ kim hoàn và chi tiết liên quan
+C-32-321-3212-Tên ngành: Sản xuất đồ giả kim hoàn và chi tiết liên quan
+C-32-321-3212-32120-Tên ngành: Sản xuất đồ giả kim hoàn và chi tiết liên quan
+C-32-322-Tên ngành: Sản xuất nhạc cụ
+C-32-322-3220-Tên ngành: Sản xuất nhạc cụ
+C-32-322-3220-32200-Tên ngành: Sản xuất nhạc cụ
+C-32-323-Tên ngành: Sản xuất dụng cụ thể dục, thể thao
+C-32-323-3230-Tên ngành: Sản xuất dụng cụ thể dục, thể thao
+C-32-323-3230-32300-Tên ngành: Sản xuất dụng cụ thể dục, thể thao
+C-32-324-Tên ngành: Sản xuất đồ chơi, trò chơi
+C-32-324-3240-Tên ngành: Sản xuất đồ chơi, trò chơi
+C-32-324-3240-32400-Tên ngành: Sản xuất đồ chơi, trò chơi
+C-32-325-Tên ngành: Sản xuất thiết bị, dụng cụ y tế, nha khoa, chỉnh hình và phục hồi chức năng
+C-32-325-3250-32501-Tên ngành: Sản xuất thiết bị, dụng cụ y tế, nha khoa
+C-32-325-3250-32502-Tên ngành: Sản xuất dụng cụ chỉnh hình, phục hồi chức năng
+C-32-329-Tên ngành: Sản xuất khác chưa được phân vào đâu
+C-32-329-3290-Tên ngành: Sản xuất khác chưa được phân vào đâu
+C-32-329-3290-32900-Tên ngành: Sản xuất khác chưa được phân vào đâu
+C-33-331-3311-Tên ngành: Sửa chữa các sản phẩm kim loại đúc sẵn
+C-33-331-3311-33110-Tên ngành: Sửa chữa các sản phẩm kim loại đúc sẵn
+C-33-331-3312-Tên ngành: Sửa chữa máy móc, thiết bị
+C-33-331-3312-33120-Tên ngành: Sửa chữa máy móc, thiết bị
+C-33-331-3313-Tên ngành: Sửa chữa thiết bị điện tử và quang học
+C-33-331-3313-33130-Tên ngành: Sửa chữa thiết bị điện tử và quang học
+C-33-331-3314-Tên ngành: Sửa chữa thiết bị điện
+C-33-331-3314-33140-Tên ngành: Sửa chữa thiết bị điện
+C-33-331-3315-Tên ngành: Sửa chữa và bảo dưỡng phương tiện vận tải (trừ ô tô, mô tô, xe máy và xe có động cơ khác)
+C-33-331-3315-33150-Tên ngành: Sửa chữa và bảo dưỡng phương tiện vận tải (trừ ô tô, mô tô, xe máy và xe có động cơ khác)
+C-33-331-3319-Tên ngành: Sửa chữa thiết bị khác
+C-33-331-3319-33190-Tên ngành: Sửa chữa thiết bị khác
+C-33-332-Tên ngành: Lắp đặt máy móc và thiết bị công nghiệp
+C-33-332-3320-Tên ngành: Lắp đặt máy móc và thiết bị công nghiệp
+C-33-332-3320-33200-Tên ngành: Lắp đặt máy móc và thiết bị công nghiệp
+D-Tên ngành: SẢN XUẤT VÀ PHÂN PHỐI ĐIỆN, KHÍ ĐỐT, NƯỚC NÓNG, HƠI NƯỚC VÀ ĐIỀU HOÀ KHÔNG KHÍ
+D-35-351-3511-35111-Tên ngành: Thủy điện
+D-35-351-3511-35112-Tên ngành: Nhiệt điện than
+D-35-351-3511-35113-Tên ngành: Nhiệt điện khí
+D-35-351-3511-35114-Tên ngành: Điện hạt nhân
+D-35-351-3511-35115-Tên ngành: Điện gió
+D-35-351-3511-35116-Tên ngành: Điện mặt trời
+D-35-351-3511-35119-Tên ngành: Điện khác
+D-35-351-3512-35121-Tên ngành: Truyền tải điện
+D-35-351-3512-35122-Tên ngành: Phân phối điện
+D-35-352-Tên ngành: Sản xuất khí đốt, phân phối nhiên liệu khí bằng đường ống
+D-35-352-3520-35201-Tên ngành: Sản xuất khí đốt
+D-35-352-3520-35202-Tên ngành: Phân phối nhiên liệu khí bằng đường ống
+D-35-353-Tên ngành: Sản xuất, phân phối hơi nước, nước nóng, điều hoà không khí và sản xuất nước đá
+D-35-353-3530-35301-Tên ngành: Sản xuất, phân phối hơi nước, nước nóng và điều hoà không khí
+D-35-353-3530-35302-Tên ngành: Sản xuất nước đá
+E-Tên ngành: CUNG CẤP NƯỚC; HOẠT ĐỘNG QUẢN LÝ VÀ XỬ LÝ RÁC THẢI, NƯỚC THẢI
+E-36-Tên ngành: Khai thác, xử lý và cung cấp nước
+E-36-360-Tên ngành: Khai thác, xử lý và cung cấp nước
+E-36-360-3600-Tên ngành: Khai thác, xử lý và cung cấp nước
+E-36-360-3600-36000-Tên ngành: Khai thác, xử lý và cung cấp nước
+E-37-Tên ngành: Thoát nước và xử lý nước thải
+E-37-370-Tên ngành: Thoát nước và xử lý nước thải
+E-37-370-3700-37001-Tên ngành: Thoát nước
+E-37-370-3700-37002-Tên ngành: Xử lý nước thải
+E-38-381-3811-Tên ngành: Thu gom rác thải không độc hại
+E-38-381-3811-38110-Tên ngành: Thu gom rác thải không độc hại
+E-38-381-3812-38121-Tên ngành: Thu gom rác thải y tế
+E-38-381-3812-38129-Tên ngành: Thu gom rác thải độc hại khác
+E-38-382-3821-Tên ngành: Xử lý và tiêu hủy rác thải không độc hại
+E-38-382-3821-38210-Tên ngành: Xử lý và tiêu hủy rác thải không độc hại
+E-38-382-3822-38221-Tên ngành: Xử lý và tiêu hủy rác thải y tế
+E-38-382-3822-38229-Tên ngành: Xử lý và tiêu hủy rác thải độc hại khác
+E-38-383-Tên ngành: Tái chế phế liệu
+E-38-383-3830-38301-Tên ngành: Tái chế phế liệu kim loại
+E-38-383-3830-38302-Tên ngành: Tái chế phế liệu phi kim loại
+E-39-Tên ngành: Xử lý ô nhiễm và hoạt động quản lý chất thải khác
+E-39-390-Tên ngành: Xử lý ô nhiễm và hoạt động quản lý chất thải khác
+E-39-390-3900-Tên ngành: Xử lý ô nhiễm và hoạt động quản lý chất thải khác
+E-39-390-3900-39000-Tên ngành: Xử lý ô nhiễm và hoạt động quản lý chất thải khác
+F-Tên ngành: XÂY DỰNG
+F-41-Tên ngành: Xây dựng nhà các loại
+F-41-410-4101-Tên ngành: Xây dựng nhà để ở
+F-41-410-4101-41010-Tên ngành: Xây dựng nhà để ở
+F-41-410-4102-Tên ngành: Xây dựng nhà không để ở
+F-41-410-4102-41020-Tên ngành: Xây dựng nhà không để ở
+F-42-421-4211-Tên ngành: Xây dựng công trình đường sắt
+F-42-421-4211-42110-Tên ngành: Xây dựng công trình đường sắt
+F-42-421-4212-Tên ngành: Xây dựng công trình đường bộ
+F-42-421-4212-42120-Tên ngành: Xây dựng công trình đường bộ
+F-42-422-4221-Tên ngành: Xây dựng công trình điện
+F-42-422-4221-42210-Tên ngành: Xây dựng công trình điện
+F-42-422-4222-Tên ngành: Xây dựng công trình cấp, thoát nước
+F-42-422-4222-42220-Tên ngành: Xây dựng công trình cấp, thoát nước
+F-42-422-4223-Tên ngành: Xây dựng công trình viễn thông, thông tin liên lạc
+F-42-422-4223-42230-Tên ngành: Xây dựng công trình viễn thông, thông tin liên lạc
+F-42-422-4229-Tên ngành: Xây dựng công trình công ích khác
+F-42-422-4229-42290-Tên ngành: Xây dựng công trình công ích khác
+F-42-429-4291-Tên ngành: Xây dựng công trình thủy
+F-42-429-4291-42910-Tên ngành: Xây dựng công trình thủy
+F-42-429-4292-Tên ngành: Xây dựng công trình khai khoáng
+F-42-429-4292-42920-Tên ngành: Xây dựng công trình khai khoáng
+F-42-429-4293-Tên ngành: Xây dựng công trình chế biến, chế tạo
+F-42-429-4293-42930-Tên ngành: Xây dựng công trình chế biến, chế tạo
+F-42-429-4299-Tên ngành: Xây dựng công trình kỹ thuật dân dụng khác
+F-42-429-4299-42990-Tên ngành: Xây dựng công trình kỹ thuật dân dụng khác
+F-43-431-4311-Tên ngành: Phá dỡ
+F-43-431-4311-43110-Tên ngành: Phá dỡ
+F-43-431-4312-Tên ngành: Chuẩn bị mặt bằng
+F-43-431-4312-43120-Tên ngành: Chuẩn bị mặt bằng
+F-43-432-4321-Tên ngành: Lắp đặt hệ thống điện
+F-43-432-4321-43210-Tên ngành: Lắp đặt hệ thống điện
+F-43-432-4322-43221-Tên ngành: Lắp đặt hệ thống cấp, thoát nước
+F-43-432-4322-43222-Tên ngành: Lắp đặt hệ thống sưởi và điều hoà không khí
+F-43-432-4329-Tên ngành: Lắp đặt hệ thống xây dựng khác
+F-43-432-4329-43290-Tên ngành: Lắp đặt hệ thống xây dựng khác
+F-43-433-Tên ngành: Hoàn thiện công trình xây dựng
+F-43-433-4330-Tên ngành: Hoàn thiện công trình xây dựng
+F-43-433-4330-43300-Tên ngành: Hoàn thiện công trình xây dựng
+F-43-439-Tên ngành: Hoạt động xây dựng chuyên dụng khác
+F-43-439-4390-Tên ngành: Hoạt động xây dựng chuyên dụng khác
+F-43-439-4390-43900-Tên ngành: Hoạt động xây dựng chuyên dụng khác
+G-Tên ngành: BÁN BUÔN VÀ BÁN LẺ; SỬA CHỮA Ô TÔ, MÔ TÔ, XE MÁY VÀ XE CÓ ĐỘNG CƠ KHÁC
+G-45-451-4511-45111-Tên ngành: Bán buôn ô tô con (loại 9 chỗ ngồi trở xuống)
+G-45-451-4511-45119-Tên ngành: Bán buôn xe có động cơ khác
+G-45-451-4512-Tên ngành: Bán lẻ ô tô con (loại 9 chỗ ngồi trở xuống)
+G-45-451-4512-45120-Tên ngành: Bán lẻ ô tô con (loại 9 chỗ ngồi trở xuống)
+G-45-451-4513-45131-Tên ngành: Đại lý ô tô con (loại 9 chỗ ngồi trở xuống)
+G-45-451-4513-45139-Tên ngành: Đại lý xe có động cơ khác
+G-45-452-Tên ngành: Bảo dưỡng, sửa chữa ô tô và xe có động cơ khác
+G-45-452-4520-Tên ngành: Bảo dưỡng, sửa chữa ô tô và xe có động cơ khác
+G-45-452-4520-45200-Tên ngành: Bảo dưỡng, sửa chữa ô tô và xe có động cơ khác
+G-45-453-Tên ngành: Bán phụ tùng và các bộ phận phụ trợ của ô tô và xe có động cơ khác
+G-45-453-4530-45301-Tên ngành: Bán buôn phụ tùng và các bộ phận phụ trợ của ô tô và xe có động cơ khác
+G-45-453-4530-45302-Tên ngành: Bán lẻ phụ tùng và các bộ phận phụ trợ của ô tô con (loại 9 chỗ ngồi trở xuống)
+G-45-453-4530-45303-Tên ngành: Đại lý phụ tùng và các bộ phận phụ trợ của ô tô và xe có động cơ khác
+G-45-454-4541-45411-Tên ngành: Bán buôn mô tô, xe máy
+G-45-454-4541-45412-Tên ngành: Bán lẻ mô tô, xe máy
+G-45-454-4541-45413-Tên ngành: Đại lý mô tô, xe máy
+G-45-454-4542-Tên ngành: Bảo dưỡng và sửa chữa mô tô, xe máy
+G-45-454-4542-45420-Tên ngành: Bảo dưỡng và sửa chữa mô tô, xe máy
+G-45-454-4543-45431-Tên ngành: Bán buôn phụ tùng và các bộ phận phụ trợ của mô tô, xe máy
+G-45-454-4543-45432-Tên ngành: Bán lẻ phụ tùng và các bộ phận phụ trợ của mô tô, xe máy
+G-45-454-4543-45433-Tên ngành: Đại lý phụ tùng và các bộ phận phụ trợ của mô tô, xe máy
+G-46-461-Tên ngành: Đại lý, môi giới, đấu giá hàng hóa
+G-46-461-4610-46101-Tên ngành: Đại lý bán hàng hóa
+G-46-461-4610-46102-Tên ngành: Môi giới mua bán hàng hóa
+G-46-461-4610-46103-Tên ngành: Đấu giá hàng hóa
+G-46-462-Tên ngành: Bán buôn nông, lâm sản nguyên liệu (trừ gỗ, tre, nứa) và động vật sống
+G-46-462-4620-46201-Tên ngành: Bán buôn thóc, ngô và các loại hạt ngũ cốc khác
+G-46-462-4620-46202-Tên ngành: Bán buôn hoa và cây
+G-46-462-4620-46203-Tên ngành: Bán buôn động vật sống
+G-46-462-4620-46204-Tên ngành: Bán buôn thức ăn và nguyên liệu làm thức ăn cho gia súc, gia cầm và thủy sản
+G-46-462-4620-46209-Tên ngành: Bán buôn nông, lâm sản nguyên liệu khác (trừ gỗ, tre, nứa)
+G-46-463-4631-Tên ngành: Bán buôn gạo, lúa mỳ, hạt ngũ cốc khác, bột mỳ
+G-46-463-4631-46310-Tên ngành: Bán buôn gạo, lúa mỳ, hạt ngũ cốc khác, bột mỳ
+G-46-463-4632-46321-Tên ngành: Bán buôn thịt và các sản phẩm từ thịt
+G-46-463-4632-46322-Tên ngành: Bán buôn thủy sản
+G-46-463-4632-46323-Tên ngành: Bán buôn rau, quả
+G-46-463-4632-46324-Tên ngành: Bán buôn cà phê
+G-46-463-4632-46325-Tên ngành: Bán buôn chè
+G-46-463-4632-46326-Tên ngành: Bán buôn đường, sữa và các sản phẩm sữa, bánh kẹo và các sản phẩm chế biến từ ngũ cốc, bột, tinh bột
+G-46-463-4632-46329-Tên ngành: Bán buôn thực phẩm khác
+G-46-463-4633-46331-Tên ngành: Bán buôn đồ uống có cồn
+G-46-463-4633-46332-Tên ngành: Bán buôn đồ uống không có cồn
+G-46-463-4634-Tên ngành: Bán buôn sản phẩm thuốc lá, thuốc lào
+G-46-463-4634-46340-Tên ngành: Bán buôn sản phẩm thuốc lá, thuốc lào
+G-46-464-4641-46411-Tên ngành: Bán buôn vải
+G-46-464-4641-46412-Tên ngành: Bán buôn thảm, đệm, chăn, màn, rèm, ga trải giường, gối và hàng dệt khác
+G-46-464-4641-46413-Tên ngành: Bán buôn hàng may mặc
+G-46-464-4641-46414-Tên ngành: Bán buôn giày dép
+G-46-464-4649-46491-Tên ngành: Bán buôn vali, cặp, túi, ví, hàng da và giả da khác
+G-46-464-4649-46492-Tên ngành: Bán buôn dược phẩm và dụng cụ y tế
+G-46-464-4649-46493-Tên ngành: Bán buôn nước hoa, hàng mỹ phẩm và chế phẩm vệ sinh
+G-46-464-4649-46494-Tên ngành: Bán buôn hàng gốm, sứ, thủy tinh
+G-46-464-4649-46495-Tên ngành: Bán buôn đồ điện gia dụng, đèn và bộ đèn điện
+G-46-464-4649-46496-Tên ngành: Bán buôn giường, tủ, bàn ghế và đồ dùng nội thất tương tự
+G-46-464-4649-46497-Tên ngành: Bán buôn sách, báo, tạp chí, văn phòng phẩm
+G-46-464-4649-46498-Tên ngành: Bán buôn dụng cụ thể dục, thể thao
+G-46-464-4649-46499-Tên ngành: Bán buôn đồ dùng khác cho gia đình chưa được phân vào đâu
+G-46-465-4651-Tên ngành: Bán buôn máy vi tính, thiết bị ngoại vi và phần mềm
+G-46-465-4651-46510-Tên ngành: Bán buôn máy vi tính, thiết bị ngoại vi và phần mềm
+G-46-465-4652-Tên ngành: Bán buôn thiết bị và linh kiện điện tử, viễn thông
+G-46-465-4652-46520-Tên ngành: Bán buôn thiết bị và linh kiện điện tử, viễn thông
+G-46-465-4653-Tên ngành: Bán buôn máy móc, thiết bị và phụ tùng máy nông nghiệp
+G-46-465-4653-46530-Tên ngành: Bán buôn máy móc, thiết bị và phụ tùng máy nông nghiệp
+G-46-465-4659-46591-Tên ngành: Bán buôn máy móc, thiết bị và phụ tùng máy khai khoáng, xây dựng
+G-46-465-4659-46592-Tên ngành: Bán buôn máy móc, thiết bị điện, vật liệu điện (máy phát điện, động cơ điện, dây điện và thiết bị khác dùng trong mạch điện)
+G-46-465-4659-46593-Tên ngành: Bán buôn máy móc, thiết bị và phụ tùng máy dệt, may, da giày
+G-46-465-4659-46594-Tên ngành: Bán buôn máy móc, thiết bị và phụ tùng máy văn phòng (trừ máy vi tính và thiết bị ngoại vi)
+G-46-465-4659-46595-Tên ngành: Bán buôn máy móc, thiết bị y tế
+G-46-465-4659-46599-Tên ngành: Bán buôn máy móc, thiết bị và phụ tùng máy khác chưa được phân vào đâu
+G-46-466-4661-46611-Tên ngành: Bán buôn than đá và nhiên liệu rắn khác
+G-46-466-4661-46612-Tên ngành: Bán buôn dầu thô
+G-46-466-4661-46613-Tên ngành: Bán buôn xăng dầu và các sản phẩm liên quan
+G-46-466-4661-46614-Tên ngành: Bán buôn khí đốt và các sản phẩm liên quan
+G-46-466-4662-46621-Tên ngành: Bán buôn quặng kim loại
+G-46-466-4662-46622-Tên ngành: Bán buôn sắt, thép
+G-46-466-4662-46623-Tên ngành: Bán buôn kim loại khác
+G-46-466-4662-46624-Tên ngành: Bán buôn vàng, bạc và kim loại quý khác
+G-46-466-4663-46631-Tên ngành: Bán buôn tre, nứa, gỗ cây và gỗ chế biến
+G-46-466-4663-46632-Tên ngành: Bán buôn xi măng
+G-46-466-4663-46633-Tên ngành: Bán buôn gạch xây, ngói, đá, cát, sỏi
+G-46-466-4663-46634-Tên ngành: Bán buôn kính xây dựng
+G-46-466-4663-46635-Tên ngành: Bán buôn sơn, vécni
+G-46-466-4663-46636-Tên ngành: Bán buôn gạch ốp lát và thiết bị vệ sinh
+G-46-466-4663-46637-Tên ngành: Bán buôn đồ ngũ kim
+G-46-466-4663-46639-Tên ngành: Bán buôn vật liệu, thiết bị lắp đặt khác trong xây dựng
+G-46-466-4669-46691-Tên ngành: Bán buôn phân bón, thuốc trừ sâu và hóa chất khác sử dụng trong nông nghiệp
+G-46-466-4669-46692-Tên ngành: Bán buôn hóa chất khác (trừ loại sử dụng trong nông nghiệp)
+G-46-466-4669-46693-Tên ngành: Bán buôn chất dẻo dạng nguyên sinh
+G-46-466-4669-46694-Tên ngành: Bán buôn cao su
+G-46-466-4669-46695-Tên ngành: Bán buôn tơ, xơ, sợi dệt
+G-46-466-4669-46696-Tên ngành: Bán buôn phụ liệu may mặc và giày dép
+G-46-466-4669-46697-Tên ngành: Bán buôn phế liệu, phế thải kim loại, phi kim loại
+G-46-466-4669-46699-Tên ngành: Bán buôn chuyên doanh khác còn lại chưa được phân vào đâu
+G-46-469-Tên ngành: Bán buôn tổng hợp
+G-46-469-4690-Tên ngành: Bán buôn tổng hợp
+G-46-469-4690-46900-Tên ngành: Bán buôn tổng hợp
+G-47-471-4711-47111-Tên ngành: Bán lẻ trong siêu thị (Supermarket)
+G-47-471-4711-47112-Tên ngành: Bán lẻ trong cửa hàng tiện lợi (Minimarket)
+G-47-471-4711-47119-Tên ngành: Bán lẻ trong cửa hàng kinh doanh tổng hợp khác
+G-47-471-4719-47191-Tên ngành: Bán lẻ trong siêu thị (Supermarket)
+G-47-471-4719-47192-Tên ngành: Bán lẻ trong cửa hàng tiện lợi (Minimarket)
+G-47-471-4719-47199-Tên ngành: Bán lẻ trong cửa hàng kinh doanh tổng hợp khác
+G-47-472-4721-Tên ngành: Bán lẻ lương thực trong các cửa hàng chuyên doanh
+G-47-472-4721-47210-Tên ngành: Bán lẻ lương thực trong các cửa hàng chuyên doanh
+G-47-472-4722-47221-Tên ngành: Bán lẻ thịt và các sản phẩm thịt trong các cửa hàng chuyên doanh
+G-47-472-4722-47222-Tên ngành: Bán lẻ thủy sản trong các cửa hàng chuyên doanh
+G-47-472-4722-47223-Tên ngành: Bán lẻ rau, quả trong các cửa hàng chuyên doanh
+G-47-472-4722-47224-Tên ngành: Bán lẻ đường, sữa và các sản phẩm sữa, bánh, mứt, kẹo và các sản phẩm chế biến từ ngữ cốc, bột, tinh bột trong các cửa hàng chuyên doanh
+G-47-472-4722-47229-Tên ngành: Bán lẻ thực phẩm khác trong các cửa hàng chuyên doanh
+G-47-472-4723-Tên ngành: Bán lẻ đồ uống trong các cửa hàng chuyên doanh
+G-47-472-4723-47230-Tên ngành: Bán lẻ đồ uống trong các cửa hàng chuyên doanh
+G-47-472-4724-Tên ngành: Bán lẻ sản phẩm thuốc lá, thuốc lào trong các cửa hàng chuyên doanh
+G-47-472-4724-47240-Tên ngành: Bán lẻ sản phẩm thuốc lá, thuốc lào trong các cửa hàng chuyên doanh
+G-47-473-Tên ngành: Bán lẻ nhiên liệu động cơ trong các cửa hàng chuyên doanh
+G-47-473-4730-Tên ngành: Bán lẻ nhiên liệu động cơ trong các cửa hàng chuyên doanh
+G-47-473-4730-47300-Tên ngành: Bán lẻ nhiên liệu động cơ trong các cửa hàng chuyên doanh
+G-47-474-4741-47411-Tên ngành: Bán lẻ máy vi tính, thiết bị ngoại vi, phần mềm trong các cửa hàng chuyên doanh
+G-47-474-4741-47412-Tên ngành: Bán lẻ thiết bị viễn thông trong các cửa hàng chuyên doanh
+G-47-474-4742-Tên ngành: Bán lẻ thiết bị nghe nhìn trong các cửa hàng chuyên doanh
+G-47-474-4742-47420-Tên ngành: Bán lẻ thiết bị nghe nhìn trong các cửa hàng chuyên doanh
+G-47-475-4751-47511-Tên ngành: Bán lẻ vải trong các cửa hàng chuyên doanh
+G-47-475-4751-47519-Tên ngành: Bán lẻ len, sợi, chỉ khâu và hàng dệt khác trong các cửa hàng chuyên doanh
+G-47-475-4752-47521-Tên ngành: Bán lẻ đồ ngũ kim trong các cửa hàng chuyên doanh
+G-47-475-4752-47522-Tên ngành: Bán lẻ sơn, màu, véc ni trong các cửa hàng chuyên doanh
+G-47-475-4752-47523-Tên ngành: Bán lẻ kính xây dựng trong các cửa hàng chuyên doanh
+G-47-475-4752-47524-Tên ngành: Bán lẻ xi măng, gạch xây, ngói, đá, cát sỏi, sắt thép và vật liệu xây dựng khác trong các cửa hàng chuyên doanh
+G-47-475-4752-47525-Tên ngành: Bán lẻ gạch ốp lát, thiết bị vệ sinh trong các cửa hàng chuyên doanh
+G-47-475-4752-47529-Tên ngành: Bán lẻ thiết bị lắp đặt khác trong xây dựng trong các cửa hàng chuyên doanh
+G-47-475-4753-Tên ngành: Bán lẻ thảm, đệm, chăn, màn, rèm, vật liệu phủ tường và sàn trong các cửa hàng chuyên doanh
+G-47-475-4753-47530-Tên ngành: Bán lẻ thảm, đệm, chăn, màn, rèm, vật liệu phủ tường và sàn trong các cửa hàng chuyên doanh
+G-47-475-4759-47591-Tên ngành: Bán lẻ đồ điện gia dụng, đèn và bộ đèn điện trong các cửa hàng chuyên doanh
+G-47-475-4759-47592-Tên ngành: Bán lẻ giường, tủ, bàn, ghế và đồ dùng nội thất tương tự trong các cửa hàng chuyên doanh
+G-47-475-4759-47593-Tên ngành: Bán lẻ đồ dùng gia đình bằng gốm, sứ, thủy tinh trong các cửa hàng chuyên doanh
+G-47-475-4759-47594-Tên ngành: Bán lẻ nhạc cụ trong các cửa hàng chuyên doanh
+G-47-475-4759-47599-Tên ngành: Bán lẻ đồ dùng gia đình khác còn lại chưa được phân vào đâu trong các cửa hàng chuyên doanh
+G-47-476-4761-Tên ngành: Bán lẻ sách, báo, tạp chí văn phòng phẩm trong các cửa hàng chuyên doanh
+G-47-476-4761-47610-Tên ngành: Bán lẻ sách, báo, tạp chí văn phòng phẩm trong các cửa hàng chuyên doanh
+G-47-476-4762-Tên ngành: Bán lẻ băng đĩa âm thanh, hình ảnh (kể cả băng, đĩa trắng) trong các cửa hàng chuyên doanh
+G-47-476-4762-47620-Tên ngành: Bán lẻ băng đĩa âm thanh, hình ảnh (kể cả băng, đĩa trắng) trong các cửa hàng chuyên doanh
+G-47-476-4763-Tên ngành: Bán lẻ thiết bị, dụng cụ thể dục, thể thao trong các cửa hàng chuyên doanh
+G-47-476-4763-47630-Tên ngành: Bán lẻ thiết bị, dụng cụ thể dục, thể thao trong các cửa hàng chuyên doanh
+G-47-476-4764-Tên ngành: Bán lẻ trò chơi, đồ chơi trong các cửa hàng chuyên doanh
+G-47-476-4764-47640-Tên ngành: Bán lẻ trò chơi, đồ chơi trong các cửa hàng chuyên doanh
+G-47-477-4771-47711-Tên ngành: Bán lẻ hàng may mặc trong các cửa hàng chuyên doanh
+G-47-477-4771-47712-Tên ngành: Bán lẻ giày dép trong các cửa hàng chuyên doanh
+G-47-477-4771-47713-Tên ngành: Bán lẻ cặp, túi, ví, hàng da và giả da khác trong các cửa hàng chuyên doanh
+G-47-477-4772-47721-Tên ngành: Bán lẻ dược phẩm, dụng cụ y tế trong các cửa hàng chuyên doanh
+G-47-477-4772-47722-Tên ngành: Bán lẻ nước hoa, mỹ phẩm và vật phẩm vệ sinh trong các cửa hàng chuyên doanh
+G-47-477-4772-47723-Tên ngành: Bán thuốc đông y, bán thuốc nam trong các cửa hàng chuyên doanh
+G-47-477-4773-47731-Tên ngành: Bán lẻ hoa, cây cảnh, cá cảnh, chim cảnh, vật nuôi cảnh trong các cửa hàng chuyên doanh
+G-47-477-4773-47732-Tên ngành: Bán lẻ vàng, bạc, đá quí và đá bán quí, đồ trang sức trong các cửa hàng chuyên doanh
+G-47-477-4773-47733-Tên ngành: Bán lẻ hàng lưu niệm, hàng đan lát, hàng thủ công mỹ nghệ trong các cửa hàng chuyên doanh
+G-47-477-4773-47734-Tên ngành: Bán lẻ tranh, ảnh và các tác phẩm nghệ thuật khác (trừ đồ cổ) trong các cửa hàng chuyên doanh
+G-47-477-4773-47735-Tên ngành: Bán lẻ dầu hoả, gas, than nhiên liệu dùng cho gia đình trong các cửa hàng chuyên doanh
+G-47-477-4773-47736-Tên ngành: Bán lẻ đồng hồ, kính mắt trong các cửa hàng chuyên doanh
+G-47-477-4773-47737-Tên ngành: Bán lẻ máy ảnh, phim ảnh và vật liệu ảnh trong các cửa hàng chuyên doanh
+G-47-477-4773-47738-Tên ngành: Bán lẻ xe đạp và phụ tùng trong các cửa hàng chuyên doanh
+G-47-477-4773-47739-Tên ngành: Bán lẻ hàng hóa khác mới chưa được phân vào đâu trong các cửa hàng chuyên doanh
+G-47-477-4774-47741-Tên ngành: Bán lẻ hàng may mặc đã qua sử dụng trong các cửa hàng chuyên doanh
+G-47-477-4774-47749-Tên ngành: Bán lẻ hàng hóa khác đã qua sử dụng trong các cửa hàng chuyên doanh
+G-47-478-4781-47811-Tên ngành: Bán lẻ lương thực lưu động hoặc tại chợ
+G-47-478-4781-47812-Tên ngành: Bán lẻ thực phẩm khô, thực phẩm công nghiệp, đường sữa bánh kẹo lưu động hoặc tại chợ
+G-47-478-4781-47813-Tên ngành: Bán lẻ đồ uống lưu động hoặc tại chợ
+G-47-478-4781-47814-Tên ngành: Bán lẻ sản phẩm thuốc lá, thuốc lào lưu động hoặc tại chợ
+G-47-478-4781-47815-Tên ngành: Bán lẻ thịt gia súc, gia cầm tươi sống, đông lạnh lưu động hoặc tại chợ
+G-47-478-4781-47816-Tên ngành: Bán lẻ thủy sản tươi sống, đông lạnh lưu động hoặc tại chợ
+G-47-478-4781-47817-Tên ngành: Bán lẻ rau quả lưu động hoặc tại chợ
+G-47-478-4781-47818-Tên ngành: Bán lẻ thực phẩm chín lưu động hoặc tại chợ
+G-47-478-4781-47819-Tên ngành: Bán lẻ thực phẩm loại khác chưa được phân vào đâu
+G-47-478-4782-47821-Tên ngành: Bán lẻ hàng dệt lưu động hoặc tại chợ
+G-47-478-4782-47822-Tên ngành: Bán lẻ hàng may mặc lưu động hoặc tại chợ
+G-47-478-4782-47823-Tên ngành: Bán lẻ giày dép lưu động hoặc tại chợ
+G-47-478-4783-Tên ngành: Bán lẻ thiết bị công nghệ thông tin liên lạc lưu động hoặc tại chợ
+G-47-478-4783-47830-Tên ngành: Bán lẻ thiết bị công nghệ thông tin liên lạc lưu động hoặc tại chợ
+G-47-478-4784-47841-Tên ngành: Bán lẻ đồ ngũ kim, sơn, kính và thiết bị lắp đặt khác trong xây dựng lưu động hoặc tại chợ
+G-47-478-4784-47842-Tên ngành: Bán lẻ thảm, đệm, chăn, màn, rèm, vật liệu phủ tường và sàn lưu động hoặc tại chợ
+G-47-478-4784-47843-Tên ngành: Bán lẻ đồ điện gia dụng, giường, tủ, bàn, ghế và đồ nội thất tương tự, đèn và bộ đèn điện, đồ dùng gia đình khác chưa được phân vào đâu lưu động hoặc tại chợ
+G-47-478-4785-Tên ngành: Bán lẻ hàng văn hóa, giải trí lưu động hoặc tại chợ
+G-47-478-4785-47850-Tên ngành: Bán lẻ hàng văn hóa, giải trí lưu động hoặc tại chợ
+G-47-478-4789-47891-Tên ngành: Bán lẻ mỹ phẩm và vật phẩm vệ sinh lưu động hoặc tại chợ
+G-47-478-4789-47892-Tên ngành: Bán lẻ hàng gốm sứ, thủy tinh lưu động hoặc tại chợ
+G-47-478-4789-47893-Tên ngành: Bán lẻ hoa tươi, cây cảnh lưu động hoặc tại chợ
+G-47-478-4789-47894-Tên ngành: Bán lẻ vàng, bạc, đá quí và đá bán quí, đồ trang sức lưu động hoặc tại chợ
+G-47-478-4789-47895-Tên ngành: Bán lẻ hàng lưu niệm, hàng đan lát, hàng thủ công mỹ nghệ lưu động hoặc tại chợ
+G-47-478-4789-47896-Tên ngành: Bán lẻ đồng hồ, kính mắt lưu động hoặc tại chợ
+G-47-478-4789-47897-Tên ngành: Bán lẻ xe đạp và phụ tùng lưu động hoặc tại chợ
+G-47-478-4789-47898-Tên ngành: Bán lẻ hàng hóa đã qua sử dụng lưu động hoặc tại chợ
+G-47-478-4789-47899-Tên ngành: Bán lẻ hàng hóa khác chưa được phân vào đâu, lưu động hoặc tại chợ
+G-47-479-4791-Tên ngành: Bán lẻ theo yêu cầu đặt hàng qua bưu điện hoặc internet
+G-47-479-4791-47910-Tên ngành: Bán lẻ theo yêu cầu đặt hàng qua bưu điện hoặc internet
+G-47-479-4799-Tên ngành: Bán lẻ hình thức khác chưa được phân vào đâu
+G-47-479-4799-47990-Tên ngành: Bán lẻ hình thức khác chưa được phân vào đâu
+H-Tên ngành: VẬN TẢI KHO BÃI
+H-49-491-4911-Tên ngành: Vận tải hành khách đường sắt
+H-49-491-4911-49110-Tên ngành: Vận tải hành khách đường sắt
+H-49-491-4912-Tên ngành: Vận tải hàng hóa đường sắt
+H-49-491-4912-49120-Tên ngành: Vận tải hàng hóa đường sắt
+H-49-492-4921-Tên ngành: Vận tải hành khách bằng xe buýt trong nội thành
+H-49-492-4921-49210-Tên ngành: Vận tải hành khách bằng xe buýt trong nội thành
+H-49-492-4922-Tên ngành: Vận tải hành khách bằng xe buýt giữa nội thành và ngoại thành, liên tỉnh
+H-49-492-4922-49220-Tên ngành: Vận tải hành khách bằng xe buýt giữa nội thành và ngoại thành, liên tỉnh
+H-49-492-4929-Tên ngành: Vận tải hành khách bằng xe buýt loại khác
+H-49-492-4929-49290-Tên ngành: Vận tải hành khách bằng xe buýt loại khác
+H-49-493-4931-49311-Tên ngành: Vận tải hành khách bằng hệ thống đường sắt ngầm hoặc đường sắt trên cao
+H-49-493-4931-49312-Tên ngành: Vận tải hành khách bằng taxi
+H-49-493-4931-49313-Tên ngành: Vận tải hành khách bàng mô tô, xe máy và xe có động cơ khác
+H-49-493-4931-49319-Tên ngành: Vận tải hành khách đường bộ loại khác trong nội thành, ngoại thành (trừ xe buýt)
+H-49-493-4932-49321-Tên ngành: Vận tải hành khách bằng xe khách nội tỉnh, liên tỉnh
+H-49-493-4932-49329-Tên ngành: Vận tải hành khách đường bộ khác chưa được phân vào đâu
+H-49-493-4933-49331-Tên ngành: Vận tải hàng hóa bằng ô tô chuyên dụng
+H-49-493-4933-49332-Tên ngành: Vận tải hàng hóa bằng ô tô loại khác (trừ ô tô chuyên dụng)
+H-49-493-4933-49333-Tên ngành: Vận tải hàng hóa bằng xe có động cơ loại khác
+H-49-493-4933-49334-Tên ngành: Vận tải hàng hóa bằng xe thô sơ
+H-49-493-4933-49339-Tên ngành: Vận tải hàng hóa bằng phương tiện đường bộ khác
+H-49-494-Tên ngành: Vận tải đường ống
+H-49-494-4940-Tên ngành: Vận tải đường ống
+H-49-494-4940-49400-Tên ngành: Vận tải đường ống
+H-50-501-5011-50111-Tên ngành: Vận tải hành khách ven biển
+H-50-501-5011-50112-Tên ngành: Vận tải hành khách viễn dương
+H-50-501-5012-50121-Tên ngành: Vận tải hàng hóa ven biển
+H-50-501-5012-50122-Tên ngành: Vận tải hàng hóa viễn dương
+H-50-502-5021-50211-Tên ngành: Vận tải hành khách đường thủy nội địa bằng phương tiện cơ giới
+H-50-502-5021-50212-Tên ngành: Vận tải hành khách đường thủy nội địa bằng phương tiện thô sơ
+H-50-502-5022-50221-Tên ngành: Vận tải hàng hóa đường thủy nội địa bằng phương tiện cơ giới
+H-50-502-5022-50222-Tên ngành: Vận tải hàng hóa đường thủy nội địa bằng phương tiện thô sơ
+H-51-511-Tên ngành: Vận tải hành khách hàng không
+H-51-511-5110-51101-Tên ngành: Vận tải hành khách hàng không theo tuyến và lịch trình cố định
+H-51-511-5110-51109-Tên ngành: Vận tải hành khách hàng không loại khác
+H-51-512-Tên ngành: Vận tải hàng hóa hàng không
+H-51-512-5120-51201-Tên ngành: Vận tải hàng hóa hàng không theo tuyến và lịch trình cố định
+H-51-512-5120-51209-Tên ngành: Vận tải hàng hóa hàng không loại khác
+H-52-521-Tên ngành: Kho bãi và lưu giữ hàng hóa
+H-52-521-5210-52101-Tên ngành: Kho bãi và lưu giữ hàng hóa trong kho ngoại quan
+H-52-521-5210-52102-Tên ngành: Kho bãi và lưu giữ hàng hóa trong kho đông lạnh (trừ kho ngoại quan)
+H-52-521-5210-52109-Tên ngành: Kho bãi và lưu giữ hàng hóa trong kho loại khác
+H-52-522-5221-Tên ngành: Hoạt động dịch vụ hỗ trợ trực tiếp cho vận tải đường sắt
+H-52-522-5221-52210-Tên ngành: Hoạt động dịch vụ hỗ trợ trực tiếp cho vận tải đường sắt
+H-52-522-5222-52221-Tên ngành: Hoạt động điều hành cảng biển
+H-52-522-5222-52222-Tên ngành: Hoạt động dịch vụ hỗ trợ liên quan đến vận tải ven biển và viễn dương
+H-52-522-5222-52223-Tên ngành: Hoạt động điều hành cảng đường thủy nội địa
+H-52-522-5222-52224-Tên ngành: Hoạt động dịch vụ hỗ trợ liên quan đến vận tải đường thủy nội địa
+H-52-522-5223-52231-Tên ngành: Dịch vụ điều hành bay
+H-52-522-5223-52232-Tên ngành: Dịch vụ điều hành hoạt động cảng hàng không
+H-52-522-5223-52239-Tên ngành: Hoạt động dịch vụ hỗ trợ liên quan đến vận tải hàng không
+H-52-522-5224-52241-Tên ngành: Bốc xếp hàng hóa ga đường sắt
+H-52-522-5224-52242-Tên ngành: Bốc xếp hàng hóa đường bộ
+H-52-522-5224-52243-Tên ngành: Bốc xếp hàng hóa cảng biển
+H-52-522-5224-52244-Tên ngành: Bốc xếp hàng hóa cảng sông
+H-52-522-5224-52245-Tên ngành: Bốc xếp hàng hóa cảng hàng không
+H-52-522-5224-52249-Tên ngành: Bốc xếp hàng hóa loại khác
+H-52-522-5225-52251-Tên ngành: Hoạt động điều hành bến xe
+H-52-522-5225-52252-Tên ngành: Hoạt động quản lý, điều hành đường cao tốc, cầu, hầm đường bộ
+H-52-522-5225-52253-Tên ngành: Hoạt động quản lý bãi đỗ, trông giữ phương tiện đường bộ
+H-52-522-5225-52259-Tên ngành: Hoạt động dịch vụ khác hỗ trợ liên quan đến vận tải đường bộ
+H-52-522-5229-52291-Tên ngành: Dịch vụ đại lý, giao nhận vận chuyển
+H-52-522-5229-52292-Tên ngành: Logistics
+H-52-522-5229-52299-Tên ngành: Dịch vụ hỗ trợ khác liên quan đến vận tải chưa được phân vào đâu
+H-53-531-Tên ngành: Bưu chính
+H-53-531-5310-Tên ngành: Bưu chính
+H-53-531-5310-53100-Tên ngành: Bưu chính
+H-53-532-Tên ngành: Chuyển phát
+H-53-532-5320-Tên ngành: Chuyển phát
+H-53-532-5320-53200-Tên ngành: Chuyển phát
+I-Tên ngành: DỊCH VỤ LƯU TRÚ VÀ ĂN UỐNG
+I-55-551-Tên ngành: Dịch vụ lưu trú ngắn ngày
+I-55-551-5510-55101-Tên ngành: Khách sạn
+I-55-551-5510-55102-Tên ngành: Biệt thự hoặc căn hộ kinh doanh dịch vụ lưu trú ngắn ngày
+I-55-551-5510-55103-Tên ngành: Nhà khách, nhà nghỉ kinh doanh dịch vụ lưu trú ngắn ngày
+I-55-551-5510-55104-Tên ngành: Nhà trọ, phòng trọ và các cơ sở lưu trú ngắn ngày tương tự
+I-55-559-Tên ngành: Cơ sở lưu trú khác
+I-55-559-5590-55901-Tên ngành: Ký túc xá học sinh, sinh viên
+I-55-559-5590-55902-Tên ngành: Chỗ nghỉ trọ trên xe lưu động, lều quán, trại dùng để nghỉ tạm
+I-55-559-5590-55909-Tên ngành: Cơ sở lưu trú khác chưa được phân vào đâu
+I-56-561-Tên ngành: Nhà hàng và các dịch vụ ăn uống phục vụ lưu động
+I-56-561-5610-56101-Tên ngành: Nhà hàng, quán ăn, hàng ăn uống (trừ cửa hàng ăn uống thuộc chuỗi cửa hàng ăn nhanh)
+I-56-561-5610-56102-Tên ngành: Cửa hàng ăn uống thuộc chuỗi cửa hàng ăn nhanh
+I-56-561-5610-56109-Tên ngành: Dịch vụ ăn uống phục vụ lưu động khác
+I-56-562-5621-Tên ngành: Cung cấp dịch vụ ăn uống theo hợp đồng không thường xuyên với khách hàng
+I-56-562-5621-56210-Tên ngành: Cung cấp dịch vụ ăn uống theo hợp đồng không thường xuyên với khách hàng
+I-56-562-5629-Tên ngành: Dịch vụ ăn uống khác
+I-56-562-5629-56290-Tên ngành: Dịch vụ ăn uống khác
+I-56-563-Tên ngành: Dịch vụ phục vụ đồ uống
+I-56-563-5630-56301-Tên ngành: Quán rượu, bia, quầy bar
+I-56-563-5630-56302-Tên ngành: Quán cà phê, giải khát
+I-56-563-5630-56309-Tên ngành: Dịch vụ phục vụ đồ uống khác
+J-Tên ngành: THÔNG TIN VÀ TRUYỀN THÔNG
+J-58-581-5811-58111-Tên ngành: Xuất bản sách trực tuyến
+J-58-581-5811-58112-Tên ngành: Xuất bản sách khác
+J-58-581-5812-58121-Tên ngành: Xuất bản các danh mục chỉ dẫn và địa chỉ trực tuyến
+J-58-581-5812-58122-Tên ngành: Xuất bản các danh mục chỉ dẫn và địa chỉ khác
+J-58-581-5813-58131-Tên ngành: Xuất bản báo, tạp chí và các ấn phẩm định kỳ trực tuyến
+J-58-581-5813-58132-Tên ngành: Xuất bản báo, tạp chí và các ấn phẩm định kỳ khác
+J-58-581-5819-58191-Tên ngành: Hoạt động xuất bản trực tuyến khác
+J-58-581-5819-58192-Tên ngành: Hoạt động xuất bản khác
+J-58-582-Tên ngành: Xuất bản phần mềm
+J-58-582-5820-Tên ngành: Xuất bản phần mềm
+J-58-582-5820-58200-Tên ngành: Xuất bản phần mềm
+J-59-591-5911-59111-Tên ngành: Hoạt động sản xuất phim điện ảnh
+J-59-591-5911-59112-Tên ngành: Hoạt động sản xuất phim video
+J-59-591-5911-59113-Tên ngành: Hoạt động sản xuất chương trình truyền hình
+J-59-591-5912-Tên ngành: Hoạt động hậu kỳ
+J-59-591-5912-59120-Tên ngành: Hoạt động hậu kỳ
+J-59-591-5913-Tên ngành: Hoạt động phát hành phim điện ảnh, phim video và chương trình truyền hình
+J-59-591-5913-59130-Tên ngành: Hoạt động phát hành phim điện ảnh, phim video và chương trình truyền hình
+J-59-591-5914-59141-Tên ngành: Hoạt động chiếu phim cố định
+J-59-591-5914-59142-Tên ngành: Hoạt động chiếu phim lưu động
+J-59-592-Tên ngành: Hoạt động ghi âm và xuất bản âm nhạc
+J-59-592-5920-Tên ngành: Hoạt động ghi âm và xuất bản âm nhạc
+J-59-592-5920-59200-Tên ngành: Hoạt động ghi âm và xuất bản âm nhạc
+J-60-601-Tên ngành: Hoạt động phát thanh
+J-60-601-6010-Tên ngành: Hoạt động phát thanh
+J-60-601-6010-60100-Tên ngành: Hoạt động phát thanh
+J-60-602-6021-Tên ngành: Hoạt động truyền hình
+J-60-602-6021-60210-Tên ngành: Hoạt động truyền hình
+J-60-602-6022-Tên ngành: Chương trình cáp, vệ tinh và các chương trình thuê bao khác
+J-60-602-6022-60220-Tên ngành: Chương trình cáp, vệ tinh và các chương trình thuê bao khác
+J-61-611-Tên ngành: Hoạt động viễn thông có dây
+J-61-611-6110-61101-Tên ngành: Hoạt động cung cấp trực tiếp dịch vụ viễn thông có dây
+J-61-611-6110-61102-Tên ngành: Hoạt động cung cấp dịch vụ viễn thông có dây sử dụng quyền truy cập hạ tầng viễn thông của đơn vị khác
+J-61-612-Tên ngành: Hoạt động viễn thông không dây
+J-61-612-6120-61201-Tên ngành: Hoạt động cung cấp trực tiếp dịch vụ viễn thông không dây
+J-61-612-6120-61202-Tên ngành: Hoạt động cung cấp dịch vụ viễn thông không dây sử dụng quyền truy cập hạ tầng viễn thông của đơn vị khác
+J-61-613-Tên ngành: Hoạt động viễn thông vệ tinh
+J-61-613-6130-Tên ngành: Hoạt động viễn thông vệ tinh
+J-61-613-6130-61300-Tên ngành: Hoạt động viễn thông vệ tinh
+J-61-619-Tên ngành: Hoạt động viễn thông khác
+J-61-619-6190-61901-Tên ngành: Hoạt động của các điểm truy cập internet
+J-61-619-6190-61909-Tên ngành: Hoạt động viễn thông khác chưa được phân vào đâu
+J-62-Tên ngành: Lập trình máy vi tính, dịch vụ tư vấn và các hoạt động khác liên quan đến máy vi tính
+J-62-620-6201-Tên ngành: Lập trình máy vi tính
+J-62-620-6201-62010-Tên ngành: Lập trình máy vi tính
+J-62-620-6202-Tên ngành: Tư vấn máy vi tính và quản trị hệ thống máy vi tính
+J-62-620-6202-62020-Tên ngành: Tư vấn máy vi tính và quản trị hệ thống máy vi tính
+J-62-620-6209-Tên ngành: Hoạt động dịch vụ công nghệ thông tin và dịch vụ khác liên quan đến máy vi tính
+J-62-620-6209-62090-Tên ngành: Hoạt động dịch vụ công nghệ thông tin và dịch vụ khác liên quan đến máy vi tính
+J-63-631-6311-Tên ngành: Xử lý dữ liệu, cho thuê và các hoạt động liên quan
+J-63-631-6311-63110-Tên ngành: Xử lý dữ liệu, cho thuê và các hoạt động liên quan
+J-63-631-6312-Tên ngành: Cổng thông tin
+J-63-631-6312-63120-Tên ngành: Cổng thông tin
+J-63-639-6391-Tên ngành: Hoạt động thông tấn
+J-63-639-6391-63910-Tên ngành: Hoạt động thông tấn
+J-63-639-6399-Tên ngành: Dịch vụ thông tin khác chưa được phân vào đâu
+J-63-639-6399-63990-Tên ngành: Dịch vụ thông tin khác chưa được phân vào đâu
+K-Tên ngành: HOẠT ĐỘNG TÀI CHÍNH, NGÂN HÀNG VÀ BẢO HIỂM
+K-64-641-6411-Tên ngành: Hoạt động ngân hàng trung ương
+K-64-641-6411-64110-Tên ngành: Hoạt động ngân hàng trung ương
+K-64-641-6419-Tên ngành: Hoạt động trung gian tiền tệ khác
+K-64-641-6419-64190-Tên ngành: Hoạt động trung gian tiền tệ khác
+K-64-642-Tên ngành: Hoạt động công ty nắm giữ tài sản
+K-64-642-6420-Tên ngành: Hoạt động công ty nắm giữ tài sản
+K-64-642-6420-64200-Tên ngành: Hoạt động công ty nắm giữ tài sản
+K-64-643-Tên ngành: Hoạt động quỹ tín thác, các quỹ và các tổ chức tài chính khác
+K-64-643-6430-Tên ngành: Hoạt động quỹ tín thác, các quỹ và các tổ chức tài chính khác
+K-64-643-6430-64300-Tên ngành: Hoạt động quỹ tín thác, các quỹ và các tổ chức tài chính khác
+K-64-649-6491-Tên ngành: Hoạt động cho thuê tài chính
+K-64-649-6491-64910-Tên ngành: Hoạt động cho thuê tài chính
+K-64-649-6492-Tên ngành: Hoạt động cấp tín dụng khác
+K-64-649-6492-64920-Tên ngành: Hoạt động cấp tín dụng khác
+K-64-649-6499-Tên ngành: Hoạt động dịch vụ tài chính khác chưa được phân vào đâu (trừ bảo hiểm và bảo hiểm xã hội)
+K-64-649-6499-64990-Tên ngành: Hoạt động dịch vụ tài chính khác chưa được phân vào đâu (trừ bảo hiểm và bảo hiểm xã hội)
+K-65-651-6511-Tên ngành: Bảo hiểm nhân thọ
+K-65-651-6511-65110-Tên ngành: Bảo hiểm nhân thọ
+K-65-651-6512-Tên ngành: Bảo hiểm phi nhân thọ
+K-65-651-6512-65120-Tên ngành: Bảo hiểm phi nhân thọ
+K-65-651-6513-65131-Tên ngành: Bảo hiểm y tế
+K-65-651-6513-65139-Tên ngành: Bảo hiểm sức khỏe khác
+K-65-652-Tên ngành: Tái bảo hiểm
+K-65-652-6520-Tên ngành: Tái bảo hiểm
+K-65-652-6520-65200-Tên ngành: Tái bảo hiểm
+K-65-653-Tên ngành: Bảo hiểm xã hội
+K-65-653-6530-Tên ngành: Bảo hiểm xã hội
+K-65-653-6530-65300-Tên ngành: Bảo hiểm xã hội
+K-66-661-6611-Tên ngành: Quản lý thị trường tài chính
+K-66-661-6611-66110-Tên ngành: Quản lý thị trường tài chính
+K-66-661-6612-Tên ngành: Môi giới hợp đồng hàng hóa và chứng khoán
+K-66-661-6612-66120-Tên ngành: Môi giới hợp đồng hàng hóa và chứng khoán
+K-66-661-6619-Tên ngành: Hoạt động hỗ trợ dịch vụ tài chính chưa được phân vào đâu
+K-66-661-6619-66190-Tên ngành: Hoạt động hỗ trợ dịch vụ tài chính chưa được phân vào đâu
+K-66-662-6621-Tên ngành: Đánh giá rủi ro và thiệt hại
+K-66-662-6621-66210-Tên ngành: Đánh giá rủi ro và thiệt hại
+K-66-662-6622-Tên ngành: Hoạt động của đại lý và môi giới bảo hiểm
+K-66-662-6622-66220-Tên ngành: Hoạt động của đại lý và môi giới bảo hiểm
+K-66-662-6629-Tên ngành: Hoạt động hỗ trợ khác cho bảo hiểm và bảo hiểm xã hội
+K-66-662-6629-66290-Tên ngành: Hoạt động hỗ trợ khác cho bảo hiểm và bảo hiểm xã hội
+K-66-663-Tên ngành: Hoạt động quản lý quỹ
+K-66-663-6630-Tên ngành: Hoạt động quản lý quỹ
+K-66-663-6630-66300-Tên ngành: Hoạt động quản lý quỹ
+L-Tên ngành: HOẠT ĐỘNG KINH DOANH BẤT ĐỘNG SẢN
+L-68-681-Tên ngành: Kinh doanh bất động sản, quyền sử dụng đất thuộc chủ sở hữu, chủ sử dụng hoặc đi thuê
+L-68-681-6810-68101-Tên ngành: Mua, bán nhà ở và quyền sử dụng đất ở
+L-68-681-6810-68102-Tên ngành: Mua, bán nhà và quyền sử dụng đất không để ở
+L-68-681-6810-68103-Tên ngành: Cho thuê, điều hành, quản lý nhà và đất ở
+L-68-681-6810-68104-Tên ngành: Cho thuê, điều hành, quản lý nhà và đất không để ở
+L-68-681-6810-68109-Tên ngành: Kinh doanh bất động sản khác
+L-68-682-Tên ngành: Tư vấn, môi giới, đấu giá bất động sản, đấu giá quyền sử dụng đất
+L-68-682-6820-68201-Tên ngành: Tư vấn, môi giới bất động sản, quyền sử dụng đất
+L-68-682-6820-68202-Tên ngành: Đấu giá bất động sản, quyền sử dụng đất
+M-Tên ngành: HOẠT ĐỘNG CHUYÊN MÔN, KHOA HỌC VÀ CÔNG NGHỆ
+M-69-691-Tên ngành: Hoạt động pháp luật
+M-69-691-6910-69101-Tên ngành: Hoạt động đại diện, tư vấn pháp luật
+M-69-691-6910-69102-Tên ngành: Hướng dẫn chung và tư vấn, chuẩn bị các tài liệu pháp lý
+M-69-691-6910-69109-Tên ngành: Hoạt động pháp luật khác
+M-69-692-Tên ngành: Hoạt động liên quan đến kế toán, kiểm toán và tư vấn về thuế
+M-69-692-6920-Tên ngành: Hoạt động liên quan đến kế toán, kiểm toán và tư vấn về thuế
+M-69-692-6920-69200-Tên ngành: Hoạt động liên quan đến kế toán, kiểm toán và tư vấn về thuế
+M-70-701-Tên ngành: Hoạt động của trụ sở văn phòng
+M-70-701-7010-Tên ngành: Hoạt động của trụ sở văn phòng
+M-70-701-7010-70100-Tên ngành: Hoạt động của trụ sở văn phòng
+M-70-702-Tên ngành: Hoạt động tư vấn quản lý
+M-70-702-7020-Tên ngành: Hoạt động tư vấn quản lý
+M-70-702-7020-70200-Tên ngành: Hoạt động tư vấn quản lý
+M-71-711-Tên ngành: Hoạt động kiến trúc và tư vấn kỹ thuật có liên quan
+M-71-711-7110-71101-Tên ngành: Hoạt động kiến trúc
+M-71-711-7110-71102-Tên ngành: Hoạt động đo đạc và bản đồ
+M-71-711-7110-71103-Tên ngành: Hoạt động thăm dò địa chất, nguồn nước
+M-71-711-7110-71109-Tên ngành: Hoạt động tư vấn kỹ thuật có liên quan khác
+M-71-712-Tên ngành: Kiểm tra và phân tích kỹ thuật
+M-71-712-7120-Tên ngành: Kiểm tra và phân tích kỹ thuật
+M-71-712-7120-71200-Tên ngành: Kiểm tra và phân tích kỹ thuật
+M-72-721-7211-Tên ngành: Nghiên cứu khoa học và phát triển công nghệ trong lĩnh vực khoa học tự nhiên
+M-72-721-7211-72110-Tên ngành: Nghiên cứu khoa học và phát triển công nghệ trong lĩnh vực khoa học tự nhiên
+M-72-721-7212-Tên ngành: Nghiên cứu khoa học và phát triển công nghệ trong lĩnh vực khoa học kỹ thuật và công nghệ
+M-72-721-7212-72120-Tên ngành: Nghiên cứu khoa học và phát triển công nghệ trong lĩnh vực khoa học kỹ thuật và công nghệ
+M-72-721-7213-Tên ngành: Nghiên cứu khoa học và phát triển công nghệ trong lĩnh vực khoa học y, dược
+M-72-721-7213-72130-Tên ngành: Nghiên cứu khoa học và phát triển công nghệ trong lĩnh vực khoa học y, dược
+M-72-721-7214-Tên ngành: Nghiên cứu khoa học và phát triển công nghệ trong lĩnh vực khoa học nông nghiệp
+M-72-721-7214-72140-Tên ngành: Nghiên cứu khoa học và phát triển công nghệ trong lĩnh vực khoa học nông nghiệp
+M-72-722-7221-Tên ngành: Nghiên cứu khoa học và phát triển công nghệ trong lĩnh vực khoa học xã hội
+M-72-722-7221-72210-Tên ngành: Nghiên cứu khoa học và phát triển công nghệ trong lĩnh vực khoa học xã hội
+M-72-722-7222-Tên ngành: Nghiên cứu khoa học và phát triển công nghệ trong lĩnh vực khoa học nhân văn
+M-72-722-7222-72220-Tên ngành: Nghiên cứu khoa học và phát triển công nghệ trong lĩnh vực khoa học nhân văn
+M-73-731-Tên ngành: Quảng cáo
+M-73-731-7310-Tên ngành: Quảng cáo
+M-73-731-7310-73100-Tên ngành: Quảng cáo
+M-73-732-Tên ngành: Nghiên cứu thị trường và thăm dò dư luận
+M-73-732-7320-Tên ngành: Nghiên cứu thị trường và thăm dò dư luận
+M-73-732-7320-73200-Tên ngành: Nghiên cứu thị trường và thăm dò dư luận
+M-74-741-Tên ngành: Hoạt động thiết kế chuyên dụng
+M-74-741-7410-Tên ngành: Hoạt động thiết kế chuyên dụng
+M-74-741-7410-74100-Tên ngành: Hoạt động thiết kế chuyên dụng
+M-74-742-Tên ngành: Hoạt động nhiếp ảnh
+M-74-742-7420-Tên ngành: Hoạt động nhiếp ảnh
+M-74-742-7420-74200-Tên ngành: Hoạt động nhiếp ảnh
+M-74-749-Tên ngành: Hoạt động chuyên môn, khoa học và công nghệ khác chưa được phân vào đâu
+M-74-749-7490-74901-Tên ngành: Hoạt động khí tượng thủy văn
+M-74-749-7490-74909-Tên ngành: Hoạt động chuyên môn, khoa học và công nghệ khác còn lại chưa được phân vào đâu
+M-75-Tên ngành: Hoạt động thú y
+M-75-750-Tên ngành: Hoạt động thú y
+M-75-750-7500-Tên ngành: Hoạt động thú y
+M-75-750-7500-75000-Tên ngành: Hoạt động thú y
+N-Tên ngành: HOẠT ĐỘNG HÀNH CHÍNH VÀ DỊCH VỤ HỖ TRỢ
+N-77-771-Tên ngành: Cho thuê xe có động cơ
+N-77-771-7710-77101-Tên ngành: Cho thuê ôtô
+N-77-771-7710-77109-Tên ngành: Cho thuê xe có động cơ khác
+N-77-772-7721-Tên ngành: Cho thuê thiết bị thể thao, vui chơi giải trí
+N-77-772-7721-77210-Tên ngành: Cho thuê thiết bị thể thao, vui chơi giải trí
+N-77-772-7722-Tên ngành: Cho thuê băng, đĩa video
+N-77-772-7722-77220-Tên ngành: Cho thuê băng, đĩa video
+N-77-772-7729-Tên ngành: Cho thuê đồ dùng cá nhân và gia đình khác
+N-77-772-7729-77290-Tên ngành: Cho thuê đồ dùng cá nhân và gia đình khác
+N-77-773-Tên ngành: Cho thuê máy móc, thiết bị và đồ dùng hữu hình khác không kèm người điều khiển
+N-77-773-7730-77301-Tên ngành: Cho thuê máy móc, thiết bị nông, lâm nghiệp không kèm người điều khiển
+N-77-773-7730-77302-Tên ngành: Cho thuê máy móc, thiết bị xây dựng không kèm người điều khiển
+N-77-773-7730-77303-Tên ngành: Cho thuê máy móc, thiết bị văn phòng (kể cả máy vi tính) không kèm người điều khiển
+N-77-773-7730-77304-Tên ngành: Cho thuê máy bay, phương tiện bay không kèm người điều khiển
+N-77-773-7730-77305-Tên ngành: Cho thuê tàu, thuyền và kết cấu nổi không kèm người điều khiển
+N-77-773-7730-77309-Tên ngành: Cho thuê máy móc, thiết bị và đồ dùng hữu hình khác, không kèm người điều khiển chưa được phân vào đâu
+N-77-774-Tên ngành: Cho thuê tài sản vô hình phi tài chính
+N-77-774-7740-Tên ngành: Cho thuê tài sản vô hình phi tài chính
+N-77-774-7740-77400-Tên ngành: Cho thuê tài sản vô hình phi tài chính
+N-78-781-Tên ngành: Hoạt động của các trung tâm, đại lý tư vấn, giới thiệu và môi giới lao động, việc làm
+N-78-781-7810-Tên ngành: Hoạt động của các trung tâm, đại lý tư vấn, giới thiệu và môi giới lao động, việc làm
+N-78-781-7810-78100-Tên ngành: Hoạt động của các trung tâm, đại lý tư vấn, giới thiệu và môi giới lao động, việc làm
+N-78-782-Tên ngành: Cung ứng lao động tạm thời
+N-78-782-7820-Tên ngành: Cung ứng lao động tạm thời
+N-78-782-7820-78200-Tên ngành: Cung ứng lao động tạm thời
+N-78-783-Tên ngành: Cung ứng và quản lý nguồn lao động
+N-78-783-7830-78301-Tên ngành: Cung ứng và quản lý nguồn lao động trong nước
+N-78-783-7830-78302-Tên ngành: Cung ứng và quản lý nguồn lao động đi làm việc ở nước ngoài
+N-79-791-7911-Tên ngành: Đại lý du lịch
+N-79-791-7911-79110-Tên ngành: Đại lý du lịch
+N-79-791-7912-Tên ngành: Điều hành tua du lịch
+N-79-791-7912-79120-Tên ngành: Điều hành tua du lịch
+N-79-799-Tên ngành: Dịch vụ đặt chỗ và các dịch vụ hỗ trợ liên quan đến quảng bá và tổ chức tua du lịch
+N-79-799-7990-Tên ngành: Dịch vụ đặt chỗ và các dịch vụ hỗ trợ liên quan đến quảng bá và tổ chức tua du lịch
+N-79-799-7990-79900-Tên ngành: Dịch vụ đặt chỗ và các dịch vụ hỗ trợ liên quan đến quảng bá và tổ chức tua du lịch
+N-80-801-Tên ngành: Hoạt động bảo vệ tư nhân
+N-80-801-8010-Tên ngành: Hoạt động bảo vệ tư nhân
+N-80-801-8010-80100-Tên ngành: Hoạt động bảo vệ tư nhân
+N-80-802-Tên ngành: Dịch vụ hệ thống bảo đảm an toàn
+N-80-802-8020-Tên ngành: Dịch vụ hệ thống bảo đảm an toàn
+N-80-802-8020-80200-Tên ngành: Dịch vụ hệ thống bảo đảm an toàn
+N-80-803-Tên ngành: Dịch vụ điều tra
+N-80-803-8030-Tên ngành: Dịch vụ điều tra
+N-80-803-8030-80300-Tên ngành: Dịch vụ điều tra
+N-81-811-Tên ngành: Dịch vụ hỗ trợ tổng hợp
+N-81-811-8110-Tên ngành: Dịch vụ hỗ trợ tổng hợp
+N-81-811-8110-81100-Tên ngành: Dịch vụ hỗ trợ tổng hợp
+N-81-812-8121-Tên ngành: Vệ sinh chung nhà cửa
+N-81-812-8121-81210-Tên ngành: Vệ sinh chung nhà cửa
+N-81-812-8129-Tên ngành: Vệ sinh công nghiệp và các công trình chuyên biệt
+N-81-812-8129-81290-Tên ngành: Vệ sinh công nghiệp và các công trình chuyên biệt
+N-81-813-Tên ngành: Dịch vụ chăm sóc và duy trì cảnh quan
+N-81-813-8130-Tên ngành: Dịch vụ chăm sóc và duy trì cảnh quan
+N-81-813-8130-81300-Tên ngành: Dịch vụ chăm sóc và duy trì cảnh quan
+N-82-821-8211-Tên ngành: Dịch vụ hành chính văn phòng tổng hợp
+N-82-821-8211-82110-Tên ngành: Dịch vụ hành chính văn phòng tổng hợp
+N-82-821-8219-82191-Tên ngành: Photo, chuẩn bị tài liệu
+N-82-821-8219-82199-Tên ngành: Hoạt động hỗ trợ văn phòng đặc biệt khác
+N-82-822-Tên ngành: Hoạt động dịch vụ liên quan đến các cuộc gọi
+N-82-822-8220-Tên ngành: Hoạt động dịch vụ liên quan đến các cuộc gọi
+N-82-822-8220-82200-Tên ngành: Hoạt động dịch vụ liên quan đến các cuộc gọi
+N-82-823-Tên ngành: Tổ chức giới thiệu và xúc tiến thương mại
+N-82-823-8230-Tên ngành: Tổ chức giới thiệu và xúc tiến thương mại
+N-82-823-8230-82300-Tên ngành: Tổ chức giới thiệu và xúc tiến thương mại
+N-82-829-8291-Tên ngành: Hoạt động dịch vụ hỗ trợ thanh toán, tín dụng
+N-82-829-8291-82910-Tên ngành: Hoạt động dịch vụ hỗ trợ thanh toán, tín dụng
+N-82-829-8292-Tên ngành: Dịch vụ đóng gói
+N-82-829-8292-82920-Tên ngành: Dịch vụ đóng gói
+N-82-829-8299-Tên ngành: Hoạt động dịch vụ hỗ trợ kinh doanh khác còn lại chưa được phân vào đâu
+N-82-829-8299-82990-Tên ngành: Hoạt động dịch vụ hỗ trợ kinh doanh khác còn lại chưa được phân vào đâu
+O-Tên ngành: HOẠT ĐỘNG CỦA ĐẢNG CỘNG SẢN, TỔ CHỨC CHÍNH TRỊ - XÃ HỘI, QUẢN LÝ NHÀ NƯỚC, AN NINH QUỐC PHÒNG; BẢO ĐẢM XÃ HỘI BẮT BUỘC
+O-84-841-8411-84111-Tên ngành: Hoạt động của Đảng cộng sản, tổ chức chính trị - xã hội
+O-84-841-8411-84112-Tên ngành: Hoạt động quản lý nhà nước nói chung và kinh tế tổng hợp
+O-84-841-8412-Tên ngành: Hoạt động quản lý nhà nước trong các lĩnh vực y tế, giáo dục, văn hóa và các dịch vụ xã hội khác (trừ bảo đảm xã hội bắt buộc)
+O-84-841-8412-84120-Tên ngành: Hoạt động quản lý nhà nước trong các lĩnh vực y tế, giáo dục, văn hóa và các dịch vụ xã hội khác (trừ bảo đảm xã hội bắt buộc)
+O-84-841-8413-Tên ngành: Hoạt động quản lý nhà nước trong các lĩnh vực kinh tế chuyên ngành
+O-84-841-8413-84130-Tên ngành: Hoạt động quản lý nhà nước trong các lĩnh vực kinh tế chuyên ngành
+O-84-842-8421-Tên ngành: Hoạt động đối ngoại
+O-84-842-8421-84210-Tên ngành: Hoạt động đối ngoại
+O-84-842-8422-Tên ngành: Hoạt động quốc phòng
+O-84-842-8422-84220-Tên ngành: Hoạt động quốc phòng
+O-84-842-8423-Tên ngành: Hoạt động an ninh, trật tự an toàn xã hội
+O-84-842-8423-84230-Tên ngành: Hoạt động an ninh, trật tự an toàn xã hội
+O-84-843-Tên ngành: Hoạt động bảo đảm xã hội bắt buộc
+O-84-843-8430-Tên ngành: Hoạt động bảo đảm xã hội bắt buộc
+O-84-843-8430-84300-Tên ngành: Hoạt động bảo đảm xã hội bắt buộc
+P-Tên ngành: GIÁO DỤC VÀ ĐÀO TẠO
+P-85-851-8511-Tên ngành: Giáo dục nhà trẻ
+P-85-851-8511-85110-Tên ngành: Giáo dục nhà trẻ
+P-85-851-8512-Tên ngành: Giáo dục mẫu giáo
+P-85-851-8512-85120-Tên ngành: Giáo dục mẫu giáo
+P-85-852-8521-Tên ngành: Giáo dục tiểu học
+P-85-852-8521-85210-Tên ngành: Giáo dục tiểu học
+P-85-852-8522-Tên ngành: Giáo dục trung học cơ sở
+P-85-852-8522-85220-Tên ngành: Giáo dục trung học cơ sở
+P-85-852-8523-Tên ngành: Giáo dục trung học phổ thông
+P-85-852-8523-85230-Tên ngành: Giáo dục trung học phổ thông
+P-85-853-8531-Tên ngành: Đào tạo sơ cấp
+P-85-853-8531-85310-Tên ngành: Đào tạo sơ cấp
+P-85-853-8532-Tên ngành: Đào tạo trung cấp
+P-85-853-8532-85320-Tên ngành: Đào tạo trung cấp
+P-85-853-8533-Tên ngành: Đào tạo cao đẳng
+P-85-853-8533-85330-Tên ngành: Đào tạo cao đẳng
+P-85-854-8541-Tên ngành: Đào tạo đại học
+P-85-854-8541-85410-Tên ngành: Đào tạo đại học
+P-85-854-8542-Tên ngành: Đào tạo thạc sỹ
+P-85-854-8542-85420-Tên ngành: Đào tạo thạc sỹ
+P-85-854-8543-Tên ngành: Đào tạo tiến sỹ
+P-85-854-8543-85430-Tên ngành: Đào tạo tiến sỹ
+P-85-855-8551-Tên ngành: Giáo dục thể thao và giải trí
+P-85-855-8551-85510-Tên ngành: Giáo dục thể thao và giải trí
+P-85-855-8552-Tên ngành: Giáo dục văn hóa nghệ thuật
+P-85-855-8552-85520-Tên ngành: Giáo dục văn hóa nghệ thuật
+P-85-855-8559-Tên ngành: Giáo dục khác chưa được phân vào đâu
+P-85-855-8559-85590-Tên ngành: Giáo dục khác chưa được phân vào đâu
+P-85-856-Tên ngành: Dịch vụ hỗ trợ giáo dục
+P-85-856-8560-Tên ngành: Dịch vụ hỗ trợ giáo dục
+P-85-856-8560-85600-Tên ngành: Dịch vụ hỗ trợ giáo dục
+Q-Tên ngành: Y TẾ VÀ HOẠT ĐỘNG TRỢ GIÚP XÃ HỘI
+Q-86-861-Tên ngành: Hoạt động của các bệnh viện, trạm y tế
+Q-86-861-8610-86101-Tên ngành: Hoạt động của các bệnh viện
+Q-86-861-8610-86102-Tên ngành: Hoạt động của các trạm y tế và trạm y tế bộ/ngành
+Q-86-862-Tên ngành: Hoạt động của các phòng khám đa khoa, chuyên khoa và nha khoa
+Q-86-862-8620-86201-Tên ngành: Hoạt động của các phòng khám đa khoa, chuyên khoa
+Q-86-862-8620-86202-Tên ngành: Hoạt động của các phòng khám nha khoa
+Q-86-869-8691-Tên ngành: Hoạt động y tế dự phòng
+Q-86-869-8691-86910-Tên ngành: Hoạt động y tế dự phòng
+Q-86-869-8692-Tên ngành: Hoạt động của hệ thống cơ sở chỉnh hình, phục hồi chức năng
+Q-86-869-8692-86920-Tên ngành: Hoạt động của hệ thống cơ sở chỉnh hình, phục hồi chức năng
+Q-86-869-8699-Tên ngành: Hoạt động y tế khác chưa được phân vào đâu
+Q-86-869-8699-86990-Tên ngành: Hoạt động y tế khác chưa được phân vào đâu
+Q-87-871-Tên ngành: Hoạt động của các cơ sở nuôi dưỡng, điều dưỡng
+Q-87-871-8710-87101-Tên ngành: Hoạt động của các cơ sở nuôi dưỡng, điều dưỡng thương bệnh binh
+Q-87-871-8710-87109-Tên ngành: Hoạt động của các cơ sở nuôi dưỡng, điều dưỡng các đối tượng khác
+Q-87-872-Tên ngành: Hoạt động chăm sóc sức khoẻ người bị thiểu năng, tâm thần và người nghiện
+Q-87-872-8720-87201-Tên ngành: Hoạt động chăm sóc sức khoẻ người bị thiểu năng, tâm thần
+Q-87-872-8720-87202-Tên ngành: Hoạt động chăm sóc sức khoẻ, cai nghiện phục hồi người nghiện
+Q-87-873-Tên ngành: Hoạt động chăm sóc sức khoẻ người có công, người già và người khuyết tật không có khả năng tự chăm sóc
+Q-87-873-8730-87301-Tên ngành: Hoạt động chăm sóc sức khoẻ người có công (trừ thương bệnh binh)
+Q-87-873-8730-87302-Tên ngành: Hoạt động chăm sóc sức khoẻ người già
+Q-87-873-8730-87303-Tên ngành: Hoạt động chăm sóc sức khoẻ người khuyết tật
+Q-87-879-Tên ngành: Hoạt động chăm sóc tập trung khác
+Q-87-879-8790-87901-Tên ngành: Hoạt động chữa bệnh, phục hồi nhân phẩm cho đối tượng mại dâm
+Q-87-879-8790-87909-Tên ngành: Hoạt động chăm sóc tập trung khác chưa được phân vào đâu
+Q-88-881-Tên ngành: Hoạt động trợ giúp xã hội không tập trung đối với người có công, thương bệnh binh, người già và người khuyết tật
+Q-88-881-8810-88101-Tên ngành: Hoạt động trợ giúp xã hội không tập trung đối với người có công (trừ thương bệnh binh)
+Q-88-881-8810-88102-Tên ngành: Hoạt động trợ giúp xã hội không tập trung đối với thương bệnh binh
+Q-88-881-8810-88103-Tên ngành: Hoạt động trợ giúp xã hội không tập trung đối với người già và người khuyết tật
+Q-88-889-Tên ngành: Hoạt động trợ giúp xã hội không tập trung khác
+Q-88-889-8890-Tên ngành: Hoạt động trợ giúp xã hội không tập trung khác
+Q-88-889-8890-88900-Tên ngành: Hoạt động trợ giúp xã hội không tập trung khác
+R-Tên ngành: NGHỆ THUẬT, VUI CHƠI VÀ GIẢI TRÍ
+R-90-Tên ngành: Hoạt động sáng tác, nghệ thuật và giải trí
+R-90-900-Tên ngành: Hoạt động sáng tác, nghệ thuật và giải trí
+R-90-900-9000-Tên ngành: Hoạt động sáng tác, nghệ thuật và giải trí
+R-90-900-9000-90000-Tên ngành: Hoạt động sáng tác, nghệ thuật và giải trí
+R-91-910-9101-Tên ngành: Hoạt động thư viện và lưu trữ
+R-91-910-9101-91010-Tên ngành: Hoạt động thư viện và lưu trữ
+R-91-910-9102-Tên ngành: Hoạt động bảo tồn, bảo tàng
+R-91-910-9102-91020-Tên ngành: Hoạt động bảo tồn, bảo tàng
+R-91-910-9103-Tên ngành: Hoạt động của các vườn bách thảo, bách thú và khu bảo tồn tự nhiên
+R-91-910-9103-91030-Tên ngành: Hoạt động của các vườn bách thảo, bách thú và khu bảo tồn tự nhiên
+R-92-Tên ngành: Hoạt động xổ số, cá cược và đánh bạc
+R-92-920-Tên ngành: Hoạt động xổ số, cá cược và đánh bạc
+R-92-920-9200-92001-Tên ngành: Hoạt động xổ số
+R-92-920-9200-92002-Tên ngành: Hoạt động cá cược và đánh bạc
+R-93-931-9311-Tên ngành: Hoạt động của các cơ sở thể thao
+R-93-931-9311-93110-Tên ngành: Hoạt động của các cơ sở thể thao
+R-93-931-9312-Tên ngành: Hoạt động của các câu lạc bộ thể thao
+R-93-931-9312-93120-Tên ngành: Hoạt động của các câu lạc bộ thể thao
+R-93-931-9319-Tên ngành: Hoạt động thể thao khác
+R-93-931-9319-93190-Tên ngành: Hoạt động thể thao khác
+R-93-932-9321-Tên ngành: Hoạt động của các công viên vui chơi và công viên theo chủ đề
+R-93-932-9321-93210-Tên ngành: Hoạt động của các công viên vui chơi và công viên theo chủ đề
+R-93-932-9329-Tên ngành: Hoạt động vui chơi giải trí khác chưa được phân vào đâu
+R-93-932-9329-93290-Tên ngành: Hoạt động vui chơi giải trí khác chưa được phân vào đâu
+S-Tên ngành: HOẠT ĐỘNG DỊCH VỤ KHÁC
+S-94-941-9411-Tên ngành: Hoạt động của các hiệp hội kinh doanh và nghiệp chủ
+S-94-941-9411-94110-Tên ngành: Hoạt động của các hiệp hội kinh doanh và nghiệp chủ
+S-94-941-9412-Tên ngành: Hoạt động của các hội nghề nghiệp
+S-94-941-9412-94120-Tên ngành: Hoạt động của các hội nghề nghiệp
+S-94-942-Tên ngành: Hoạt động của công đoàn
+S-94-942-9420-Tên ngành: Hoạt động của công đoàn
+S-94-942-9420-94200-Tên ngành: Hoạt động của công đoàn
+S-94-949-9491-Tên ngành: Hoạt động của các tổ chức tôn giáo
+S-94-949-9491-94910-Tên ngành: Hoạt động của các tổ chức tôn giáo
+S-94-949-9499-Tên ngành: Hoạt động của các tổ chức khác chưa được phân vào đâu
+S-94-949-9499-94990-Tên ngành: Hoạt động của các tổ chức khác chưa được phân vào đâu
+S-95-951-9511-Tên ngành: Sửa chữa máy vi tính và thiết bị ngoại vi
+S-95-951-9511-95110-Tên ngành: Sửa chữa máy vi tính và thiết bị ngoại vi
+S-95-951-9512-Tên ngành: Sửa chữa thiết bị liên lạc
+S-95-951-9512-95120-Tên ngành: Sửa chữa thiết bị liên lạc
+S-95-952-9521-Tên ngành: Sửa chữa thiết bị nghe nhìn điện tử gia dụng
+S-95-952-9521-95210-Tên ngành: Sửa chữa thiết bị nghe nhìn điện tử gia dụng
+S-95-952-9522-Tên ngành: Sửa chữa thiết bị, đồ dùng gia đình
+S-95-952-9522-95220-Tên ngành: Sửa chữa thiết bị, đồ dùng gia đình
+S-95-952-9523-Tên ngành: Sửa chữa giày, dép, hàng da và giả da
+S-95-952-9523-95230-Tên ngành: Sửa chữa giày, dép, hàng da và giả da
+S-95-952-9524-Tên ngành: Sửa chữa giường, tủ, bàn, ghế và đồ nội thất tương tư
+S-95-952-9524-95240-Tên ngành: Sửa chữa giường, tủ, bàn, ghế và đồ nội thất tương tư
+S-95-952-9529-Tên ngành: Sửa chữa xe đạp, đồng hồ, đồ dùng cá nhân và gia đình khác chưa được phân vào đâu
+S-95-952-9529-95290-Tên ngành: Sửa chữa xe đạp, đồng hồ, đồ dùng cá nhân và gia đình khác chưa được phân vào đâu
+S-96-961-Tên ngành: Dịch vụ tắm hơi, massage và các dịch vụ tăng cường sức khoẻ tương tự (trừ hoạt động thể thao)
+S-96-961-9610-Tên ngành: Dịch vụ tắm hơi, massage và các dịch vụ tăng cường sức khoẻ tương tự (trừ hoạt động thể thao)
+S-96-961-9610-96100-Tên ngành: Dịch vụ tắm hơi, massage và các dịch vụ tăng cường sức khoẻ tương tự (trừ hoạt động thể thao)
+S-96-962-Tên ngành: Giặt là, làm sạch các sản phẩm dệt và lông thú
+S-96-962-9620-Tên ngành: Giặt là, làm sạch các sản phẩm dệt và lông thú
+S-96-962-9620-96200-Tên ngành: Giặt là, làm sạch các sản phẩm dệt và lông thú
+S-96-963-9631-Tên ngành: Cắt tóc, làm đầu, gội đầu
+S-96-963-9631-96310-Tên ngành: Cắt tóc, làm đầu, gội đầu
+S-96-963-9632-Tên ngành: Hoạt động dịch vụ phục vụ tang lễ
+S-96-963-9632-96320-Tên ngành: Hoạt động dịch vụ phục vụ tang lễ
+S-96-963-9633-Tên ngành: Hoạt động dịch vụ phục vụ hôn lễ
+S-96-963-9633-96330-Tên ngành: Hoạt động dịch vụ phục vụ hôn lễ
+S-96-963-9639-Tên ngành: Hoạt động dịch vụ phục vụ cá nhân khác còn lại chưa được phân vào đâu
+S-96-963-9639-96390-Tên ngành: Hoạt động dịch vụ phục vụ cá nhân khác còn lại chưa được phân vào đâu
+T-Tên ngành: HOẠT ĐỘNG LÀM THUÊ CÁC CÔNG VIỆC TRONG CÁC HỘ GIA ĐÌNH, SẢN XUẤT SẢN PHẨM VẬT CHẤT VÀ DỊCH VỤ TỰ TIÊU DÙNG CỦA HỘ GIA ĐÌNH
+T-97-Tên ngành: Hoạt động làm thuê công việc gia đình trong các hộ gia đình
+T-97-970-Tên ngành: Hoạt động làm thuê công việc gia đình trong các hộ gia đình
+T-97-970-9700-Tên ngành: Hoạt động làm thuê công việc gia đình trong các hộ gia đình
+T-97-970-9700-97000-Tên ngành: Hoạt động làm thuê công việc gia đình trong các hộ gia đình
+T-98-981-Tên ngành: Hoạt động sản xuất các sản phẩm vật chất tự tiêu dùng của hộ gia đình
+T-98-981-9810-Tên ngành: Hoạt động sản xuất các sản phẩm vật chất tự tiêu dùng của hộ gia đình
+T-98-981-9810-98100-Tên ngành: Hoạt động sản xuất các sản phẩm vật chất tự tiêu dùng của hộ gia đình
+T-98-982-Tên ngành: Hoạt động sản xuất các sản phẩm dịch vụ tự tiêu dùng của hộ gia đình
+T-98-982-9820-Tên ngành: Hoạt động sản xuất các sản phẩm dịch vụ tự tiêu dùng của hộ gia đình
+T-98-982-9820-98200-Tên ngành: Hoạt động sản xuất các sản phẩm dịch vụ tự tiêu dùng của hộ gia đình
+U-Tên ngành: HOẠT ĐỘNG CỦA CÁC TỔ CHỨC VÀ CƠ QUAN QUỐC TẾ
+U-99-Tên ngành: Hoạt động của các tổ chức và cơ quan quốc tế
+U-99-990-Tên ngành: Hoạt động của các tổ chức và cơ quan quốc tế
+U-99-990-9900-Tên ngành: Hoạt động của các tổ chức và cơ quan quốc tế
+U-99-990-9900-99000-Tên ngành: Hoạt động của các tổ chức và cơ quan quốc tế
