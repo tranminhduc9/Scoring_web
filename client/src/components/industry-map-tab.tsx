@@ -89,50 +89,10 @@ export default function IndustryMapTab({
     loadIndustryData();
   }, []);
 
-  const updatePlotHighlight = useCallback((sectorCode: string | null) => {
-    if (!plotRef.current || !plotReady) return;
-
-    // Find the trace and point to highlight
-    if (sectorCode) {
-      const sectorPoint = industryData.find(item => item.sector_code === sectorCode);
-      if (sectorPoint) {
-        // Find which trace contains this point
-        const sectorLabel = sectorPoint.labels;
-        const sectors = Array.from(new Set(industryData.map(d => d.labels))).sort();
-        const traceIndex = sectors.indexOf(sectorLabel);
-        
-        if (traceIndex !== -1) {
-          const sectorPoints = industryData.filter(d => d.labels === sectorLabel);
-          const pointIndex = sectorPoints.findIndex(p => p.sector_code === sectorCode);
-          
-          if (pointIndex !== -1) {
-            // Highlight the specific point
-            const update = {
-              'marker.size': [sectorPoints.map((_, i) => i === pointIndex ? 15 : 8)],
-              'marker.line.width': [sectorPoints.map((_, i) => i === pointIndex ? 3 : 1)],
-              'marker.line.color': [sectorPoints.map((_, i) => i === pointIndex ? '#FF6B6B' : '#333')]
-            };
-            
-            Plotly.restyle(plotRef.current, update, [traceIndex]);
-          }
-        }
-      }
-    } else {
-      // Reset all highlights
-      const sectors = Array.from(new Set(industryData.map(d => d.labels))).sort();
-      sectors.forEach((_, traceIndex) => {
-        const update = {
-          'marker.size': [8],
-          'marker.line.width': [1],
-          'marker.line.color': ['#333']
-        };
-        Plotly.restyle(plotRef.current, update, [traceIndex]);
-      });
-    }
-  }, [industryData, plotReady]);
-
   // Update highlighted sector when selectedSectorCode changes
   useEffect(() => {
+    if (!plotRef.current || !plotReady || !industryData.length) return;
+
     if (selectedSectorCode && industryData.length > 0) {
       // Find matching sector in the data - handle different code formats
       const matchingSector = industryData.find(item => {
@@ -153,13 +113,44 @@ export default function IndustryMapTab({
       
       if (matchingSector) {
         setHighlightedSector(matchingSector.sector_code);
-        updatePlotHighlight(matchingSector.sector_code);
+        
+        // Highlight the specific point
+        const sectorPoint = matchingSector;
+        const sectorLabel = sectorPoint.labels;
+        const sectors = Array.from(new Set(industryData.map(d => d.labels))).sort();
+        const traceIndex = sectors.indexOf(sectorLabel);
+        
+        if (traceIndex !== -1) {
+          const sectorPoints = industryData.filter(d => d.labels === sectorLabel);
+          const pointIndex = sectorPoints.findIndex(p => p.sector_code === matchingSector.sector_code);
+          
+          if (pointIndex !== -1) {
+            // Highlight the specific point
+            const update = {
+              'marker.size': [sectorPoints.map((_, i) => i === pointIndex ? 15 : 8)],
+              'marker.line.width': [sectorPoints.map((_, i) => i === pointIndex ? 3 : 1)],
+              'marker.line.color': [sectorPoints.map((_, i) => i === pointIndex ? '#FF6B6B' : '#333')]
+            };
+            
+            Plotly.restyle(plotRef.current, update, [traceIndex]);
+          }
+        }
       }
     } else {
       setHighlightedSector(null);
-      updatePlotHighlight(null);
+      
+      // Reset all highlights
+      const sectors = Array.from(new Set(industryData.map(d => d.labels))).sort();
+      sectors.forEach((_, traceIndex) => {
+        const update = {
+          'marker.size': [8],
+          'marker.line.width': [1],
+          'marker.line.color': ['#333']
+        };
+        Plotly.restyle(plotRef.current, update, [traceIndex]);
+      });
     }
-  }, [selectedSectorCode, industryData, updatePlotHighlight]);
+  }, [selectedSectorCode, industryData, plotReady]);
 
   // Handle plot clicks
   const handlePlotClick = useCallback((data: any) => {
