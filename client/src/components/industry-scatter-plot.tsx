@@ -44,12 +44,14 @@ export default function IndustryScatterPlot({
         Papa.parse(csvText, {
           header: true,
           skipEmptyLines: true,
+          quoteChar: '"',
+          escapeChar: '"',
           transformHeader: (header) => header.trim(),
           transform: (value, header) => {
             if (header === 'emb_x' || header === 'emb_y') {
               return parseFloat(value);
             }
-            return value?.replace(/^"(.*)"$/, '$1') || value; // Remove quotes
+            return value;
           },
           complete: (results) => {
             if (results.errors.length > 0) {
