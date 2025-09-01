@@ -6,12 +6,14 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
 import ClusteringPage from "@/pages/clustering";
 import MockTestPage from "@/pages/mock-test";
+import IndustryMapPage from "@/pages/industry-map";
 
 function Router() {
   return (
     <Switch>
       <Route path="/" component={ClusteringPage} />
       <Route path="/mock-test" component={MockTestPage} />
+      <Route path="/industry-map" component={IndustryMapPage} />
       <Route component={NotFound} />
     </Switch>
   );
