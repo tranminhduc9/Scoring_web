@@ -176,15 +176,16 @@ export default function ClusteringPage() {
                   </button>
                 </div>
                 <div className="h-[calc(100%-60px)]">
-                  {activeTab === "clustering" ? (
+                  <div style={{ display: activeTab === "clustering" ? 'block' : 'none' }}>
                     <ScatterPlot />
-                  ) : (
+                  </div>
+                  <div style={{ display: activeTab === "voronoi" ? 'block' : 'none' }}>
                     <IndustryVoronoiTab 
                       selectedSectorCode={selectedSectorCode}
                       onSectorCodeChange={setSelectedSectorCode}
-                      height={500}
+                      height={600}
                     />
-                  )}
+                  </div>
                 </div>
               </div>
             ) : (

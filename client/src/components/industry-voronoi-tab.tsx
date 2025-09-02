@@ -195,25 +195,62 @@ export default function IndustryVoronoiTab({
     }
   }, []);
 
-  // Improved data loading with better error handling
+  // Get clustering store to access current data
+  const { results: clusterResults } = useClusteringStore();
+
+  // Improved data loading with clustering data fallback
   useEffect(() => {
     const loadIndustryData = async () => {
       try {
         setLoading(true);
         setError(null);
         
-        // Check if file exists first
+        // First try to use clustering results if available
+        if (clusterResults && clusterResults.companies && Array.isArray(clusterResults.companies)) {
+          console.log('Using clustering data for Voronoi map:', clusterResults.companies.length, 'companies');
+          
+          const industryPoints: IndustryDataPoint[] = [];
+          
+          clusterResults.companies.forEach((company: any) => {
+            if (company.enterprise && Array.isArray(company.enterprise)) {
+              company.enterprise.forEach((enterprise: any) => {
+                if (enterprise.pca2_x !== undefined && enterprise.pca2_y !== undefined) {
+                  industryPoints.push({
+                    sector_code: enterprise.sector_unique_id?.toString() || company.sector_unique_id?.toString() || 'Unknown',
+                    full_id: `${company.sector_unique_id || 'UNK'}-${enterprise.taxcode || 'NOTAX'}`,
+                    field_name: enterprise.name || enterprise.sector_name || 'Unknown Field',
+                    labels: enterprise.sector_name || company.sector_name || 'Unknown Sector',
+                    emb_x: parseFloat(enterprise.pca2_x) || 0,
+                    emb_y: parseFloat(enterprise.pca2_y) || 0
+                  });
+                }
+              });
+            }
+          });
+          
+          if (industryPoints.length > 0) {
+            console.log('Created industry points from clustering data:', industryPoints.length);
+            setIndustryData(industryPoints);
+            
+            const cells = computeVoronoi(industryPoints);
+            if (cells.length > 0) {
+              setVoronoiCells(cells);
+              setLoading(false);
+              return;
+            }
+          }
+        }
+        
+        // Fallback to CSV file
+        console.log('Attempting to load from CSV file...');
         const response = await fetch('/attached_assets/industry_data.csv');
         if (!response.ok) {
-          if (response.status === 404) {
-            throw new Error('Industry data file not found. Please ensure industry_data.csv exists in attached_assets/');
-          }
-          throw new Error(`Failed to load data: ${response.status} ${response.statusText}`);
+          throw new Error('No data available. Please run clustering analysis first or ensure industry_data.csv exists.');
         }
         
         const csvText = await response.text();
         if (!csvText.trim()) {
-          throw new Error('Industry data file is empty');
+          throw new Error('CSV file is empty. Please run clustering analysis first.');
         }
         
         Papa.parse(csvText, {
@@ -246,10 +283,10 @@ export default function IndustryVoronoiTab({
               }) as IndustryDataPoint[];
               
               if (validData.length === 0) {
-                throw new Error('No valid data points found in CSV file');
+                throw new Error('No valid data points found. Please run clustering analysis first.');
               }
               
-              console.log('Loaded industry data:', validData.length, 'valid points');
+              console.log('Loaded industry data from CSV:', validData.length, 'valid points');
               setIndustryData(validData);
               
               // Compute Voronoi cells
@@ -280,7 +317,7 @@ export default function IndustryVoronoiTab({
     };
 
     loadIndustryData();
-  }, [computeVoronoi]);
+  }, [computeVoronoi, clusterResults]);
 
   // Improved sector highlighting
   useEffect(() => {

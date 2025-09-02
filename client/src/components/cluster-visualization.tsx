@@ -173,6 +173,12 @@ export default function ClusterVisualization({
       return;
     }
 
+    // Check if plot already exists to avoid recreation
+    if (plotReady && plotRef.current && (plotRef.current as any).data) {
+      console.log("🎨 Plot already exists, skipping recreation");
+      return;
+    }
+
     console.log("🎨 Creating visualization with", data.length, "data points");
 
     // Get unique clusters and define colors
@@ -348,11 +354,12 @@ export default function ClusterVisualization({
     return () => {
       if (plotRef.current) {
         try {
-          (plotRef.current as any).removeAllListeners('plotly_selected');
+          (plotRef.current as any).removeAllListeners?.('plotly_selected');
         } catch (e) {
           // Ignore cleanup errors
         }
-        Plotly.purge(plotRef.current);
+        // Don't purge on every cleanup to avoid losing plot when switching tabs
+        // Only purge when component is actually being destroyed
       }
     };
   }, [data, width, height]);
@@ -489,6 +496,19 @@ export default function ClusterVisualization({
     return () => {
       document.removeEventListener('fullscreenchange', handler);
       window.removeEventListener('resize', handler);
+    };
+  }, []);
+
+  // Cleanup on component unmount
+  useEffect(() => {
+    return () => {
+      if (plotRef.current) {
+        try {
+          Plotly.purge(plotRef.current);
+        } catch (e) {
+          console.warn('Plot cleanup error:', e);
+        }
+      }
     };
   }, []);
 
