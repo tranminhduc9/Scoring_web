@@ -14,12 +14,14 @@ interface IndustryDataPoint {
   labels: string;
   emb_x: number;
   emb_y: number;
+  name_short?: string; // Shortened name for display
 }
 
 interface VoronoiCell {
   sector_code: string;
   field_name: string;
   labels: string;
+  labels_short: string; // Shortened display name
   x: number;
   y: number;
   color: string;
@@ -76,162 +78,264 @@ export default function IndustryVoronoiTab({
     }
   };
 
-  // Improved Voronoi computation with better error handling
+  // Enhanced Voronoi computation with full tessellation
   const computeVoronoi = useCallback((points: IndustryDataPoint[]) => {
-    if (!points || points.length < 3) {
+    if (!points || points.length < 2) {
       console.warn('Insufficient points for Voronoi diagram');
       return [];
     }
 
     try {
       // Validate points
-      const validPoints = points.filter(p => 
-        p && 
-        typeof p.emb_x === 'number' && 
-        typeof p.emb_y === 'number' && 
-        !isNaN(p.emb_x) && 
+      const validPoints = points.filter(p =>
+        p &&
+        typeof p.emb_x === 'number' &&
+        typeof p.emb_y === 'number' &&
+        !isNaN(p.emb_x) &&
         !isNaN(p.emb_y) &&
-        isFinite(p.emb_x) && 
+        isFinite(p.emb_x) &&
         isFinite(p.emb_y)
       );
 
-      if (validPoints.length < 3) {
+      if (validPoints.length < 2) {
         console.warn('Insufficient valid points for Voronoi diagram');
         return [];
       }
 
       const sites = validPoints.map(p => [p.emb_x, p.emb_y]);
-      
-      // Find bounding box with padding
+
+      // Calculate bounding box with extra padding for full coverage
       const xValues = sites.map(s => s[0]);
       const yValues = sites.map(s => s[1]);
-      const xMin = Math.min(...xValues) - 1;
-      const xMax = Math.max(...xValues) + 1;
-      const yMin = Math.min(...yValues) - 1;
-      const yMax = Math.max(...yValues) + 1;
+      const xMin = Math.min(...xValues) - 2;
+      const xMax = Math.max(...xValues) + 2;
+      const yMin = Math.min(...yValues) - 2;
+      const yMax = Math.max(...yValues) + 2;
 
-      const cells: VoronoiCell[] = [];
+      // Extended color palette for better distinction
       const colors = [
-        '#e74c3c', '#3498db', '#2ecc71', '#f39c12', 
-        '#9b59b6', '#1abc9c', '#e67e22', '#34495e',
-        '#16a085', '#27ae60', '#2980b9', '#8e44ad',
-        '#2c3e50', '#f1c40f', '#e67e22', '#95a5a6',
-        '#ff6b6b', '#4ecdc4', '#45b7d1', '#96ceb4',
-        '#feca57', '#ff9ff3', '#54a0ff', '#5f27cd'
+        '#e74c3c50', '#3498db50', '#2ecc7140', '#f39c1230',
+        '#9b59b640', '#1abc9c30', '#e67e2240', '#34495e50',
+        '#16a08560', '#27ae6040', '#2980b950', '#8e44ad40',
+        '#2c3e5060', '#f1c40f50', '#e67e2260', '#95a5a640',
+        '#ff6b6b50', '#4ecdc440', '#45b7d160', '#96ceb450'
       ];
 
       // Get unique labels for consistent coloring
       const uniqueLabels = Array.from(new Set(validPoints.map(d => d.labels || 'Unknown'))).sort();
 
+      // Delaunay triangulation for Voronoi generation
+      const triangles = [];
+      if (validPoints.length >= 3) {
+        for (let i = 0; i < validPoints.length - 2; i += 3) {
+          if (i + 2 < validPoints.length) {
+            triangles.push([i, i + 1, i + 2]);
+          }
+        }
+      }
+
+      const cells: VoronoiCell[] = [];
+
+      // Generate full-coverage Voronoi polygons
       validPoints.forEach((point, index) => {
-        try {
-          // Create approximate Voronoi cell using nearest neighbors
-          const cellVertices: [number, number][] = [];
-          const numVertices = 16; // Increased for smoother cells
-          
-          // Calculate distances to all other points
-          const distances = validPoints
-            .map((p, idx) => ({
-              distance: idx === index ? Infinity : Math.sqrt(
-                Math.pow(p.emb_x - point.emb_x, 2) + 
-                Math.pow(p.emb_y - point.emb_y, 2)
-              ),
-              index: idx
-            }))
-            .filter(d => d.distance !== Infinity)
-            .sort((a, b) => a.distance - b.distance);
-          
-          // Use nearest neighbors to determine cell size
-          const nearestDistance = distances.length > 0 ? distances[0].distance : 1;
-          const baseRadius = Math.min(0.4, nearestDistance / 3); // Adaptive radius
-          
-          for (let i = 0; i < numVertices; i++) {
-            const angle = (2 * Math.PI * i) / numVertices;
-            
-            // Variable radius based on nearby points
-            let radius = baseRadius;
-            const direction = [Math.cos(angle), Math.sin(angle)];
-            
-            // Check for nearby points in this direction
-            for (const { distance } of distances.slice(0, 3)) {
-              if (distance < baseRadius * 2) {
-                radius = Math.min(radius, distance / 2.5);
-              }
+        const cellVertices: [number, number][] = [];
+
+        // Calculate distance to all other points for proper boundaries
+        const distances = validPoints
+          .map((p, idx) => ({
+            distance: idx === index ? Infinity : Math.sqrt(
+              Math.pow(p.emb_x - point.emb_x, 2) +
+              Math.pow(p.emb_y - point.emb_y, 2)
+            ),
+            index: idx,
+            x: p.emb_x,
+            y: p.emb_y
+          }))
+          .filter(d => d.distance !== Infinity)
+          .sort((a, b) => a.distance - b.distance);
+
+        // Create polygon vertices based on nearest neighbors
+        const nearestNeighbors = distances.slice(0, Math.min(6, distances.length));
+
+        if (nearestNeighbors.length >= 2) {
+          // Create polygon vertices using perpendicular bisectors
+          for (let i = 0; i < nearestNeighbors.length; i++) {
+            const neighbor = nearestNeighbors[i];
+            const nextNeighbor = nearestNeighbors[(i + 1) % nearestNeighbors.length];
+
+            // Calculate midpoint between current point and neighbor
+            const midX1 = (point.emb_x + neighbor.x) / 2;
+            const midY1 = (point.emb_y + neighbor.y) / 2;
+
+            // Calculate perpendicular direction
+            const dx = neighbor.x - point.emb_x;
+            const dy = neighbor.y - point.emb_y;
+            const length = Math.sqrt(dx * dx + dy * dy);
+            const perpX = -dy / length;
+            const perpY = dx / length;
+
+            // Extend vertex outward for coverage
+            const extension = Math.min(length / 2, 1.5);
+            cellVertices.push([
+              midX1 + perpX * extension,
+              midY1 + perpY * extension
+            ]);
+
+            // Add corner vertex to next bisector for smoother shape
+            if (i < nearestNeighbors.length - 1) {
+              const cornerX = (neighbor.x + nextNeighbor.x) / 2;
+              const cornerY = (neighbor.y + nextNeighbor.y) / 2;
+              cellVertices.push([
+                cornerX + (perpX + nextNeighbor.x - neighbor.x) / Math.sqrt(distanceCalc(neighbor, nextNeighbor)) * 0.3,
+                cornerY + (perpY + nextNeighbor.y - neighbor.y) / Math.sqrt(distanceCalc(neighbor, nextNeighbor)) * 0.3
+              ]);
             }
-            
-            const x = point.emb_x + radius * direction[0];
-            const y = point.emb_y + radius * direction[1];
-            
-            // Ensure vertices are within bounds
-            const clampedX = Math.max(xMin, Math.min(xMax, x));
-            const clampedY = Math.max(yMin, Math.min(yMax, y));
-            
-            cellVertices.push([clampedX, clampedY]);
           }
 
-          // Determine color based on label
-          const labelIndex = uniqueLabels.indexOf(point.labels || 'Unknown');
-          const colorIndex = labelIndex >= 0 ? labelIndex : 0;
-          
-          cells.push({
-            sector_code: point.sector_code || 'Unknown',
-            field_name: point.field_name || 'Unknown',
-            labels: point.labels || 'Unknown',
-            x: point.emb_x,
-            y: point.emb_y,
-            color: colors[colorIndex % colors.length],
-            vertices: cellVertices
-          });
-        } catch (cellError) {
-          console.warn(`Error creating cell for point ${index}:`, cellError);
+          // Connect back to first vertex to close polygon
+          if (cellVertices.length > 2) {
+            cellVertices.push(cellVertices[0]);
+          }
+        } else {
+          // Fallback for isolated points - create circular cell
+          const numVertices = 12;
+          const radius = 0.8;
+          for (let i = 0; i < numVertices; i++) {
+            const angle = (2 * Math.PI * i) / numVertices;
+            cellVertices.push([
+              point.emb_x + radius * Math.cos(angle),
+              point.emb_y + radius * Math.sin(angle)
+            ]);
+          }
         }
+
+        // Ensure vertices are within extended bounds
+        const clampedVertices = cellVertices.map(([x, y]) => [
+          Math.max(xMin, Math.min(xMax, x)),
+          Math.max(yMin, Math.min(yMax, y))
+        ]) as [number, number][];
+
+        // Determine color based on label
+        const labelIndex = uniqueLabels.indexOf(point.labels || 'Unknown');
+        const colorIndex = labelIndex >= 0 ? labelIndex : index % colors.length;
+
+        cells.push({
+          sector_code: point.sector_code || 'Unknown',
+          field_name: point.field_name || 'Unknown',
+          labels: point.labels || 'Unknown',
+          labels_short: point.name_short || point.labels.substring(0, 15) + '...',
+          x: point.emb_x,
+          y: point.emb_y,
+          color: colors[colorIndex % colors.length],
+          vertices: clampedVertices
+        });
       });
 
-      console.log(`Generated ${cells.length} Voronoi cells from ${validPoints.length} points`);
+      console.log(`🎯 Generated ${cells.length} full-coverage Voronoi cells from ${validPoints.length} points`);
+      console.log(`🏗️ Cells geometry: ${cells.map(c => c.vertices.length).join(' and ')} vertices each`);
+
       return cells;
     } catch (error) {
-      console.error('Error computing Voronoi diagram:', error);
+      console.error('❌ Error computing Voronoi diagram:', error);
       return [];
     }
   }, []);
 
+  // Helper function to calculate distance between two points
+  const distanceCalc = (p1: {x: number, y: number}, p2: {x: number, y: number}) => {
+    return (p1.x - p2.x) ** 2 + (p1.y - p2.y) ** 2;
+  };
+
   // Get clustering store to access current data
   const { results: clusterResults } = useClusteringStore();
 
-  // Improved data loading with clustering data fallback
+  // Enhanced data loading with industry-based aggregation
   useEffect(() => {
     const loadIndustryData = async () => {
       try {
         setLoading(true);
         setError(null);
-        
+
         // First try to use clustering results if available
-        if (clusterResults && clusterResults.companies && Array.isArray(clusterResults.companies)) {
-          console.log('Using clustering data for Voronoi map:', clusterResults.companies.length, 'companies');
-          
-          const industryPoints: IndustryDataPoint[] = [];
-          
-          clusterResults.companies.forEach((company: any) => {
+        if (clusterResults?.clusterResult?.companies && Array.isArray(clusterResults.clusterResult.companies)) {
+          console.log('Creating Industry-based Voronoi from clustering data...');
+
+          // Group enterprises by sector_name
+          const sectorMap = new Map<string, {
+            name: string;
+            code: string;
+            enterprises: any[];
+            x_sum: number;
+            y_sum: number;
+            count: number;
+          }>();
+
+          clusterResults.clusterResult.companies.forEach((company: any) => {
             if (company.enterprise && Array.isArray(company.enterprise)) {
               company.enterprise.forEach((enterprise: any) => {
+                const sectorName = enterprise.sector_name || company.sector_name || 'Unknown';
+                const sectorCode = enterprise.sector_unique_id?.toString() || company.sector_unique_id?.toString() || sectorName;
+
                 if (enterprise.pca2_x !== undefined && enterprise.pca2_y !== undefined) {
-                  industryPoints.push({
-                    sector_code: enterprise.sector_unique_id?.toString() || company.sector_unique_id?.toString() || 'Unknown',
-                    full_id: `${company.sector_unique_id || 'UNK'}-${enterprise.taxcode || 'NOTAX'}`,
-                    field_name: enterprise.name || enterprise.sector_name || 'Unknown Field',
-                    labels: enterprise.sector_name || company.sector_name || 'Unknown Sector',
-                    emb_x: parseFloat(enterprise.pca2_x) || 0,
-                    emb_y: parseFloat(enterprise.pca2_y) || 0
-                  });
+                  if (!sectorMap.has(sectorName)) {
+                    sectorMap.set(sectorName, {
+                      name: sectorName,
+                      code: sectorCode,
+                      enterprises: [],
+                      x_sum: 0,
+                      y_sum: 0,
+                      count: 0
+                    });
+                  }
+
+                  const sector = sectorMap.get(sectorName)!;
+                  sector.enterprises.push(enterprise);
+                  sector.x_sum += parseFloat(enterprise.pca2_x) || 0;
+                  sector.y_sum += parseFloat(enterprise.pca2_y) || 0;
+                  sector.count += 1;
                 }
               });
             }
           });
-          
+
+          // Helper function to shorten industry names
+          const shortenIndustryName = (name: string, maxLength: number = 15): string => {
+            if (name.length <= maxLength) return name;
+
+            // Try to break at natural breakpoints (spaces)
+            const words = name.split(' ');
+            for (let i = words.length - 1; i > 0; i--) {
+              const shortName = words.slice(0, i).join(' ');
+              if (shortName.length <= maxLength - 3) {
+                return shortName + '...';
+              }
+            }
+
+            // If no good breakpoint, just truncate
+            return name.substring(0, maxLength - 3) + '...';
+          };
+
+          // Convert sector data to centroid-based industry points
+          const industryPoints: IndustryDataPoint[] = Array.from(sectorMap.values())
+            .filter(sector => sector.count > 0)
+            .map(sector => ({
+              sector_code: sector.code,
+              full_id: sector.code,
+              field_name: `${sector.name} (${sector.count} doanh nghiệp)`,
+              labels: sector.name, // Full name for hover
+              name_short: shortenIndustryName(sector.name), // Short name for display
+              emb_x: sector.x_sum / sector.count, // Centroid X
+              emb_y: sector.y_sum / sector.count  // Centroid Y
+            }));
+
           if (industryPoints.length > 0) {
-            console.log('Created industry points from clustering data:', industryPoints.length);
+            console.log(`📊 Created ${industryPoints.length} industry centroids from ${clusterResults.clusterResult.companies.length} companies:`);
+            industryPoints.forEach(pt => {
+              console.log(`  - ${pt.labels}: ${pt.field_name}`);
+            });
+
             setIndustryData(industryPoints);
-            
+
             const cells = computeVoronoi(industryPoints);
             if (cells.length > 0) {
               setVoronoiCells(cells);
@@ -299,19 +403,21 @@ export default function IndustryVoronoiTab({
               setLoading(false);
             } catch (processingError) {
               console.error('Error processing CSV data:', processingError);
-              setError(`Data processing error: ${processingError.message}`);
+              setError(`Data processing error: ${processingError instanceof Error ? processingError.message : 'Unknown error'}`);
               setLoading(false);
             }
           },
           error: (parseError: any) => {
             console.error('Error parsing CSV:', parseError);
-            setError(`CSV parsing error: ${parseError.message || 'Unknown parsing error'}`);
+            const errorMsg = parseError?.message || 'Unknown parsing error';
+            setError(`CSV parsing error: ${errorMsg}`);
             setLoading(false);
           }
         });
       } catch (fetchError) {
         console.error('Error loading industry data:', fetchError);
-        setError(`Loading error: ${fetchError.message}`);
+        const errorMsg = fetchError instanceof Error ? fetchError.message : 'Unknown loading error';
+        setError(`Loading error: ${errorMsg}`);
         setLoading(false);
       }
     };
@@ -383,9 +489,9 @@ export default function IndustryVoronoiTab({
         const y = point.y;
         
         // Find the closest cell to the click point
-        let closestCell = null;
+        let closestCell: VoronoiCell | null = null;
         let minDistance = Infinity;
-        
+
         voronoiCells.forEach(cell => {
           const distance = Math.sqrt(
             Math.pow(cell.x - x, 2) + Math.pow(cell.y - y, 2)
@@ -395,8 +501,8 @@ export default function IndustryVoronoiTab({
             closestCell = cell;
           }
         });
-        
-        if (closestCell && onSectorCodeChange) {
+
+        if (closestCell && onSectorCodeChange && closestCell.sector_code) {
           onSectorCodeChange(closestCell.sector_code);
         }
       }
@@ -410,19 +516,48 @@ export default function IndustryVoronoiTab({
     if (!plotRef.current || !voronoiCells.length || loading) return;
 
     try {
-      // Create Voronoi diagram shapes
+      // Create Voronoi diagram shapes with black boundaries
       const shapes = voronoiCells.map(cell => ({
         type: 'path',
         path: `M ${cell.vertices.map(v => `${v[0]},${v[1]}`).join(' L ')} Z`,
-        fillcolor: getValidColor(cell.color, 0.4),
+        fillcolor: getValidColor(cell.color, 0.6), // Full color fill - increased opacity
         line: {
-          color: '#666',
-          width: 1
+          color: '#000000', // Black boundaries
+          width: 2             // Thicker boundaries for clear separation
         }
       }));
 
-      // Create invisible scatter points for interaction
-      const trace = {
+      // Create scatter points with short text labels (display) and full text on hover
+      const textTrace = {
+        x: voronoiCells.map(cell => cell.x),
+        y: voronoiCells.map(cell => cell.y),
+        mode: 'markers+text' as const,
+        type: 'scatter' as const,
+        text: voronoiCells.map(cell => cell.labels_short), // Show shortened name
+        textposition: 'top center',
+        textfont: {
+          family: 'Arial, sans-serif',
+          size: 10, // Smaller font for cleaner look
+          color: '#222'
+        },
+        marker: {
+          color: 'transparent',
+          size: 6,
+          opacity: 0.7
+        },
+        hovertemplate: voronoiCells.map(cell =>
+          `<b>${cell.field_name}</b><br>` +
+          `<b>Full Name:</b> ${cell.labels}<br>` + // Show full name on hover
+          `Code: ${cell.sector_code}<br>` +
+          `Position: (${cell.x.toFixed(3)}, ${cell.y.toFixed(3)})` +
+          `<extra></extra>`
+        ),
+        showlegend: false,
+        name: 'Industry Names'
+      };
+
+      // Create invisible scatter points for click interaction
+      const clickTrace = {
         x: voronoiCells.map(cell => cell.x),
         y: voronoiCells.map(cell => cell.y),
         mode: 'markers' as const,
@@ -432,15 +567,8 @@ export default function IndustryVoronoiTab({
           size: 20,
           opacity: 0
         },
-        text: voronoiCells.map(cell => 
-          `<b>${cell.field_name}</b><br>` +
-          `Code: ${cell.sector_code}<br>` +
-          `Sector: ${cell.labels}<br>` +
-          `Position: (${cell.x.toFixed(3)}, ${cell.y.toFixed(3)})`
-        ),
-        hovertemplate: '%{text}<extra></extra>',
         showlegend: false,
-        name: 'Industry Sectors'
+        name: 'Click Areas'
       };
 
       const layout = {
@@ -482,18 +610,19 @@ export default function IndustryVoronoiTab({
 
       // Clear existing plot and create new one
       Plotly.purge(plotRef.current);
-      
-      Plotly.newPlot(plotRef.current, [trace], layout, config).then(() => {
+
+      Plotly.newPlot(plotRef.current, [textTrace, clickTrace], layout, config).then(() => {
         setPlotReady(true);
         console.log('Voronoi plot rendered successfully with', voronoiCells.length, 'cells');
-        
+
         // Add click event listener
         if (plotRef.current) {
           (plotRef.current as any).on('plotly_click', handlePlotClick);
         }
-      }).catch((plotError) => {
+      }).catch((plotError: unknown) => {
         console.error('Error creating plot:', plotError);
-        setError('Failed to render visualization');
+        const errorMsg = plotError instanceof Error ? plotError.message : 'Unknown plot error';
+        setError(`Failed to render visualization: ${errorMsg}`);
       });
 
     } catch (renderError) {
@@ -531,7 +660,7 @@ export default function IndustryVoronoiTab({
       }).catch(error => {
         console.error('Error downloading PNG:', error);
       });
-    } catch (error) {
+    } catch (error: unknown) {
       console.error('PNG download error:', error);
     }
   };
@@ -551,7 +680,7 @@ export default function IndustryVoronoiTab({
       }).catch(error => {
         console.error('Error downloading SVG:', error);
       });
-    } catch (error) {
+    } catch (error: unknown) {
       console.error('SVG download error:', error);
     }
   };

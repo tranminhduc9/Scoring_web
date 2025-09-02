@@ -4,6 +4,7 @@ import FileUploadZone from "@/components/file-upload-zone";
 import ClusteringForm from "@/components/clustering-form";
 import ScatterPlot from "@/components/scatter-plot";
 import IndustryVoronoiTab from "@/components/industry-voronoi-tab";
+import InteractiveZoomSpace from "@/components/interactive-zoom-space";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
@@ -23,7 +24,7 @@ export default function ClusteringPage() {
     clearError,
   } = useClusteringStore();
 
-  const [activeTab, setActiveTab] = useState<"clustering" | "voronoi">("clustering");
+  const [activeTab, setActiveTab] = useState<"clustering" | "voronoi" | "zoom">("clustering");
   const [selectedSectorCode, setSelectedSectorCode] = useState<string>("");
 
   const canRunClustering = !isRunning;
@@ -31,6 +32,129 @@ export default function ClusteringPage() {
   useEffect(() => {
     document.title = "Enterprise Clustering Analytics Platform";
   }, []);
+
+  // Enhanced wrapper to transform clustering results for InteractiveZoomSpace component
+  const InteractiveZoomSpaceWrapper = ({ results, height }: { results: any; height: number }) => {
+    if (!results || !results.clusterResult?.companies) {
+      console.warn('No clustering results or companies data found');
+      return <div className="text-center text-muted-foreground p-8">No data available for zoom space</div>;
+    }
+
+    const transformedData: any[] = [];
+    let pointIndex = 0;
+    let totalPoints = 0;
+    let validPoints = 0;
+
+    console.log('🚀 Interactive Zoom Space: Transforming clustering data...');
+    console.log('📊 Total companies:', results.clusterResult.companies.length);
+
+    results.clusterResult.companies.forEach((company: any) => {
+      if (company.enterprise && Array.isArray(company.enterprise)) {
+        company.enterprise.forEach((enterprise: any) => {
+          totalPoints++;
+
+          // Enhanced coordinate extraction - prioritize PCA coordinates over embedding
+          const pcaX = typeof enterprise.pca2_x === 'number' ? enterprise.pca2_x :
+                       (enterprise.pca?.x || 0);
+          const pcaY = typeof enterprise.pca2_y === 'number' ? enterprise.pca2_y :
+                       (enterprise.pca?.y || 0);
+
+          // Fallback to first two embedding values if PCA not available
+          const finalX = pcaX !== 0 ? pcaX : (enterprise.embedding?.[0] || 0);
+          const finalY = pcaY !== 0 ? pcaY : (enterprise.embedding?.[1] || 0);
+
+          // Enhanced cluster label detection
+          const clusterLabel = enterprise.cluster ??
+                              enterprise.Label ??
+                              enterprise.cluster_label ??
+                              0;
+
+          // Calculate size using multiple factors for better visualization
+          let calculatedSize = 0.5;
+
+          // Size based on embedding magnitude (if available)
+          if (enterprise.embedding && Array.isArray(enterprise.embedding) && enterprise.embedding.length > 2) {
+            const magnitude = Math.sqrt(
+              enterprise.embedding.reduce((sum: number, val: number) => sum + (val * val), 0)
+            );
+            calculatedSize = Math.max(0.2, Math.min(2.0, magnitude / 10));
+          }
+
+          // Size based on employee count (if available)
+          if (enterprise.empl_qtty || enterprise.employees) {
+            const empSize = Math.log10((enterprise.empl_qtty || enterprise.employees || 1) + 1) * 0.1;
+            calculatedSize = Math.max(calculatedSize, empSize);
+          }
+
+          // Size based on business metrics (if available)
+          if (enterprise.s_DT_TTM || enterprise.s_EMPL || enterprise.s_TTS || enterprise.s_VCSH) {
+            const metricSum = (enterprise.s_DT_TTM || 0) +
+                          (enterprise.s_EMPL || 0) +
+                          (enterprise.s_TTS || 0) +
+                          (enterprise.s_VCSH || 0);
+            if (metricSum > 0) {
+              calculatedSize *= Math.min(1.5, Math.max(0.5, metricSum / 100));
+            }
+          }
+
+          // Validate that we have meaningful coordinates
+          const hasValidCoords = finalX !== 0 || finalY !== 0;
+
+          if (hasValidCoords) {
+            transformedData.push({
+              x: finalX,
+              y: finalY,
+              z: calculatedSize, // Use as third dimension in 3D view
+              cluster: Number(clusterLabel), // Ensure numeric cluster ID
+              size: Math.max(0.1, calculatedSize * 10), // Scale for visibility
+              index: pointIndex,
+              info: {
+                name: enterprise.name || enterprise.company_name || 'Unknown Company',
+                taxcode: enterprise.taxcode || '',
+                sector: enterprise.sector_name || company.sector_name || '',
+                sector_unique_id: enterprise.sector_unique_id || company.sector_unique_id || '',
+                employees: enterprise.empl_qtty || enterprise.employees || 0,
+                year: enterprise.yearreport || enterprise.year_report || 0,
+                revenue: enterprise.s_DT_TTM || 0,
+                assets: enterprise.s_VCSH || 0,
+                cluster_id: clusterLabel
+              }
+            });
+            validPoints++;
+            pointIndex++;
+          }
+        });
+      }
+    });
+
+    console.log('✅ Interactive Zoom Space: Data transformation completed');
+    console.log(`📊 Total points processed: ${totalPoints}`);
+    console.log(`🎯 Valid points created: ${validPoints}`);
+    console.log(`📈 Cluster distribution:`, transformedData.reduce((acc: {[key: string]: number}, pt) => {
+      acc[`C${pt.cluster}`] = (acc[`C${pt.cluster}`] || 0) + 1;
+      return acc;
+    }, {}));
+
+    if (transformedData.length === 0) {
+      console.warn('❌ No valid data points could be created for Interactive Zoom Space');
+      return <div className="text-center text-muted-foreground p-8">
+        No valid data points found. Please check that clustering completed successfully with valid coordinates.
+      </div>;
+    }
+
+    return (
+      <InteractiveZoomSpace
+        data={transformedData}
+        height={height}
+        title="Interactive Clustering Analysis"
+        is3D={true}
+        onSelectionChange={(points) => {
+          console.log(`🔥 Selected ${points.length} points for zoom/focus`);
+          console.log('📍 Selected points sample:', points.slice(0, 2));
+        }}
+      />
+    );
+  };
 
   return (
     <div className="h-screen flex flex-col lg:flex-row overflow-hidden bg-background">
@@ -164,15 +288,25 @@ export default function ClusteringPage() {
                   >
                     Cluster Visualization
                   </button>
-                  <button 
+                  <button
                     className={`px-4 py-2 font-medium border-b-2 transition-colors ${
-                      activeTab === "voronoi" 
-                        ? 'border-blue-500 text-blue-600' 
+                      activeTab === "voronoi"
+                        ? 'border-blue-500 text-blue-600'
                         : 'border-transparent text-gray-500 hover:text-gray-700'
                     }`}
                     onClick={() => setActiveTab("voronoi")}
                   >
                     Industry Voronoi Map
+                  </button>
+                  <button
+                    className={`px-4 py-2 font-medium border-b-2 transition-colors ${
+                      activeTab === "zoom"
+                        ? 'border-blue-500 text-blue-600'
+                        : 'border-transparent text-gray-500 hover:text-gray-700'
+                    }`}
+                    onClick={() => setActiveTab("zoom")}
+                  >
+                    Interactive Zoom Space
                   </button>
                 </div>
                 <div className="h-[calc(100%-60px)]">
@@ -180,11 +314,14 @@ export default function ClusteringPage() {
                     <ScatterPlot />
                   </div>
                   <div style={{ display: activeTab === "voronoi" ? 'block' : 'none' }}>
-                    <IndustryVoronoiTab 
+                    <IndustryVoronoiTab
                       selectedSectorCode={selectedSectorCode}
                       onSectorCodeChange={setSelectedSectorCode}
                       height={600}
                     />
+                  </div>
+                  <div style={{ display: activeTab === "zoom" ? 'block' : 'none' }}>
+                    <InteractiveZoomSpaceWrapper results={results} height={800} />
                   </div>
                 </div>
               </div>

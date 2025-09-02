@@ -32,9 +32,9 @@ interface InteractiveZoomSpaceProps {
   onSelectionChange?: (selectedPoints: DataPoint[]) => void;
 }
 
-export default function InteractiveZoomSpace({ 
+export default function InteractiveZoomSpace({
   data = [],
-  width = 800, 
+  width = 800,
   height = 600,
   title = "Interactive Clustering Space",
   is3D = true,
@@ -44,11 +44,12 @@ export default function InteractiveZoomSpace({
   const containerRef = useRef<HTMLDivElement>(null);
   const [plotReady, setPlotReady] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
-  const [activeTool, setActiveTool] = useState<"orbit" | "zoom" | "pan" | "select">("select");
+  const [activeTool, setActiveTool] = useState<"orbit" | "zoom" | "pan" | "rotate">("rotate");
   const [selectedArea, setSelectedArea] = useState<{xmin: number, xmax: number, ymin: number, ymax: number, zmin?: number, zmax?: number} | null>(null);
   const [scaleFactor, setScaleFactor] = useState([1]);
   const [selectedPoints, setSelectedPoints] = useState<DataPoint[]>([]);
   const [zoomHistory, setZoomHistory] = useState<any[]>([]);
+  const [filteredCluster, setFilteredCluster] = useState<number | null>(null);
 
   // Color palette for clusters
   const colors = [
@@ -57,21 +58,28 @@ export default function InteractiveZoomSpace({
     '#3F51B5', '#009688', '#CDDC39', '#FF7043'
   ];
 
+  // Get filtered data based on selected cluster
+  const getFilteredData = useCallback(() => {
+    return filteredCluster !== null ? data.filter(point => point.cluster === filteredCluster) : data;
+  }, [data, filteredCluster]);
+
   // Calculate scaled positions based on selection and scale factor
   const getScaledData = useCallback(() => {
-    if (!selectedArea || scaleFactor[0] === 1) return data;
+    const filteredData = getFilteredData();
+
+    if (!selectedArea || scaleFactor[0] === 1) return filteredData;
 
     const centerX = (selectedArea.xmin + selectedArea.xmax) / 2;
     const centerY = (selectedArea.ymin + selectedArea.ymax) / 2;
     const centerZ = is3D && selectedArea.zmin !== undefined && selectedArea.zmax !== undefined
-      ? (selectedArea.zmin + selectedArea.zmax) / 2 
+      ? (selectedArea.zmin + selectedArea.zmax) / 2
       : 0;
 
-    return data.map(point => {
+    return filteredData.map(point => {
       // Check if point is in selected area
       const inArea = point.x >= selectedArea.xmin && point.x <= selectedArea.xmax &&
                     point.y >= selectedArea.ymin && point.y <= selectedArea.ymax &&
-                    (!is3D || !selectedArea.zmin || !selectedArea.zmax || 
+                    (!is3D || !selectedArea.zmin || !selectedArea.zmax ||
                      (point.z !== undefined && point.z >= selectedArea.zmin && point.z <= selectedArea.zmax));
 
       if (!inArea) return point;
@@ -88,7 +96,7 @@ export default function InteractiveZoomSpace({
         z: is3D && point.z !== undefined ? centerZ + dz * scaleFactor[0] : point.z
       };
     });
-  }, [data, selectedArea, scaleFactor, is3D]);
+  }, [getFilteredData, selectedArea, scaleFactor, is3D]);
 
   // Create plot
   useEffect(() => {
@@ -178,7 +186,7 @@ export default function InteractiveZoomSpace({
         camera: {
           eye: { x: 1.5, y: 1.5, z: 1.5 }
         },
-        dragmode: activeTool === 'pan' ? 'pan' : activeTool === 'zoom' ? 'zoom' : activeTool === 'orbit' ? 'orbit' : 'select'
+        dragmode: activeTool === 'pan' ? 'pan' : activeTool === 'zoom' ? 'zoom' : activeTool === 'orbit' ? 'orbit' : 'rotate'
       };
     } else {
       layout.xaxis = {
@@ -272,7 +280,7 @@ export default function InteractiveZoomSpace({
       }
     };
 
-  }, [data, activeTool, getScaledData, is3D, title, onSelectionChange]);
+  }, [data, activeTool, getScaledData, is3D, title, onSelectionChange, filteredCluster]);
 
   // Save current zoom state
   const saveZoomState = () => {
@@ -406,35 +414,21 @@ export default function InteractiveZoomSpace({
     }, 100);
   };
 
-  // Focus on specific cluster
+  // Focus on specific cluster - Filter chỉ hiển thị cluster đó
   const focusOnCluster = (clusterId: number) => {
-    const clusterPoints = data.filter(d => d.cluster === clusterId);
-    if (clusterPoints.length === 0) return;
+    if (filteredCluster === clusterId) {
+      // Nếu nhấn lại cùng cluster -> reset filter
+      setFilteredCluster(null);
+      resetZoom();
+    } else {
+      // Set filter to new cluster
+      const clusterPoints = data.filter(d => d.cluster === clusterId);
+      if (clusterPoints.length === 0) return;
 
-    // Calculate bounding box of cluster
-    const xs = clusterPoints.map(p => p.x);
-    const ys = clusterPoints.map(p => p.y);
-    const zs = is3D ? clusterPoints.map(p => p.z || 0) : [];
-
-    const area = {
-      xmin: Math.min(...xs),
-      xmax: Math.max(...xs),
-      ymin: Math.min(...ys),
-      ymax: Math.max(...ys),
-      ...(is3D && zs.length > 0 && {
-        zmin: Math.min(...zs),
-        zmax: Math.max(...zs)
-      })
-    };
-
-    setSelectedArea(area);
-    setSelectedPoints(clusterPoints);
-    onSelectionChange?.(clusterPoints);
-    saveZoomState();
-    
-    setTimeout(() => {
-      zoomToSelection();
-    }, 100);
+      setFilteredCluster(clusterId);
+      setSelectedPoints(clusterPoints);
+      onSelectionChange?.(clusterPoints);
+    }
   };
 
   // Download functions
@@ -500,254 +494,280 @@ export default function InteractiveZoomSpace({
   }
 
   return (
-    <div className="w-full space-y-4" ref={containerRef}>
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <span>{title}</span>
-              {selectedPoints.length > 0 && (
-                <Badge variant="secondary">
-                  {selectedPoints.length} points selected
-                </Badge>
-              )}
-            </div>
-            
-            <div className="flex items-center gap-2 flex-wrap">
-              {/* Tool Selection */}
-              <div className="flex border rounded-md">
-                <Button
-                  variant={activeTool === "select" ? "default" : "ghost"}
-                  size="sm"
-                  onClick={() => setActiveTool("select")}
-                  className="rounded-r-none"
-                  title="Box Select Tool"
-                  data-testid="tool-select"
-                >
-                  <Square className="h-4 w-4" />
-                </Button>
-                {is3D && (
-                  <Button
-                    variant={activeTool === "orbit" ? "default" : "ghost"}
-                    size="sm"
-                    onClick={() => setActiveTool("orbit")}
-                    className="rounded-none border-l border-r"
-                    title="Orbit Tool"
-                    data-testid="tool-orbit"
-                  >
-                    <RotateCcw className="h-4 w-4" />
-                  </Button>
-                )}
-                <Button
-                  variant={activeTool === "pan" ? "default" : "ghost"}
-                  size="sm"
-                  onClick={() => setActiveTool("pan")}
-                  className={`${is3D ? 'rounded-none border-l border-r' : 'rounded-none border-l border-r'}`}
-                  title="Pan Tool"
-                  data-testid="tool-pan"
-                >
-                  <Move className="h-4 w-4" />
-                </Button>
-                <Button
-                  variant={activeTool === "zoom" ? "default" : "ghost"}
-                  size="sm"
-                  onClick={() => setActiveTool("zoom")}
-                  className="rounded-l-none"
-                  title="Zoom Tool"
-                  data-testid="tool-zoom"
-                >
-                  <ZoomIn className="h-4 w-4" />
-                </Button>
-              </div>
-
-              {/* Action Buttons */}
-              {selectedArea && (
-                <div className="flex gap-1">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={zoomToSelection}
-                    title="Zoom to selected area"
-                    data-testid="zoom-to-selection"
-                  >
-                    <Target className="h-4 w-4 mr-1" />
-                    Zoom In
-                  </Button>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={applySmartScaling}
-                    title="Apply smart scaling to enhance visual separation"
-                    data-testid="smart-scale"
-                  >
-                    <Expand className="h-4 w-4 mr-1" />
-                    Smart Scale
-                  </Button>
-                </div>
-              )}
-
-              {/* Navigation */}
-              <div className="flex gap-1">
-                {zoomHistory.length > 0 && (
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={goBackZoom}
-                    title="Go back to previous zoom"
-                    data-testid="zoom-back"
-                  >
-                    ← Back
-                  </Button>
-                )}
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={resetZoom}
-                  title="Reset to original view"
-                  data-testid="reset-zoom"
-                >
-                  <RotateCcw className="h-4 w-4 mr-1" />
-                  Reset
-                </Button>
-              </div>
-
-              {/* Download Options */}
-              <div className="flex gap-1">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={downloadPNG}
-                  disabled={!plotReady}
-                  title="Download as PNG"
-                  data-testid="download-png"
-                >
-                  <Download className="h-4 w-4 mr-1" />
-                  PNG
-                </Button>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={downloadSVG}
-                  disabled={!plotReady}
-                  title="Download as SVG"
-                  data-testid="download-svg"
-                >
-                  <FileImage className="h-4 w-4 mr-1" />
-                  SVG
-                </Button>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={toggleFullscreen}
-                  title={isFullscreen ? "Exit fullscreen" : "Fullscreen"}
-                  data-testid="fullscreen"
-                >
-                  <Maximize className="h-4 w-4 mr-1" />
-                  {isFullscreen ? 'Exit' : 'Full'}
-                </Button>
-              </div>
-            </div>
-          </CardTitle>
-        </CardHeader>
-        
-        <CardContent className="space-y-4">
-          {/* Controls Panel */}
-          <div className="flex flex-wrap items-center gap-4 p-4 bg-muted/50 rounded-lg">
-            {/* Scale Factor Control */}
-            {selectedArea && (
-              <div className="flex items-center gap-3 min-w-[200px]">
-                <label className="text-sm font-medium whitespace-nowrap">
-                  Scale Factor: {scaleFactor[0].toFixed(1)}x
-                </label>
-                <Slider
-                  value={scaleFactor}
-                  onValueChange={setScaleFactor}
-                  min={0.1}
-                  max={5}
-                  step={0.1}
-                  className="flex-1"
-                  data-testid="scale-slider"
-                />
-              </div>
-            )}
-
-            {/* Cluster Quick Select */}
-            <div className="flex items-center gap-2">
-              <span className="text-sm font-medium">Quick Focus:</span>
-              <div className="flex gap-1">
-                {clusters.slice(0, 6).map((clusterId, index) => (
-                  <Button
-                    key={clusterId}
-                    variant="outline"
-                    size="sm"
-                    onClick={() => focusOnCluster(clusterId)}
-                    style={{ 
-                      backgroundColor: selectedPoints.some(p => p.cluster === clusterId) 
-                        ? colors[index % colors.length] 
-                        : 'transparent',
-                      color: selectedPoints.some(p => p.cluster === clusterId) ? 'white' : undefined
-                    }}
-                    title={`Focus on Cluster ${clusterId}`}
-                    data-testid={`focus-cluster-${clusterId}`}
-                  >
-                    C{clusterId}
-                  </Button>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Info Panel */}
-          {selectedArea && selectedPoints.length > 0 && (
-            <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
-                <div>
-                  <strong>Selection Info:</strong><br/>
-                  {selectedPoints.length} points selected<br/>
-                  Range X: [{selectedArea.xmin.toFixed(2)}, {selectedArea.xmax.toFixed(2)}]<br/>
-                  Range Y: [{selectedArea.ymin.toFixed(2)}, {selectedArea.ymax.toFixed(2)}]
-                  {is3D && selectedArea.zmin !== undefined && selectedArea.zmax !== undefined && (
-                    <>Range Z: [{selectedArea.zmin.toFixed(2)}, {selectedArea.zmax.toFixed(2)}]</>
+    <div className="w-full h-full" ref={containerRef}>
+      {/* Scrollable Container */}
+      <div className="h-full overflow-y-auto overflow-x-hidden">
+        <div className="w-full space-y-4 pb-6">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <span>{title}</span>
+                  {selectedPoints.length > 0 && (
+                    <Badge variant="secondary">
+                      {selectedPoints.length} points selected
+                    </Badge>
                   )}
                 </div>
-                <div>
-                  <strong>Clusters in Selection:</strong><br/>
-                  {Array.from(new Set(selectedPoints.map(p => p.cluster))).sort().map(c => (
-                    <Badge key={c} variant="outline" className="mr-1 mb-1">
-                      C{c}: {selectedPoints.filter(p => p.cluster === c).length}
-                    </Badge>
-                  ))}
+
+                <div className="flex items-center gap-2 flex-wrap">
+                  {/* Tool Selection */}
+                  <div className="flex border rounded-md">
+                    <Button
+                      variant={activeTool === "pan" ? "default" : "ghost"}
+                      size="sm"
+                      onClick={() => setActiveTool("pan")}
+                      className="rounded-r-none"
+                      title="Pan Tool - Di chuyển biểu đồ"
+                      data-testid="tool-pan"
+                    >
+                      <Move className="h-4 w-4" />
+                    </Button>
+                    <Button
+                      variant={activeTool === "zoom" ? "default" : "ghost"}
+                      size="sm"
+                      onClick={() => setActiveTool("zoom")}
+                      className={is3D ? "rounded-none border-l border-r" : "rounded-l-none"}
+                      title="Zoom Tool"
+                      data-testid="tool-zoom"
+                    >
+                      <ZoomIn className="h-4 w-4" />
+                    </Button>
+                    {is3D && (
+                      <Button
+                        variant={activeTool === "orbit" ? "default" : "ghost"}
+                        size="sm"
+                        onClick={() => setActiveTool("orbit")}
+                        className="rounded-l-none"
+                        title="Orbit Tool"
+                        data-testid="tool-orbit"
+                      >
+                        <RotateCcw className="h-4 w-4" />
+                      </Button>
+                    )}
+                  </div>
+
+                  {/* Navigation */}
+                  <div className="flex gap-1">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={function() {
+                        setFilteredCluster(null);
+                        setSelectedPoints([]);
+                        onSelectionChange?.([]);
+                        resetZoom();
+                      }}
+                      title="Reset to show all clusters"
+                      data-testid="reset-view"
+                    >
+                      <RotateCcw className="h-4 w-4 mr-1" />
+                      Show All
+                    </Button>
+                  </div>
+
+                  {/* Download Options */}
+                  <div className="flex gap-1">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={downloadPNG}
+                      disabled={!plotReady}
+                      title="Download as PNG"
+                      data-testid="download-png"
+                    >
+                      <Download className="h-4 w-4 mr-1" />
+                      PNG
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={downloadSVG}
+                      disabled={!plotReady}
+                      title="Download as SVG"
+                      data-testid="download-svg"
+                    >
+                      <FileImage className="h-4 w-4 mr-1" />
+                      SVG
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={toggleFullscreen}
+                      title={isFullscreen ? "Exit fullscreen" : "Fullscreen"}
+                      data-testid="fullscreen"
+                    >
+                      <Maximize className="h-4 w-4 mr-1" />
+                      {isFullscreen ? 'Exit' : 'Full'}
+                    </Button>
+                  </div>
                 </div>
-                <div>
-                  <strong>Scale Settings:</strong><br/>
-                  Current Scale: {scaleFactor[0].toFixed(1)}x<br/>
-                  Zoom History: {zoomHistory.length} levels
+              </CardTitle>
+            </CardHeader>
+
+            <CardContent className="space-y-4">
+              {/* Controls Panel */}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                <div className="p-4 bg-muted/50 rounded-lg">
+                  {/* Scale Factor Control */}
+                  {selectedArea && (
+                    <div className="flex items-center gap-3 min-w-[200px] mb-4">
+                      <label className="text-sm font-medium whitespace-nowrap">
+                        Scale Factor: {scaleFactor[0].toFixed(1)}x
+                      </label>
+                      <Slider
+                        value={scaleFactor}
+                        onValueChange={setScaleFactor}
+                        min={0.1}
+                        max={5}
+                        step={0.1}
+                        className="flex-1"
+                        data-testid="scale-slider"
+                      />
+                    </div>
+                  )}
+
+                  {/* Cluster Quick Select */}
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span className="text-sm font-medium">Quick Focus:</span>
+                    <div className="flex gap-1 flex-wrap">
+                      {clusters.slice(0, 10).map((clusterId, index) => (
+                        <Button
+                          key={clusterId}
+                          variant="outline"
+                          size="sm"
+                          onClick={() => focusOnCluster(clusterId)}
+                          style={{
+                            backgroundColor: selectedPoints.some(p => p.cluster === clusterId)
+                              ? colors[index % colors.length]
+                              : 'transparent',
+                            color: selectedPoints.some(p => p.cluster === clusterId) ? 'white' : undefined
+                          }}
+                          title={`Focus on Cluster ${clusterId}`}
+                          data-testid={`focus-cluster-${clusterId}`}
+                        >
+                          C{clusterId}
+                        </Button>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Info Panel - Make it expandable */}
+                <div className="space-y-2">
+                  <h3 className="text-sm font-medium text-muted-foreground">Selection Information</h3>
+                  <div className="p-3 bg-muted/30 rounded-lg text-xs">
+                    <div className="grid grid-cols-2 gap-2">
+                      <div>
+                        <strong>Points Selected:</strong><br/>
+                        {selectedPoints.length}
+                      </div>
+                      <div>
+                        <strong>Scale Factor:</strong><br/>
+                        {scaleFactor[0].toFixed(1)}x
+                      </div>
+                      <div>
+                        <strong>Zoom History:</strong><br/>
+                        {zoomHistory.length} levels
+                      </div>
+                      <div>
+                        <strong>Clusters Found:</strong><br/>
+                        {clusters.length}
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          )}
 
-          {/* Plot Container */}
-          <div 
-            className="border border-gray-200 rounded overflow-hidden" 
-            style={{ width: '100%', height: `${height}px` }}
-          >
-            <div
-              ref={plotRef}
-              className="w-full h-full"
-              data-testid="interactive-zoom-space"
-            />
-          </div>
+              {/* Plot Container - Make it larger and responsive */}
+              <div
+                className="border border-gray-200 rounded overflow-hidden mx-auto"
+                style={{
+                  width: '100%',
+                  height: Math.max(500, height),
+                  minHeight: '500px'
+                }}
+              >
+                <div
+                  ref={plotRef}
+                  className="w-full h-full"
+                  data-testid="interactive-zoom-space"
+                />
+              </div>
 
-          {/* Instructions */}
-          <div className="text-xs text-muted-foreground p-3 bg-muted/30 rounded">
-            <strong>Instructions:</strong> 
-            Use the Box Select tool to select a region → Click "Zoom In" to focus on the area → 
-            Adjust "Scale Factor" slider to increase visual separation between points → 
-            Use "Smart Scale" for automatic optimal scaling → Click cluster buttons for quick focus
-          </div>
-        </CardContent>
-      </Card>
+              {/* Detailed Info Panel */}
+              {selectedArea && selectedPoints.length > 0 && (
+                <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                  <h4 className="text-sm font-semibold mb-3">Detailed Selection Info</h4>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-xs">
+                    <div>
+                      <strong>Coordinate Ranges:</strong><br/>
+                      X: [{selectedArea.xmin.toFixed(2)}, {selectedArea.xmax.toFixed(2)}]<br/>
+                      Y: [{selectedArea.ymin.toFixed(2)}, {selectedArea.ymax.toFixed(2)}]<br/>
+                      {is3D && selectedArea.zmin !== undefined && selectedArea.zmax !== undefined && (
+                        <span>Z: [{selectedArea.zmin.toFixed(2)}, {selectedArea.zmax.toFixed(2)}]</span>
+                      )}
+                    </div>
+                    <div>
+                      <strong>Clusters Distribution:</strong><br/>
+                      <div className="flex flex-wrap gap-1 mt-1">
+                        {Array.from(new Set(selectedPoints.map(p => p.cluster))).sort().map(c => (
+                          <Badge key={c} variant="outline" className="text-xs">
+                            C{c}: {selectedPoints.filter(p => p.cluster === c).length}
+                          </Badge>
+                        ))}
+                      </div>
+                    </div>
+                    <div>
+                      <strong>Statistics:</strong><br/>
+                      Total selected: {selectedPoints.length}<br/>
+                      Average size: {(selectedPoints.reduce((sum, p) => sum + p.size, 0) / selectedPoints.length).toFixed(3)}<br/>
+                      Scale applied: {scaleFactor[0].toFixed(2)}x
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Instructions */}
+              <div className="text-xs text-muted-foreground p-3 bg-muted/30 rounded">
+                <strong>Hướng dẫn sử dụng mới:</strong><br/>
+
+                <div className="mt-2 space-y-1">
+                  <div><strong>🎯 Các nút C0, C1, C2... (Cluster Filter):</strong></div>
+                  <div className="ml-3 space-y-0.5">
+                    <div>• Nhấn C0: Chuyển sang chế độ chỉ xem Cluster 0</div>
+                    <div>• Bộ lọc chỉ hiển thị points thuộc cluster được chọn</div>
+                    <div>• Nút sẽ chuyển màu background khi được active</div>
+                    <div>• Click lại để bỏ filter và xem tất cả clusters</div>
+                    <div>• Dễ dàng switch giữa các clusters để phân tích riêng lẻ</div>
+                  </div>
+                </div>
+
+                <div className="mt-3 space-y-1">
+                  <div><strong>⚖️ Scale Factor Slider (Điều chỉnh khoảng cách):</strong></div>
+                  <div className="ml-3 space-y-0.5">
+                    <div>• Điều chỉnh từ 0.1x đến 5.0x để tăng khoảng cách giữa các điểm</div>
+                    <div>• 1.0x = Khoảng cách gốc, không thay đổi vị trí</div>
+                    <div>• 2.0x = Khoảng cách tăng gấp đôi từ tâm phân biệt rõ hơn</div>
+                    <div>• 3.0x = Khoảng cách tăng gấp ba - dễ observe individual points</div>
+                    <div>• Áp dụng realtime khi thay đổi</div>
+                  </div>
+                </div>
+
+                <div className="mt-3 space-y-1">
+                  <div><strong>🔄 Workflow đơn giản:</strong></div>
+                  <div className="ml-3 space-y-0.5">
+                    <div>1. Nhấn nút C0, C1, C2... để filter cluster muốn xem</div>
+                    <div>2. Dùng Scale Factor để tăng khoảng cách nếu cần phân biệt rõ hơn</div>
+                    <div>3. Click lại nút cluster để reset filter và xem tất cả</div>
+                    <div>4. Sử dụng Reset View để restore lại view gốc</div>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
     </div>
   );
 }
