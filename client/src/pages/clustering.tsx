@@ -1,8 +1,9 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useClusteringStore } from "../lib/clustering-store";
 import FileUploadZone from "@/components/file-upload-zone";
 import ClusteringForm from "@/components/clustering-form";
 import ScatterPlot from "@/components/scatter-plot";
+import IndustryVoronoiTab from "@/components/industry-voronoi-tab";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
@@ -21,6 +22,9 @@ export default function ClusteringPage() {
     runClustering,
     clearError,
   } = useClusteringStore();
+
+  const [activeTab, setActiveTab] = useState<"clustering" | "voronoi">("clustering");
+  const [selectedSectorCode, setSelectedSectorCode] = useState<string>("");
 
   const canRunClustering = !isRunning;
 
@@ -134,7 +138,7 @@ export default function ClusteringPage() {
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-4">
                 <h2 className="text-lg font-semibold text-foreground">
-                  Cluster Visualization
+                  Analysis Results
                 </h2>
                 {results && (
                   <div className="bg-muted px-3 py-1 rounded-full text-sm text-muted-foreground" data-testid="data-points-count">
@@ -145,9 +149,47 @@ export default function ClusteringPage() {
             </div>
           </div>
 
-          {/* Chart */}
+          {/* Chart with Tabs */}
           <div className="flex-1 p-4 lg:p-6">
-            <ScatterPlot />
+            {results ? (
+              <div className="w-full h-full">
+                <div className="flex border-b mb-4">
+                  <button 
+                    className={`px-4 py-2 font-medium border-b-2 transition-colors ${
+                      activeTab === "clustering" 
+                        ? 'border-blue-500 text-blue-600' 
+                        : 'border-transparent text-gray-500 hover:text-gray-700'
+                    }`}
+                    onClick={() => setActiveTab("clustering")}
+                  >
+                    Cluster Visualization
+                  </button>
+                  <button 
+                    className={`px-4 py-2 font-medium border-b-2 transition-colors ${
+                      activeTab === "voronoi" 
+                        ? 'border-blue-500 text-blue-600' 
+                        : 'border-transparent text-gray-500 hover:text-gray-700'
+                    }`}
+                    onClick={() => setActiveTab("voronoi")}
+                  >
+                    Industry Voronoi Map
+                  </button>
+                </div>
+                <div className="h-[calc(100%-60px)]">
+                  {activeTab === "clustering" ? (
+                    <ScatterPlot />
+                  ) : (
+                    <IndustryVoronoiTab 
+                      selectedSectorCode={selectedSectorCode}
+                      onSectorCodeChange={setSelectedSectorCode}
+                      height={500}
+                    />
+                  )}
+                </div>
+              </div>
+            ) : (
+              <ScatterPlot />
+            )}
           </div>
         </div>
 
