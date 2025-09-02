@@ -24,7 +24,7 @@ export default function ClusteringPage() {
     clearError,
   } = useClusteringStore();
 
-  const [activeTab, setActiveTab] = useState<"clustering" | "voronoi" | "zoom">("clustering");
+  const [activeTab, setActiveTab] = useState<"clustering" | "voronoi" | "zoom">("zoom");
   const [selectedSectorCode, setSelectedSectorCode] = useState<string>("");
 
   const canRunClustering = !isRunning;
@@ -69,33 +69,17 @@ export default function ClusteringPage() {
                               enterprise.cluster_label ??
                               0;
 
-          // Calculate size using multiple factors for better visualization
-          let calculatedSize = 0.5;
+          // Z (height) calculation without logarithmic scaling
+          const s_DT_TTM = enterprise.s_DT_TTM || 0;
+          const s_TTS = enterprise.s_TTS || 0;
+          const s_VCSH = enterprise.s_VCSH || 0;
+          const s_EMPL = enterprise.s_EMPL || enterprise.empl_qtty || enterprise.employees || 0;
 
-          // Size based on embedding magnitude (if available)
-          if (enterprise.embedding && Array.isArray(enterprise.embedding) && enterprise.embedding.length > 2) {
-            const magnitude = Math.sqrt(
-              enterprise.embedding.reduce((sum: number, val: number) => sum + (val * val), 0)
-            );
-            calculatedSize = Math.max(0.2, Math.min(2.0, magnitude / 10));
-          }
+          // Simple weighted calculation without log function
+          const calculatedZ = (30/100) * (s_DT_TTM + s_TTS + s_VCSH) + 0.1 * s_EMPL;
 
-          // Size based on employee count (if available)
-          if (enterprise.empl_qtty || enterprise.employees) {
-            const empSize = Math.log10((enterprise.empl_qtty || enterprise.employees || 1) + 1) * 0.1;
-            calculatedSize = Math.max(calculatedSize, empSize);
-          }
-
-          // Size based on business metrics (if available)
-          if (enterprise.s_DT_TTM || enterprise.s_EMPL || enterprise.s_TTS || enterprise.s_VCSH) {
-            const metricSum = (enterprise.s_DT_TTM || 0) +
-                          (enterprise.s_EMPL || 0) +
-                          (enterprise.s_TTS || 0) +
-                          (enterprise.s_VCSH || 0);
-            if (metricSum > 0) {
-              calculatedSize *= Math.min(1.5, Math.max(0.5, metricSum / 100));
-            }
-          }
+          // Fixed small size for all points
+          const fixedSize = 0.2; // Small fixed size
 
           // Validate that we have meaningful coordinates
           const hasValidCoords = finalX !== 0 || finalY !== 0;
@@ -104,9 +88,9 @@ export default function ClusteringPage() {
             transformedData.push({
               x: finalX,
               y: finalY,
-              z: calculatedSize, // Use as third dimension in 3D view
+              z: calculatedZ, // Use calculated Z as third dimension in 3D view
               cluster: Number(clusterLabel), // Ensure numeric cluster ID
-              size: Math.max(0.1, calculatedSize * 10), // Scale for visibility
+              size: fixedSize, // Fixed small size
               index: pointIndex,
               info: {
                 name: enterprise.name || enterprise.company_name || 'Unknown Company',
@@ -278,10 +262,20 @@ export default function ClusteringPage() {
             {results ? (
               <div className="w-full h-full">
                 <div className="flex border-b mb-4">
-                  <button 
+                  <button
                     className={`px-4 py-2 font-medium border-b-2 transition-colors ${
-                      activeTab === "clustering" 
-                        ? 'border-blue-500 text-blue-600' 
+                      activeTab === "zoom"
+                        ? 'border-blue-500 text-blue-600'
+                        : 'border-transparent text-gray-500 hover:text-gray-700'
+                    }`}
+                    onClick={() => setActiveTab("zoom")}
+                  >
+                    Interactive Zoom Space
+                  </button>
+                  <button
+                    className={`px-4 py-2 font-medium border-b-2 transition-colors ${
+                      activeTab === "clustering"
+                        ? 'border-blue-500 text-blue-600'
                         : 'border-transparent text-gray-500 hover:text-gray-700'
                     }`}
                     onClick={() => setActiveTab("clustering")}
@@ -298,18 +292,11 @@ export default function ClusteringPage() {
                   >
                     Industry Voronoi Map
                   </button>
-                  <button
-                    className={`px-4 py-2 font-medium border-b-2 transition-colors ${
-                      activeTab === "zoom"
-                        ? 'border-blue-500 text-blue-600'
-                        : 'border-transparent text-gray-500 hover:text-gray-700'
-                    }`}
-                    onClick={() => setActiveTab("zoom")}
-                  >
-                    Interactive Zoom Space
-                  </button>
                 </div>
-                <div className="h-[calc(100%-60px)]">
+                <div className="h-[calc(100%-40px)]">
+                  <div style={{ display: activeTab === "zoom" ? 'block' : 'none' }}>
+                    <InteractiveZoomSpaceWrapper results={results} height={600} />
+                  </div>
                   <div style={{ display: activeTab === "clustering" ? 'block' : 'none' }}>
                     <ScatterPlot />
                   </div>
@@ -319,9 +306,6 @@ export default function ClusteringPage() {
                       onSectorCodeChange={setSelectedSectorCode}
                       height={600}
                     />
-                  </div>
-                  <div style={{ display: activeTab === "zoom" ? 'block' : 'none' }}>
-                    <InteractiveZoomSpaceWrapper results={results} height={800} />
                   </div>
                 </div>
               </div>

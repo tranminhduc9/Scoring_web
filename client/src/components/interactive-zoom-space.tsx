@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState, useCallback } from 'react';
 import Plotly from 'plotly.js-dist';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { Download, FileImage, Maximize, Move, ZoomIn, Square, RotateCcw, Target, Expand } from "lucide-react";
 import { Slider } from "@/components/ui/slider";
 import { Badge } from "@/components/ui/badge";
@@ -495,10 +496,10 @@ export default function InteractiveZoomSpace({
 
   return (
     <div className="w-full h-full" ref={containerRef}>
-      {/* Scrollable Container */}
-      <div className="h-full overflow-y-auto overflow-x-hidden">
-        <div className="w-full space-y-4 pb-6">
-          <Card>
+      {/* Container with Scroll */}
+      <ScrollArea className="h-full w-full max-w-screen">
+        <div className="w-full space-y-4 pb-6 px-4">
+          <Card className="w-full">
             <CardHeader>
               <CardTitle className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
@@ -606,168 +607,54 @@ export default function InteractiveZoomSpace({
             </CardHeader>
 
             <CardContent className="space-y-4">
-              {/* Controls Panel */}
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                <div className="p-4 bg-muted/50 rounded-lg">
-                  {/* Scale Factor Control */}
-                  {selectedArea && (
-                    <div className="flex items-center gap-3 min-w-[200px] mb-4">
-                      <label className="text-sm font-medium whitespace-nowrap">
-                        Scale Factor: {scaleFactor[0].toFixed(1)}x
-                      </label>
-                      <Slider
-                        value={scaleFactor}
-                        onValueChange={setScaleFactor}
-                        min={0.1}
-                        max={5}
-                        step={0.1}
-                        className="flex-1"
-                        data-testid="scale-slider"
-                      />
-                    </div>
-                  )}
+              {/* Controls Panel - Centered */}
+              <div className="flex justify-center">
+                <div className="p-4 bg-muted/50 rounded-lg max-w-4xl w-full">
+                  <div className="flex flex-col lg:flex-row items-center justify-center gap-4">
+                    {/* Scale Factor Control */}
+                    {selectedArea && (
+                      <div className="flex items-center gap-3 min-w-[200px]">
+                        <label className="text-sm font-medium whitespace-nowrap">
+                          Scale Factor: {scaleFactor[0].toFixed(1)}x
+                        </label>
+                        <Slider
+                          value={scaleFactor}
+                          onValueChange={setScaleFactor}
+                          min={0.1}
+                          max={5}
+                          step={0.1}
+                          className="w-32 lg:w-48"
+                          data-testid="scale-slider"
+                        />
+                      </div>
+                    )}
 
-                  {/* Cluster Quick Select */}
-                  <div className="flex items-center gap-2 flex-wrap">
-                    <span className="text-sm font-medium">Quick Focus:</span>
-                    <div className="flex gap-1 flex-wrap">
-                      {clusters.slice(0, 10).map((clusterId, index) => (
-                        <Button
-                          key={clusterId}
-                          variant="outline"
-                          size="sm"
-                          onClick={() => focusOnCluster(clusterId)}
-                          style={{
-                            backgroundColor: selectedPoints.some(p => p.cluster === clusterId)
-                              ? colors[index % colors.length]
-                              : 'transparent',
-                            color: selectedPoints.some(p => p.cluster === clusterId) ? 'white' : undefined
-                          }}
-                          title={`Focus on Cluster ${clusterId}`}
-                          data-testid={`focus-cluster-${clusterId}`}
-                        >
-                          C{clusterId}
-                        </Button>
-                      ))}
-                    </div>
-                  </div>
-                </div>
 
-                {/* Info Panel - Make it expandable */}
-                <div className="space-y-2">
-                  <h3 className="text-sm font-medium text-muted-foreground">Selection Information</h3>
-                  <div className="p-3 bg-muted/30 rounded-lg text-xs">
-                    <div className="grid grid-cols-2 gap-2">
-                      <div>
-                        <strong>Points Selected:</strong><br/>
-                        {selectedPoints.length}
-                      </div>
-                      <div>
-                        <strong>Scale Factor:</strong><br/>
-                        {scaleFactor[0].toFixed(1)}x
-                      </div>
-                      <div>
-                        <strong>Zoom History:</strong><br/>
-                        {zoomHistory.length} levels
-                      </div>
-                      <div>
-                        <strong>Clusters Found:</strong><br/>
-                        {clusters.length}
-                      </div>
-                    </div>
                   </div>
                 </div>
               </div>
 
-              {/* Plot Container - Make it larger and responsive */}
-              <div
-                className="border border-gray-200 rounded overflow-hidden mx-auto"
-                style={{
-                  width: '100%',
-                  height: Math.max(500, height),
-                  minHeight: '500px'
-                }}
-              >
+              {/* Plot Container - Top Aligned */}
+              <div className="flex">
                 <div
-                  ref={plotRef}
-                  className="w-full h-full"
-                  data-testid="interactive-zoom-space"
-                />
-              </div>
-
-              {/* Detailed Info Panel */}
-              {selectedArea && selectedPoints.length > 0 && (
-                <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
-                  <h4 className="text-sm font-semibold mb-3">Detailed Selection Info</h4>
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-xs">
-                    <div>
-                      <strong>Coordinate Ranges:</strong><br/>
-                      X: [{selectedArea.xmin.toFixed(2)}, {selectedArea.xmax.toFixed(2)}]<br/>
-                      Y: [{selectedArea.ymin.toFixed(2)}, {selectedArea.ymax.toFixed(2)}]<br/>
-                      {is3D && selectedArea.zmin !== undefined && selectedArea.zmax !== undefined && (
-                        <span>Z: [{selectedArea.zmin.toFixed(2)}, {selectedArea.zmax.toFixed(2)}]</span>
-                      )}
-                    </div>
-                    <div>
-                      <strong>Clusters Distribution:</strong><br/>
-                      <div className="flex flex-wrap gap-1 mt-1">
-                        {Array.from(new Set(selectedPoints.map(p => p.cluster))).sort().map(c => (
-                          <Badge key={c} variant="outline" className="text-xs">
-                            C{c}: {selectedPoints.filter(p => p.cluster === c).length}
-                          </Badge>
-                        ))}
-                      </div>
-                    </div>
-                    <div>
-                      <strong>Statistics:</strong><br/>
-                      Total selected: {selectedPoints.length}<br/>
-                      Average size: {(selectedPoints.reduce((sum, p) => sum + p.size, 0) / selectedPoints.length).toFixed(3)}<br/>
-                      Scale applied: {scaleFactor[0].toFixed(2)}x
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {/* Instructions */}
-              <div className="text-xs text-muted-foreground p-3 bg-muted/30 rounded">
-                <strong>Hướng dẫn sử dụng mới:</strong><br/>
-
-                <div className="mt-2 space-y-1">
-                  <div><strong>🎯 Các nút C0, C1, C2... (Cluster Filter):</strong></div>
-                  <div className="ml-3 space-y-0.5">
-                    <div>• Nhấn C0: Chuyển sang chế độ chỉ xem Cluster 0</div>
-                    <div>• Bộ lọc chỉ hiển thị points thuộc cluster được chọn</div>
-                    <div>• Nút sẽ chuyển màu background khi được active</div>
-                    <div>• Click lại để bỏ filter và xem tất cả clusters</div>
-                    <div>• Dễ dàng switch giữa các clusters để phân tích riêng lẻ</div>
-                  </div>
-                </div>
-
-                <div className="mt-3 space-y-1">
-                  <div><strong>⚖️ Scale Factor Slider (Điều chỉnh khoảng cách):</strong></div>
-                  <div className="ml-3 space-y-0.5">
-                    <div>• Điều chỉnh từ 0.1x đến 5.0x để tăng khoảng cách giữa các điểm</div>
-                    <div>• 1.0x = Khoảng cách gốc, không thay đổi vị trí</div>
-                    <div>• 2.0x = Khoảng cách tăng gấp đôi từ tâm phân biệt rõ hơn</div>
-                    <div>• 3.0x = Khoảng cách tăng gấp ba - dễ observe individual points</div>
-                    <div>• Áp dụng realtime khi thay đổi</div>
-                  </div>
-                </div>
-
-                <div className="mt-3 space-y-1">
-                  <div><strong>🔄 Workflow đơn giản:</strong></div>
-                  <div className="ml-3 space-y-0.5">
-                    <div>1. Nhấn nút C0, C1, C2... để filter cluster muốn xem</div>
-                    <div>2. Dùng Scale Factor để tăng khoảng cách nếu cần phân biệt rõ hơn</div>
-                    <div>3. Click lại nút cluster để reset filter và xem tất cả</div>
-                    <div>4. Sử dụng Reset View để restore lại view gốc</div>
-                  </div>
+                  className="border border-gray-200 rounded overflow-hidden w-full"
+                  style={{
+                    height: Math.max(700, height),
+                    minHeight: '700px'
+                  }}
+                >
+                  <div
+                    ref={plotRef}
+                    className="w-full h-full"
+                    data-testid="interactive-zoom-space"
+                  />
                 </div>
               </div>
+
             </CardContent>
           </Card>
         </div>
-      </div>
+      </ScrollArea>
     </div>
   );
 }
