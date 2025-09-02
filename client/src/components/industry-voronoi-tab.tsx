@@ -179,10 +179,11 @@ export default function IndustryVoronoiTab({
     if (!plotRef.current || !plotReady || !voronoiCells.length) return;
 
     if (selectedSectorCode) {
-      const matchingCell = voronoiCells.find(cell => 
-        cell.sector_code === selectedSectorCode ||
-        cell.sector_code === selectedSectorCode.replace(/^[A-Z]/, '')
-      );
+      const matchingCell = voronoiCells.find(cell => {
+        if (!cell.sector_code) return false;
+        return cell.sector_code === selectedSectorCode ||
+               cell.sector_code === selectedSectorCode.replace(/^[A-Z]/, '');
+      });
       
       if (matchingCell) {
         setHighlightedSector(matchingCell.sector_code);
