@@ -6,7 +6,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Move, ZoomIn, Lasso, Maximize, ExternalLink, Download, FileImage, Map } from "lucide-react";
 import Plotly from "plotly.js-dist";
-import IndustryMapTab from "@/components/industry-map-tab";
+
 
 export default function ScatterPlot() {
   const { results, isRunning, selectedProjectionType, parameters, updateParameters } = useClusteringStore();
@@ -517,13 +517,9 @@ export default function ScatterPlot() {
             </TabsContent>
             
             <TabsContent value="industry" className="w-full h-[calc(100%-60px)] mt-4">
-              <IndustryMapTab
-                selectedSectorCode={parameters.level_value?.[0] || ''}
-                onSectorCodeChange={(sectorCode) => {
-                  updateParameters({ level_value: [sectorCode] });
-                }}
-                height={400}
-              />
+              <div className="flex items-center justify-center h-full text-muted-foreground">
+                Industry Map feature removed - use Industry Voronoi Map tab instead
+              </div>
             </TabsContent>
           </Tabs>
         </Card>
