@@ -3,8 +3,7 @@ import { useClusteringStore } from "@/lib/clustering-store";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Move, ZoomIn, Lasso, Maximize, ExternalLink, Download, FileImage, Map } from "lucide-react";
+import { Move, ZoomIn, Lasso, Maximize, ExternalLink, Download, FileImage } from "lucide-react";
 import Plotly from "plotly.js-dist";
 
 
@@ -497,31 +496,13 @@ export default function ScatterPlot() {
           </div>
         </div>
 
-        {/* Tabbed Plot Container */}
+        {/* Plot Container */}
         <Card className="flex-1 p-4">
-          <Tabs defaultValue="clustering" className="w-full h-full">
-            <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger value="clustering">Cluster Visualization</TabsTrigger>
-              <TabsTrigger value="industry">
-                <Map className="h-4 w-4 mr-2" />
-                Industry Map
-              </TabsTrigger>
-            </TabsList>
-            
-            <TabsContent value="clustering" className="w-full h-[calc(100%-60px)] mt-4">
-              <div
-                ref={plotRef}
-                className="w-full h-full"
-                data-testid="scatter-plot"
-              />
-            </TabsContent>
-            
-            <TabsContent value="industry" className="w-full h-[calc(100%-60px)] mt-4">
-              <div className="flex items-center justify-center h-full text-muted-foreground">
-                Industry Map feature removed - use Industry Voronoi Map tab instead
-              </div>
-            </TabsContent>
-          </Tabs>
+          <div
+            ref={plotRef}
+            className="w-full h-full"
+            data-testid="scatter-plot"
+          />
         </Card>
       </div>
     );
