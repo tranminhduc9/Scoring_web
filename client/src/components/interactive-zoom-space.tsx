@@ -346,6 +346,93 @@ export default function InteractiveZoomSpace({
 
   }, [scaledData, activeTool, getScaledData, is3D, title, onSelectionChange, filteredCluster]);
 
+  // Auto-update plot when scale factor changes
+  useEffect(() => {
+    if (!plotRef.current || !plotReady || scaleFactor[0] === 1) return;
+    
+    // Re-render plot with new scaled data
+    const filteredData = getFilteredData();
+    
+    if (!selectedArea || scaleFactor[0] === 1) return;
+
+    const centerX = (selectedArea.xmin + selectedArea.xmax) / 2;
+    const centerY = (selectedArea.ymin + selectedArea.ymax) / 2;
+    const centerZ = is3D && selectedArea.zmin !== undefined && selectedArea.zmax !== undefined
+      ? (selectedArea.zmin + selectedArea.zmax) / 2
+      : 0;
+
+    const scaledPoints = filteredData.map(point => {
+      // Check if point is in selected area
+      const inArea = point.x >= selectedArea.xmin && point.x <= selectedArea.xmax &&
+                    point.y >= selectedArea.ymin && point.y <= selectedArea.ymax &&
+                    (!is3D || !selectedArea.zmin || !selectedArea.zmax ||
+                     (point.z !== undefined && point.z >= selectedArea.zmin && point.z <= selectedArea.zmax));
+
+      if (!inArea) return point;
+
+      // Scale distance from center
+      const dx = point.x - centerX;
+      const dy = point.y - centerY;
+      const dz = is3D && point.z !== undefined ? point.z - centerZ : 0;
+
+      return {
+        ...point,
+        x: centerX + dx * scaleFactor[0],
+        y: centerY + dy * scaleFactor[0],
+        z: is3D && point.z !== undefined ? centerZ + dz * scaleFactor[0] : point.z
+      };
+    });
+
+    // Update plot with scaled data
+    const clusters = Array.from(new Set(scaledPoints.map(d => d.cluster))).sort();
+    const traces = clusters.map((clusterId, index) => {
+      const clusterPoints = scaledPoints.filter(d => d.cluster === clusterId);
+
+      const trace: any = {
+        x: clusterPoints.map(d => d.x),
+        y: clusterPoints.map(d => d.y),
+        mode: 'markers',
+        type: is3D ? 'scatter3d' : 'scatter',
+        name: `Cluster ${clusterId}`,
+        marker: {
+          color: colors[index % colors.length],
+          size: clusterPoints.map(d => Math.max(4, d.size * 8)),
+          opacity: 0.7,
+          line: {
+            color: '#333',
+            width: 1
+          }
+        },
+        text: clusterPoints.map(d => {
+          let text = `${d.info?.name || `Point ${d.index}`}<br>`;
+          text += `Cluster: ${d.cluster}<br>`;
+          text += `Size: ${d.size.toFixed(2)}<br>`;
+          text += `Position: (${d.x.toFixed(3)}, ${d.y.toFixed(3)}`;
+          if (is3D && d.z !== undefined) text += `, ${d.z.toFixed(3)}`;
+          text += `)<br>`;
+          if (d.info?.taxcode) text += `Tax Code: ${d.info.taxcode}<br>`;
+          if (d.info?.sector) text += `Sector: ${d.info.sector}<br>`;
+          if (d.info?.employees) text += `Employees: ${d.info.employees.toLocaleString()}`;
+          return text;
+        }),
+        hovertemplate: '%{text}<extra></extra>',
+      };
+
+      if (is3D) {
+        trace.z = clusterPoints.map(d => d.z || d.size);
+      }
+
+      return trace;
+    });
+
+    Plotly.restyle(plotRef.current, {
+      x: traces.map(t => t.x),
+      y: traces.map(t => t.y),
+      ...(is3D && { z: traces.map(t => t.z) })
+    });
+
+  }, [scaleFactor, selectedArea, getFilteredData, is3D]);
+
   // Save current zoom state
   const saveZoomState = () => {
     if (!plotRef.current || !plotReady) return;
@@ -370,13 +457,37 @@ export default function InteractiveZoomSpace({
     }
   };
 
-  // Zoom to selected area with scaling
+  // Zoom to selected area with automatic scaling
   const zoomToSelection = () => {
     if (!plotRef.current || !plotReady || !selectedArea) return;
 
     const padding = 0.1;
     const xRange = selectedArea.xmax - selectedArea.xmin;
     const yRange = selectedArea.ymax - selectedArea.ymin;
+
+    // Auto-calculate optimal scale based on zoom level
+    const originalDataBounds = {
+      xmin: Math.min(...scaledData.map(d => d.x)),
+      xmax: Math.max(...scaledData.map(d => d.x)),
+      ymin: Math.min(...scaledData.map(d => d.y)),
+      ymax: Math.max(...scaledData.map(d => d.y))
+    };
+
+    const originalXRange = originalDataBounds.xmax - originalDataBounds.xmin;
+    const originalYRange = originalDataBounds.ymax - originalDataBounds.ymin;
+
+    // Calculate zoom ratio (how much we're zooming in)
+    const zoomRatioX = originalXRange / xRange;
+    const zoomRatioY = originalYRange / yRange;
+    const avgZoomRatio = (zoomRatioX + zoomRatioY) / 2;
+
+    // Auto-scale: increase scale factor based on zoom level
+    const autoScaleFactor = Math.min(5, Math.max(1, Math.log2(avgZoomRatio + 1) * 1.5));
+    
+    console.log(`🔍 Auto-scaling: Zoom ratio ${avgZoomRatio.toFixed(2)}x, Scale factor ${autoScaleFactor.toFixed(2)}x`);
+    
+    // Update scale factor automatically
+    setScaleFactor([autoScaleFactor]);
 
     const update: any = {};
 
