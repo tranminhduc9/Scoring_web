@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { useClusteringStore } from "@/lib/clustering-store";
-import { Card } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Move, ZoomIn, Lasso, Maximize, ExternalLink, Download, FileImage, Expand } from "lucide-react";
 import Plotly from "plotly.js-dist";
@@ -156,7 +157,7 @@ export default function ScatterPlot() {
         const x = point.pca?.x || 0;
         const y = point.pca?.y || 0;
         const height = Math.max(0.1, (point.pca?.z || ((point as any).size || 0)) * 1.5);
-        const columnWidth = 0.005; // Reduced width for better separation
+        const columnWidth = 0.002; // Much smaller width to prevent overlapping
         const w = columnWidth / 2;
         
         // Create detailed hover text with all company information
@@ -206,7 +207,7 @@ export default function ScatterPlot() {
           j: faces.map(f => f[1]),
           k: faces.map(f => f[2]),
           color: clusterColor,
-          opacity: showCluster ? 0.7 : 0.1,
+          opacity: showCluster ? 0.8 : 0.1,
           showlegend: pointIndex === 0,
           name: pointIndex === 0 ? `Cluster ${clusterId} (${clusterPoints.length})` : undefined,
           text: hoverText,
@@ -280,7 +281,7 @@ export default function ScatterPlot() {
       },
       plot_bgcolor: 'white',
       paper_bgcolor: 'white',
-      margin: { l: 0, r: 0, t: 50, b: 0 },
+      margin: { l: 60, r: 100, t: 80, b: 60 },
       showlegend: true,
       legend: {
         x: 1.02,
@@ -448,123 +449,146 @@ export default function ScatterPlot() {
       );
     }
     return (
-      <div ref={containerRef} className={`flex-1 flex flex-col bg-card ${isFullscreen ? 'fixed inset-0 z-50' : ''}`}>
-        {/* Toolbar */}
-        <div className="p-4 border-b border-border">
-          <div className="flex items-center justify-between">
-            <h2 className="text-lg font-semibold text-foreground">Cluster Visualization</h2>
-            
-            <div className="flex items-center gap-2">
-              {/* Cluster Filter */}
-              <Select
-                value={selectedClusters.length === 0 ? "all" : selectedClusters.join(",")}
-                onValueChange={(value) => {
-                  if (value === "all") {
-                    setSelectedClusters([]);
-                  } else {
-                    setSelectedClusters(value.split(",").map(Number));
-                  }
-                }}
-              >
-                <SelectTrigger className="w-40">
-                  <SelectValue placeholder="Filter clusters" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Clusters</SelectItem>
-                  {Array.from(new Set(results.dataPoints.map(d => d.cluster).filter(c => c !== null && c !== undefined))).sort().map(cluster => (
-                    <SelectItem key={cluster} value={cluster!.toString()}>
-                      Cluster {cluster}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-          </div>
+      <div className="w-full h-full" ref={containerRef}>
+        <div className="w-full space-y-4 pb-6 px-4">
+          <Card className="w-full">
+            <CardHeader>
+              <CardTitle className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <span>3D Cluster Visualization</span>
+                  {selectedClusters.length > 0 && (
+                    <Badge variant="secondary">
+                      Filtered: Cluster {selectedClusters.join(", ")}
+                    </Badge>
+                  )}
+                </div>
 
-          {/* Tools */}
-          <div className="flex items-center gap-2 mt-3">
-            <Button
-              variant={activeTool === "pan" ? "default" : "ghost"}
-              size="sm"
-              onClick={() => setActiveTool("pan")}
-              title="Pan"
-              data-testid="tool-pan"
-            >
-              <Move className="h-4 w-4" />
-            </Button>
-            <Button
-              variant={activeTool === "zoom" ? "default" : "ghost"}
-              size="sm"
-              onClick={() => setActiveTool("zoom")}
-              title="Zoom"
-              data-testid="tool-zoom"
-            >
-              <ZoomIn className="h-4 w-4" />
-            </Button>
-            <Button
-              variant={activeTool === "lasso" ? "default" : "ghost"}
-              size="sm"
-              onClick={() => setActiveTool("lasso")}
-              title="Lasso Select"
-              data-testid="tool-lasso"
-            >
-              <Lasso className="h-4 w-4" />
-            </Button>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={resetZoom}
-              title="Reset Zoom"
-              data-testid="tool-reset"
-            >
-              <Maximize className="h-4 w-4" />
-            </Button>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={toggleFullscreen}
-              title={isFullscreen ? "Exit Fullscreen" : "Enter Fullscreen"}
-              data-testid="tool-fullscreen"
-            >
-              <Expand className="h-4 w-4" />
-            </Button>
-            
-            {/* Download buttons */}
-            <div className="border-l border-border pl-2 ml-2 flex items-center gap-1">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={downloadPlotAsPNG}
-                title="Download as PNG"
-                data-testid="download-png"
-                disabled={!plotReady}
-              >
-                <Download className="h-4 w-4 mr-1" />
-                PNG
-              </Button>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={downloadPlotAsSVG}
-                title="Download as SVG"
-                data-testid="download-svg"
-                disabled={!plotReady}
-              >
-                <FileImage className="h-4 w-4 mr-1" />
-                SVG
-              </Button>
-            </div>
-          </div>
+                <div className="flex items-center gap-2 flex-wrap">
+                  {/* Tool Selection */}
+                  <div className="flex border rounded-md">
+                    <Button
+                      variant={activeTool === "pan" ? "default" : "ghost"}
+                      size="sm"
+                      onClick={() => setActiveTool("pan")}
+                      className="rounded-r-none"
+                      title="Pan Tool - Di chuyển biểu đồ"
+                      data-testid="tool-pan"
+                    >
+                      <Move className="h-4 w-4" />
+                    </Button>
+                    <Button
+                      variant={activeTool === "zoom" ? "default" : "ghost"}
+                      size="sm"
+                      onClick={() => setActiveTool("zoom")}
+                      className="rounded-none border-l border-r"
+                      title="Zoom Tool"
+                      data-testid="tool-zoom"
+                    >
+                      <ZoomIn className="h-4 w-4" />
+                    </Button>
+                    <Button
+                      variant={activeTool === "lasso" ? "default" : "ghost"}
+                      size="sm"
+                      onClick={() => setActiveTool("lasso")}
+                      className="rounded-l-none"
+                      title="Lasso Select Tool"
+                      data-testid="tool-lasso"
+                    >
+                      <Lasso className="h-4 w-4" />
+                    </Button>
+                  </div>
+
+                  {/* Cluster Filter */}
+                  <Select
+                    value={selectedClusters.length === 0 ? "all" : selectedClusters.join(",")}
+                    onValueChange={handleClusterFilter}
+                  >
+                    <SelectTrigger className="w-40">
+                      <SelectValue placeholder="Filter clusters" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">All Clusters</SelectItem>
+                      {Array.from(new Set(results.dataPoints.map(d => d.cluster).filter(c => c !== null && c !== undefined))).sort().map(cluster => (
+                        <SelectItem key={cluster} value={cluster!.toString()}>
+                          Cluster {cluster}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+
+                  {/* Navigation */}
+                  <div className="flex gap-1">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={resetZoom}
+                      title="Reset View"
+                      data-testid="reset-view"
+                    >
+                      <Maximize className="h-4 w-4 mr-1" />
+                      Reset
+                    </Button>
+                  </div>
+
+                  {/* Download Options */}
+                  <div className="flex gap-1">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={downloadPlotAsPNG}
+                      title="Download as PNG"
+                      data-testid="download-png"
+                      disabled={!plotReady}
+                    >
+                      <Download className="h-4 w-4 mr-1" />
+                      PNG
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={downloadPlotAsSVG}
+                      title="Download as SVG"
+                      data-testid="download-svg"
+                      disabled={!plotReady}
+                    >
+                      <FileImage className="h-4 w-4 mr-1" />
+                      SVG
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={toggleFullscreen}
+                      title={isFullscreen ? "Exit fullscreen" : "Fullscreen"}
+                      data-testid="fullscreen"
+                    >
+                      <Expand className="h-4 w-4 mr-1" />
+                      {isFullscreen ? 'Exit' : 'Full'}
+                    </Button>
+                  </div>
+                </div>
+              </CardTitle>
+            </CardHeader>
+
+            <CardContent className="space-y-4">
+              {/* Plot Container */}
+              <div className="flex">
+                <div
+                  className="border border-gray-200 rounded overflow-hidden w-full"
+                  style={{
+                    height: Math.max(700, 600),
+                    minHeight: '700px'
+                  }}
+                >
+                  <div
+                    ref={plotRef}
+                    className="w-full h-full"
+                    data-testid="scatter-plot"
+                  />
+                </div>
+              </div>
+            </CardContent>
+          </Card>
         </div>
-
-        {/* Plot Container */}
-        <Card className={`flex-1 p-4 ${isFullscreen ? 'h-full' : ''}`}>
-          <div
-            ref={plotRef}
-            className="w-full h-full"
-            data-testid="scatter-plot"
-          />
-        </Card>
       </div>
     );
   };
