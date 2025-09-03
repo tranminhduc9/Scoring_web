@@ -76,15 +76,15 @@ export default function ScatterPlot() {
         if (company.enterprise && Array.isArray(company.enterprise)) {
           company.enterprise.forEach((enterprise: any) => {
             const clusterLabel = enterprise.cluster || enterprise.Label || 0;
-            const embedding = enterprise.embedding || [0, 0];
+            const embX = enterprise.emb_x || 0;
+            const embY = enterprise.emb_y || 0;
             
-            // Calculate size as length of embedding vector excluding last 4 elements
+            // Calculate size based on employee count or use default
             let calculatedSize = 0.1; // default minimum size
-            if (enterprise.embedding && Array.isArray(enterprise.embedding) && enterprise.embedding.length > 4) {
-              const embeddingSubset = enterprise.embedding.slice(0, -4); // exclude last 4 elements
-              calculatedSize = Math.sqrt(embeddingSubset.reduce((sum: number, val: number) => sum + val * val, 0)); // vector length
-              calculatedSize = Math.max(0.1, calculatedSize); // ensure minimum size
+            if (enterprise.empl_qtty && enterprise.empl_qtty > 0) {
+              calculatedSize = Math.log10(enterprise.empl_qtty + 1) * 0.5; // logarithmic scaling
             }
+            calculatedSize = Math.max(0.1, calculatedSize); // ensure minimum size
             
             processedData.push({
               id: `company-${pointIndex}`,
@@ -95,10 +95,10 @@ export default function ScatterPlot() {
                 sector_unique_id: enterprise.sector_unique_id || company.sector_unique_id || '',
                 employees: enterprise.empl_qtty || 0
               },
-              embedding: embedding,
+              embedding: [embX, embY],
               pca: {
-                x: embedding[0],
-                y: embedding[1],
+                x: embX,
+                y: embY,
                 z: calculatedSize
               },
               cluster: clusterLabel

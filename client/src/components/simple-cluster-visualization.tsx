@@ -35,13 +35,40 @@ export default function SimpleClusterVisualization({
   }
 
   // Prepare data points
-  const data: DataPoint[] = clusterResult.embedding.map((coords: number[], i: number) => ({
-    x: coords[0],
-    y: coords[1],
-    cluster: clusterResult.labels![i] || 0,
-    size: clusterResult.size![i] || 0,
-    index: i
-  }));
+  let data: DataPoint[] = [];
+  
+  if (clusterResult.companies && Array.isArray(clusterResult.companies)) {
+    // Process new companies format
+    let pointIndex = 0;
+    clusterResult.companies.forEach((company: any) => {
+      if (company.enterprise && Array.isArray(company.enterprise)) {
+        company.enterprise.forEach((enterprise: any) => {
+          const embX = enterprise.emb_x || 0;
+          const embY = enterprise.emb_y || 0;
+          const clusterLabel = enterprise.cluster || enterprise.Label || 0;
+          const size = enterprise.empl_qtty ? Math.log10(enterprise.empl_qtty + 1) * 0.5 : 0.1;
+          
+          data.push({
+            x: embX,
+            y: embY,
+            cluster: clusterLabel,
+            size: Math.max(0.1, size),
+            index: pointIndex
+          });
+          pointIndex++;
+        });
+      }
+    });
+  } else if (clusterResult.embedding && clusterResult.labels) {
+    // Fallback to legacy format
+    data = clusterResult.embedding.map((coords: number[], i: number) => ({
+      x: coords[0],
+      y: coords[1],
+      cluster: clusterResult.labels![i] || 0,
+      size: clusterResult.size![i] || 0,
+      index: i
+    }));
+  }
 
   const clusters = Array.from(new Set(data.map(d => d.cluster))).sort();
   

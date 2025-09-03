@@ -49,55 +49,30 @@ export default function ClusterVisualization({
   console.log("🚀 ClusterVisualization component loaded at:", new Date().toLocaleTimeString());
 
   useEffect(() => {
-    console.log("🔍 Processing cluster result:", clusterResult);
-    console.log("🔄 useEffect triggered - checking for duplicates");
-    
-    // Handle new API response format with companies array
+    if (!clusterResult) {
+      console.log("⚠️ No cluster result");
+      return;
+    }
+
+    // Process data based on format
+    let processedData: DataPoint[] = [];
+
     if (clusterResult.companies && Array.isArray(clusterResult.companies)) {
-      console.log("📊 Found companies array with", clusterResult.companies.length, "companies");
-      const points: DataPoint[] = [];
+      // Process new companies format
       let pointIndex = 0;
-      
-      // Clear existing data to prevent duplicates
-      setData([]);
-      
-      clusterResult.companies.forEach((company: any, companyIndex: number) => {
-        console.log(`🏢 Processing company ${companyIndex}:`, company);
-        const enterpriseCount = company.enterprise?.length || 0;
-        console.log(`📊 Company has ${enterpriseCount} enterprises`);
-        if (enterpriseCount > 1) {
-          console.log(`⚠️ Multiple enterprises found in company ${companyIndex}:`, 
-            company.enterprise.map((e: any) => e.name || e.taxcode || `Enterprise ${e.id || 'unknown'}`));
-        }
+      clusterResult.companies.forEach((company: any) => {
         if (company.enterprise && Array.isArray(company.enterprise)) {
-          company.enterprise.forEach((enterprise: any, enterpriseIndex: number) => {
-            console.log(`🏭 Processing enterprise ${enterpriseIndex}:`, {
-              name: enterprise.name,
-              cluster: enterprise.cluster,
-              embedding: enterprise.embedding,
-              s_DT_TTM: enterprise.s_DT_TTM,
-              s_EMPL: enterprise.s_EMPL
-            });
-            
+          company.enterprise.forEach((enterprise: any) => {
+            const embX = enterprise.emb_x || 0;
+            const embY = enterprise.emb_y || 0;
             const clusterLabel = enterprise.cluster || enterprise.Label || 0;
-            const pcaX = enterprise.pca2_x || (enterprise.embedding ? enterprise.embedding[0] : 0);
-            const pcaY = enterprise.pca2_y || (enterprise.embedding ? enterprise.embedding[1] : 0);
-            
-            // Calculate size as length of embedding vector excluding last 4 elements
-            let calculatedSize = 0.1; // default minimum size
-            if (enterprise.embedding && Array.isArray(enterprise.embedding) && enterprise.embedding.length > 4) {
-              const embeddingSubset = enterprise.embedding.slice(0, -4); // exclude last 4 elements
-              calculatedSize = Math.sqrt(embeddingSubset.reduce((sum: number, val: number) => sum + val * val, 0)); // vector length
-              calculatedSize = Math.max(0.1, calculatedSize); // ensure minimum size
-            }
-            
-            console.log(`📏 Calculated size for ${enterprise.name}:`, calculatedSize);
-            
-            points.push({
-              x: pcaX,
-              y: pcaY,
+            const employeeSize = enterprise.empl_qtty ? Math.log10(enterprise.empl_qtty + 1) * 0.5 : 0.1;
+
+            processedData.push({
+              x: embX,
+              y: embY,
               cluster: clusterLabel,
-              size: calculatedSize,
+              size: Math.max(0.1, employeeSize),
               index: pointIndex,
               companyInfo: {
                 name: enterprise.name || 'Unknown Company',
@@ -109,63 +84,37 @@ export default function ClusterVisualization({
                 s_DT_TTM: enterprise.s_DT_TTM || 0,
                 s_EMPL: enterprise.s_EMPL || 0,
                 s_TTS: enterprise.s_TTS || 0,
-                s_VCSH: enterprise.s_VCSH || 0,
-                // Include all STD_RTD fields
-                ...Object.keys(enterprise)
-                  .filter(key => key.startsWith('STD_RTD'))
-                  .reduce((acc, key) => ({ ...acc, [key]: enterprise[key] }), {})
+                s_VCSH: enterprise.s_VCSH || 0
               }
             });
             pointIndex++;
           });
         }
       });
-      
-      console.log("✅ Final processed points:", points.length, points);
-      
-      // Remove duplicates based on coordinates and company info
-      console.log("🔍 Removing duplicate points:");
-      const uniquePoints: DataPoint[] = [];
-      const seenKeys = new Set<string>();
-      
-      points.forEach((point, index) => {
-        const uniqueKey = `${point.x.toFixed(6)},${point.y.toFixed(6)},${point.companyInfo?.taxcode || point.companyInfo?.name || index}`;
-        if (!seenKeys.has(uniqueKey)) {
-          seenKeys.add(uniqueKey);
-          uniquePoints.push(point);
-        } else {
-          console.log(`⚠️ Removing duplicate point:`, {
-            coordinates: `(${point.x}, ${point.y})`,
-            name: point.companyInfo?.name,
-            taxcode: point.companyInfo?.taxcode
-          });
-        }
-      });
-      
-      console.log(`📊 Removed ${points.length - uniquePoints.length} duplicates. Final points: ${uniquePoints.length}`);
-      
-      // Debug: Check if points have valid coordinates
-      const validPoints = uniquePoints.filter(p => p.x !== undefined && p.y !== undefined && !isNaN(p.x) && !isNaN(p.y));
-      console.log(`🔢 Valid points with coordinates: ${validPoints.length} out of ${uniquePoints.length}`);
-      
-      setData(uniquePoints);
-    } else if (clusterResult.embedding && clusterResult.size && clusterResult.labels) {
-      console.log("📊 Using legacy format");
-      // Fallback: Use legacy format
-      const labels = clusterResult.labels;
-      const points: DataPoint[] = clusterResult.embedding.map((coords: number[], i: number) => ({
-        x: coords[0],
-        y: coords[1],
-        cluster: labels[i] || 0,
-        size: clusterResult.size![i] || 0,
-        index: i
-      }));
-      console.log("✅ Legacy points:", points);
-      setData(points);
-    } else {
-      console.warn("⚠️ No valid data format found in cluster result");
+
+      setData(processedData);
+      console.log("✅ Processed cluster data:", processedData.length, "points");
+      return;
     }
+
+    // Legacy format fallback
+    if (!clusterResult.embedding || !clusterResult.labels) {
+      console.log("⚠️ Missing required fields in cluster result");
+      return;
+    }
+
+    const transformedData = clusterResult.embedding.map((coords: number[], i: number) => ({
+      x: coords[0],
+      y: coords[1],
+      cluster: clusterResult.labels![i] || 0,
+      size: clusterResult.size ? clusterResult.size[i] || 0.1 : 0.1,
+      index: i
+    }));
+
+    setData(transformedData);
+    console.log("✅ Loaded cluster visualization data:", transformedData.length, "points");
   }, [clusterResult]);
+
 
   useEffect(() => {
     if (!data.length || !plotRef.current) {
@@ -184,7 +133,7 @@ export default function ClusterVisualization({
     // Get unique clusters and define colors
     const clusters = Array.from(new Set(data.map(d => d.cluster))).sort();
     console.log("🎯 Found clusters:", clusters);
-    
+
     const colors = [
       '#1976D2', '#4CAF50', '#F44336', '#FF9800', '#9C27B0', '#FF5722',
       '#607D8B', '#795548', '#E91E63', '#00BCD4', '#8BC34A', '#FFC107'
@@ -192,17 +141,17 @@ export default function ClusterVisualization({
 
     // Create only 3D mesh columns - no scatter points
     const traces: any[] = [];
-    
+
     clusters.forEach((clusterId, clusterIndex) => {
       const clusterPoints = data.filter(d => d.cluster === clusterId);
       const clusterColor = colors[clusterIndex % colors.length];
-      
+
       clusterPoints.forEach((point, pointIndex) => {
         const columnWidth = 0.01; // 1px equivalent for compact visualization
         const x = point.x;
         const y = point.y;
         const height = Math.max(0.1, point.size * 2);
-        
+
         // Create detailed hover text with all company information
         let hoverText = `<b>${point.companyInfo?.name || 'N/A'}</b><br>`;
         hoverText += `Tọa độ: (${x.toFixed(3)}, ${y.toFixed(3)})<br>`;
@@ -211,10 +160,10 @@ export default function ClusterVisualization({
         hoverText += `Tên ngành: ${point.companyInfo?.sector_name || 'N/A'}<br>`;
         hoverText += `Sector ID: ${point.companyInfo?.sector_unique_id || 'N/A'}<br>`;
         hoverText += `Số nhân viên: ${(point.companyInfo?.empl_qtty || 0).toLocaleString()}`;
-        
+
         // Create solid 3D rectangular column using mesh3d
         const w = columnWidth / 2;
-        
+
         // 8 vertices of rectangular column
         const vertices = [
           [x-w, y-w, 0],      // 0: bottom-left-back
@@ -226,7 +175,7 @@ export default function ClusterVisualization({
           [x+w, y+w, height], // 6: top-right-front
           [x-w, y+w, height]  // 7: top-left-front
         ];
-        
+
         // 12 triangular faces (6 faces × 2 triangles each)
         const faces = [
           [0,1,2], [0,2,3], // Bottom face
@@ -236,7 +185,7 @@ export default function ClusterVisualization({
           [0,3,7], [0,7,4], // Left face
           [1,5,6], [1,6,2]  // Right face
         ];
-        
+
         traces.push({
           type: 'mesh3d',
           x: vertices.map(v => v[0]),
@@ -330,7 +279,7 @@ export default function ClusterVisualization({
 
   Plotly.newPlot(plotRef.current, traces, layout, config).then(() => {
       setPlotReady(true);
-      
+
       // Add selection event handler
       if (plotRef.current) {
         (plotRef.current as any).on('plotly_selected', (eventData: any) => {
@@ -411,48 +360,48 @@ export default function ClusterVisualization({
 
   const zoomToSelection = (area: {xmin: number, xmax: number, ymin: number, ymax: number}) => {
     if (!plotRef.current || !plotReady) return;
-    
+
     // Calculate zoom factor to expand the selected area
     const xRange = area.xmax - area.xmin;
     const yRange = area.ymax - area.ymin;
     const padding = 0.1; // 10% padding
-    
+
     const update = {
       'scene.xaxis.range': [area.xmin - xRange * padding, area.xmax + xRange * padding],
       'scene.yaxis.range': [area.ymin - yRange * padding, area.ymax + yRange * padding],
     };
-    
+
     Plotly.relayout(plotRef.current, update);
   };
 
   const resetZoom = () => {
     if (!plotRef.current || !plotReady) return;
-    
+
     const update = {
       'scene.xaxis.range': null,
       'scene.yaxis.range': null,
       'scene.zaxis.range': [0, null]
     };
-    
+
     Plotly.relayout(plotRef.current, update);
     setSelectedArea(null);
   };
 
   const scaleBetweenPoints = () => {
     if (!plotRef.current || !plotReady || !selectedArea) return;
-    
+
     // Find points in selected area
     const pointsInArea = data.filter(point => 
       point.x >= selectedArea.xmin && point.x <= selectedArea.xmax &&
       point.y >= selectedArea.ymin && point.y <= selectedArea.ymax
     );
-    
+
     if (pointsInArea.length === 0) return;
 
     // Calculate average distance between points in selected area
     let totalDistance = 0;
     let pairCount = 0;
-    
+
     for (let i = 0; i < pointsInArea.length; i++) {
       for (let j = i + 1; j < pointsInArea.length; j++) {
         const distance = Math.sqrt(
@@ -463,23 +412,23 @@ export default function ClusterVisualization({
         pairCount++;
       }
     }
-    
+
     if (pairCount === 0) return;
 
     const avgDistance = totalDistance / pairCount;
     const scaleFactor = Math.max(2, Math.min(10, 1 / avgDistance)); // Scale factor between 2x and 10x
-    
+
     // Apply scaling by adjusting the range
     const centerX = (selectedArea.xmin + selectedArea.xmax) / 2;
     const centerY = (selectedArea.ymin + selectedArea.ymax) / 2;
     const rangeX = (selectedArea.xmax - selectedArea.xmin) / scaleFactor;
     const rangeY = (selectedArea.ymax - selectedArea.ymin) / scaleFactor;
-    
+
     const update = {
       'scene.xaxis.range': [centerX - rangeX/2, centerX + rangeX/2],
       'scene.yaxis.range': [centerY - rangeY/2, centerY + rangeY/2],
     };
-    
+
     Plotly.relayout(plotRef.current, update);
   };
 

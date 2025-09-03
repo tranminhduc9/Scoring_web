@@ -1,5 +1,4 @@
-
-import React, { useEffect, useRef, useState, useCallback } from 'react';
+import React, { useEffect, useRef, useState, useCallback, useMemo } from 'react';
 import Plotly from 'plotly.js-dist';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -64,6 +63,61 @@ export default function InteractiveZoomSpace({
     return filteredCluster !== null ? data.filter(point => point.cluster === filteredCluster) : data;
   }, [data, filteredCluster]);
 
+  // Transform clustering results to the format expected by InteractiveZoomSpace
+  const scaledData = useMemo(() => {
+    console.log("🚀 Interactive Zoom Space: Transforming clustering data...");
+
+    if (!data || data.length === 0) {
+      console.log("⚠️ No clustering data available");
+      return [];
+    }
+
+    // Check if data is from clustering store or passed directly
+    let sourceData: any[] = [];
+
+    if (Array.isArray(data) && data.length > 0 && data[0].hasOwnProperty('x')) {
+      // Direct data format
+      sourceData = data;
+    } else {
+      // Clustering store format - need to transform
+      const storeResults = (data as any);
+      if (storeResults?.clusterResult?.companies && Array.isArray(storeResults.clusterResult.companies)) {
+        console.log("📊 Total companies:", storeResults.clusterResult.companies.length);
+
+        storeResults.clusterResult.companies.forEach((company: any, companyIndex: number) => {
+          if (company.enterprise && Array.isArray(company.enterprise)) {
+            company.enterprise.forEach((enterprise: any, enterpriseIndex: number) => {
+              const clusterLabel = enterprise.cluster !== undefined ? enterprise.cluster : (enterprise.Label || 0);
+              const embX = enterprise.emb_x || 0;  // Use emb_x instead of pca2_x
+              const embY = enterprise.emb_y || 0;  // Use emb_y instead of pca2_y
+              const employeeCount = enterprise.empl_qtty || 1;
+              const size = Math.max(0.1, Math.log10(employeeCount + 1) * 0.3); // logarithmic scaling
+
+              sourceData.push({
+                x: embX,
+                y: embY,
+                z: size,
+                cluster: clusterLabel,
+                size: size,
+                index: companyIndex * 1000 + enterpriseIndex,
+                info: {
+                  name: enterprise.name || `Company ${companyIndex}-${enterpriseIndex}`,
+                  taxcode: enterprise.taxcode || '',
+                  sector: enterprise.sector_name || '',
+                  employees: employeeCount
+                }
+              });
+            });
+          }
+        });
+      }
+    }
+
+    console.log("✅ Interactive Zoom Space: Data transformation completed");
+    console.log("📊 Total points processed:", sourceData.length);
+    return sourceData;
+  }, [data]);
+
   // Calculate scaled positions based on selection and scale factor
   const getScaledData = useCallback(() => {
     const filteredData = getFilteredData();
@@ -101,15 +155,14 @@ export default function InteractiveZoomSpace({
 
   // Create plot
   useEffect(() => {
-    if (!plotRef.current || !data.length) return;
+    if (!plotRef.current || !scaledData.length) return;
 
-    const scaledData = getScaledData();
     const clusters = Array.from(new Set(scaledData.map(d => d.cluster))).sort();
 
     // Create traces for each cluster
     const traces = clusters.map((clusterId, index) => {
       const clusterPoints = scaledData.filter(d => d.cluster === clusterId);
-      
+
       const trace: any = {
         x: clusterPoints.map(d => d.x),
         y: clusterPoints.map(d => d.y),
@@ -212,22 +265,22 @@ export default function InteractiveZoomSpace({
     Plotly.newPlot(plotRef.current, traces, layout, config).then(() => {
       setPlotReady(true);
       console.log('Interactive zoom space rendered successfully');
-      
+
       // Add selection event handlers
       if (plotRef.current) {
         const plotDiv = plotRef.current as any;
-        
+
         // Handle box/lasso selection
         plotDiv.on('plotly_selected', (eventData: any) => {
           if (eventData && eventData.points && eventData.points.length > 0) {
             const points = eventData.points;
             const selectedData: DataPoint[] = [];
-            
+
             // Calculate bounding box of selection
             let xmin = Infinity, xmax = -Infinity;
             let ymin = Infinity, ymax = -Infinity;
             let zmin = Infinity, zmax = -Infinity;
-            
+
             points.forEach((point: any) => {
               const dataPoint = scaledData[point.pointIndex];
               if (dataPoint) {
@@ -242,18 +295,18 @@ export default function InteractiveZoomSpace({
                 }
               }
             });
-            
+
             if (selectedData.length > 0) {
               const area: any = { xmin, xmax, ymin, ymax };
               if (is3D && zmin !== Infinity && zmax !== -Infinity) {
                 area.zmin = zmin;
                 area.zmax = zmax;
               }
-              
+
               setSelectedArea(area);
               setSelectedPoints(selectedData);
               onSelectionChange?.(selectedData);
-              
+
               // Save current zoom state to history
               saveZoomState();
             }
@@ -281,15 +334,15 @@ export default function InteractiveZoomSpace({
       }
     };
 
-  }, [data, activeTool, getScaledData, is3D, title, onSelectionChange, filteredCluster]);
+  }, [scaledData, activeTool, getScaledData, is3D, title, onSelectionChange, filteredCluster]);
 
   // Save current zoom state
   const saveZoomState = () => {
     if (!plotRef.current || !plotReady) return;
-    
+
     const plotDiv = plotRef.current as any;
     const layout = plotDiv.layout;
-    
+
     if (is3D && layout.scene) {
       setZoomHistory(prev => [...prev, {
         scene: {
@@ -310,23 +363,23 @@ export default function InteractiveZoomSpace({
   // Zoom to selected area with scaling
   const zoomToSelection = () => {
     if (!plotRef.current || !plotReady || !selectedArea) return;
-    
+
     const padding = 0.1;
     const xRange = selectedArea.xmax - selectedArea.xmin;
     const yRange = selectedArea.ymax - selectedArea.ymin;
-    
+
     const update: any = {};
-    
+
     if (is3D) {
       update['scene.xaxis.range'] = [
-        selectedArea.xmin - xRange * padding, 
+        selectedArea.xmin - xRange * padding,
         selectedArea.xmax + xRange * padding
       ];
       update['scene.yaxis.range'] = [
-        selectedArea.ymin - yRange * padding, 
+        selectedArea.ymin - yRange * padding,
         selectedArea.ymax + yRange * padding
       ];
-      
+
       if (selectedArea.zmin !== undefined && selectedArea.zmax !== undefined) {
         const zRange = selectedArea.zmax - selectedArea.zmin;
         update['scene.zaxis.range'] = [
@@ -336,24 +389,24 @@ export default function InteractiveZoomSpace({
       }
     } else {
       update['xaxis.range'] = [
-        selectedArea.xmin - xRange * padding, 
+        selectedArea.xmin - xRange * padding,
         selectedArea.xmax + xRange * padding
       ];
       update['yaxis.range'] = [
-        selectedArea.ymin - yRange * padding, 
+        selectedArea.ymin - yRange * padding,
         selectedArea.ymax + yRange * padding
       ];
     }
-    
+
     Plotly.relayout(plotRef.current, update);
   };
 
   // Reset zoom to original view
   const resetZoom = () => {
     if (!plotRef.current || !plotReady) return;
-    
+
     const update: any = {};
-    
+
     if (is3D) {
       update['scene.xaxis.range'] = null;
       update['scene.yaxis.range'] = null;
@@ -363,7 +416,7 @@ export default function InteractiveZoomSpace({
       update['xaxis.range'] = null;
       update['yaxis.range'] = null;
     }
-    
+
     Plotly.relayout(plotRef.current, update);
     setSelectedArea(null);
     setSelectedPoints([]);
@@ -375,7 +428,7 @@ export default function InteractiveZoomSpace({
   // Go back to previous zoom state
   const goBackZoom = () => {
     if (!plotRef.current || !plotReady || zoomHistory.length === 0) return;
-    
+
     const previousState = zoomHistory[zoomHistory.length - 1];
     Plotly.relayout(plotRef.current, previousState);
     setZoomHistory(prev => prev.slice(0, -1));
@@ -388,27 +441,27 @@ export default function InteractiveZoomSpace({
     // Calculate average distance between points in selection
     let totalDistance = 0;
     let pairCount = 0;
-    
+
     for (let i = 0; i < selectedPoints.length; i++) {
       for (let j = i + 1; j < selectedPoints.length; j++) {
         const p1 = selectedPoints[i];
         const p2 = selectedPoints[j];
         const distance = Math.sqrt(
-          Math.pow(p1.x - p2.x, 2) + 
-          Math.pow(p1.y - p2.y, 2) + 
+          Math.pow(p1.x - p2.x, 2) +
+          Math.pow(p1.y - p2.y, 2) +
           (is3D && p1.z !== undefined && p2.z !== undefined ? Math.pow(p1.z - p2.z, 2) : 0)
         );
         totalDistance += distance;
         pairCount++;
       }
     }
-    
+
     if (pairCount === 0) return;
 
     const avgDistance = totalDistance / pairCount;
     const optimalScale = Math.max(1.5, Math.min(5, 0.5 / avgDistance));
     setScaleFactor([optimalScale]);
-    
+
     // Re-render with new scale
     setTimeout(() => {
       zoomToSelection();
@@ -468,8 +521,8 @@ export default function InteractiveZoomSpace({
       }
       setTimeout(() => {
         if (plotRef.current && (Plotly as any).Plots?.resize) {
-          try { 
-            (Plotly as any).Plots.resize(plotRef.current); 
+          try {
+            (Plotly as any).Plots.resize(plotRef.current);
           } catch (e) { /* noop */ }
         }
       }, 200);
