@@ -3,7 +3,6 @@ import { useClusteringStore } from "../lib/clustering-store";
 import FileUploadZone from "@/components/file-upload-zone";
 import ClusteringForm from "@/components/clustering-form";
 import ScatterPlot from "@/components/scatter-plot";
-import IndustryVoronoiTab from "@/components/industry-voronoi-tab";
 import InteractiveZoomSpace from "@/components/interactive-zoom-space";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -24,8 +23,7 @@ export default function ClusteringPage() {
     clearError,
   } = useClusteringStore();
 
-  const [activeTab, setActiveTab] = useState<"clustering" | "voronoi" | "zoom">("zoom");
-  const [selectedSectorCode, setSelectedSectorCode] = useState<string>("");
+  const [activeTab, setActiveTab] = useState<"clustering" | "zoom">("zoom");
 
   const canRunClustering = !isRunning;
 
@@ -277,17 +275,6 @@ export default function ClusteringPage() {
                   >
                     Cluster Visualization
                   </button>
-                  <button
-                    className={`px-4 py-2 font-medium border-b-2 transition-colors ${
-                      activeTab === "voronoi"
-                        ? 'border-blue-500 text-blue-600'
-                        : 'border-transparent text-gray-500 hover:text-gray-700'
-                    }`}
-                    onClick={() => setActiveTab("voronoi")}
-                  >
-                    Industry Scatter Plot
-                  </button>
-
                 </div>
                 <div className="h-[calc(100%-40px)]">
                   <div style={{ display: activeTab === "zoom" ? 'block' : 'none' }}>
@@ -296,14 +283,6 @@ export default function ClusteringPage() {
                   <div style={{ display: activeTab === "clustering" ? 'block' : 'none' }}>
                     <ScatterPlot />
                   </div>
-                  <div style={{ display: activeTab === "voronoi" ? 'block' : 'none' }}>
-                    <IndustryVoronoiTab
-                      selectedSectorCode={selectedSectorCode}
-                      onSectorCodeChange={setSelectedSectorCode}
-                      height={600}
-                    />
-                  </div>
-
                 </div>
               </div>
             ) : (
