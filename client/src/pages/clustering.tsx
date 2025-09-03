@@ -53,15 +53,9 @@ export default function ClusteringPage() {
         company.enterprise.forEach((enterprise: any) => {
           totalPoints++;
 
-          // Enhanced coordinate extraction - prioritize PCA coordinates over embedding
-          const pcaX = typeof enterprise.pca2_x === 'number' ? enterprise.pca2_x :
-                       (enterprise.pca?.x || 0);
-          const pcaY = typeof enterprise.pca2_y === 'number' ? enterprise.pca2_y :
-                       (enterprise.pca?.y || 0);
-
-          // Fallback to first two embedding values if PCA not available
-          const finalX = pcaX !== 0 ? pcaX : (enterprise.embedding?.[0] || 0);
-          const finalY = pcaY !== 0 ? pcaY : (enterprise.embedding?.[1] || 0);
+          // Use emb_x and emb_y directly from API data
+          const finalX = enterprise.emb_x || 0;
+          const finalY = enterprise.emb_y || 0;
 
           // Enhanced cluster label detection
           const clusterLabel = enterprise.cluster ??
