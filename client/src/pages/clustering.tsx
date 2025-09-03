@@ -24,7 +24,7 @@ export default function ClusteringPage() {
     clearError,
   } = useClusteringStore();
 
-  const [activeTab, setActiveTab] = useState<"clustering" | "voronoi" | "zoom">("zoom");
+  const [activeTab, setActiveTab] = useState<"clustering" | "voronoi" | "zoom" | "voronoi-diagram">("zoom");
   const [selectedSectorCode, setSelectedSectorCode] = useState<string>("");
 
   const canRunClustering = !isRunning;
@@ -290,7 +290,17 @@ export default function ClusteringPage() {
                     }`}
                     onClick={() => setActiveTab("voronoi")}
                   >
-                    Industry Voronoi Map
+                    Industry Scatter Plot
+                  </button>
+                  <button
+                    className={`px-4 py-2 font-medium border-b-2 transition-colors ${
+                      activeTab === "voronoi-diagram"
+                        ? 'border-blue-500 text-blue-600'
+                        : 'border-transparent text-gray-500 hover:text-gray-700'
+                    }`}
+                    onClick={() => setActiveTab("voronoi-diagram")}
+                  >
+                    Voronoi Diagram
                   </button>
                 </div>
                 <div className="h-[calc(100%-40px)]">
@@ -306,6 +316,14 @@ export default function ClusteringPage() {
                       onSectorCodeChange={setSelectedSectorCode}
                       height={600}
                     />
+                  </div>
+                  <div style={{ display: activeTab === "voronoi-diagram" ? 'block' : 'none' }}>
+                    {/* Placeholder for the Voronoi Diagram component */}
+                    <div className="w-full h-full flex items-center justify-center bg-gray-50 rounded-lg">
+                      <p className="text-lg text-muted-foreground">
+                        Voronoi Diagram will be displayed here.
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
