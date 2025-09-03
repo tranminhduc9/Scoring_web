@@ -153,8 +153,8 @@ export default function ScatterPlot() {
       clusterPoints.forEach((point, pointIndex) => {
         const x = point.pca?.x || 0;
         const y = point.pca?.y || 0;
-        const height = Math.max(0.1, (point.pca?.z || ((point as any).size || 0)) * 2);
-        const columnWidth = 0.01; // 1px equivalent for compact visualization
+        const height = Math.max(0.1, (point.pca?.z || ((point as any).size || 0)) * 1.5);
+        const columnWidth = 0.005; // Reduced width for better separation
         const w = columnWidth / 2;
         
         // Create detailed hover text with all company information
@@ -204,18 +204,19 @@ export default function ScatterPlot() {
           j: faces.map(f => f[1]),
           k: faces.map(f => f[2]),
           color: clusterColor,
-          opacity: showCluster ? 0.9 : 0.1,
+          opacity: showCluster ? 0.7 : 0.1,
           showlegend: pointIndex === 0,
           name: pointIndex === 0 ? `Cluster ${clusterId} (${clusterPoints.length})` : undefined,
           text: hoverText,
           hoverinfo: 'text',
           visible: showCluster,
           lighting: {
-            ambient: 0.6,
-            diffuse: 0.9,
-            specular: 0.3,
-            roughness: 0.1
-          }
+            ambient: 0.4,
+            diffuse: 0.8,
+            specular: 0.2,
+            roughness: 0.3
+          },
+          flatshading: false
         });
       });
     });
@@ -269,7 +270,10 @@ export default function ScatterPlot() {
           zerolinewidth: 1,
         },
         camera: {
-          eye: { x: 1.5, y: 1.5, z: 1.5 }
+          eye: { x: 2.0, y: 2.0, z: 1.8 }
+        },
+        aspectratio: {
+          x: 1, y: 1, z: 0.8
         }
       },
       plot_bgcolor: 'white',
@@ -343,7 +347,7 @@ export default function ScatterPlot() {
         'scene.yaxis.autorange': true,
         'scene.zaxis.autorange': true,
         'scene.camera': {
-          eye: { x: 1.5, y: 1.5, z: 1.5 }
+          eye: { x: 2.0, y: 2.0, z: 1.8 }
         }
       });
     }
