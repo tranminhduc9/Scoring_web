@@ -3,16 +3,18 @@ import { useClusteringStore } from "@/lib/clustering-store";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Move, ZoomIn, Lasso, Maximize, ExternalLink, Download, FileImage } from "lucide-react";
+import { Move, ZoomIn, Lasso, Maximize, ExternalLink, Download, FileImage, Expand } from "lucide-react";
 import Plotly from "plotly.js-dist";
 
 
 export default function ScatterPlot() {
   const { results, isRunning, selectedProjectionType, parameters, updateParameters } = useClusteringStore();
   const plotRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const [plotReady, setPlotReady] = useState(false);
   const [selectedClusters, setSelectedClusters] = useState<number[]>([]);
   const [activeTool, setActiveTool] = useState<"pan" | "zoom" | "lasso">("lasso");
+  const [isFullscreen, setIsFullscreen] = useState(false);
 
   // Check if we should show projection image
   const shouldShowProjectionImage = (results as any)?.projectionImages && 
@@ -375,6 +377,52 @@ export default function ScatterPlot() {
     }
   };
 
+  // Toggle fullscreen
+  const toggleFullscreen = async () => {
+    const el = containerRef.current;
+    if (!el) return;
+
+    try {
+      if (!document.fullscreenElement) {
+        await el.requestFullscreen();
+        setIsFullscreen(true);
+      } else {
+        await document.exitFullscreen();
+        setIsFullscreen(false);
+      }
+      // Resize plot after fullscreen change
+      setTimeout(() => {
+        if (plotRef.current && (Plotly as any).Plots?.resize) {
+          try {
+            (Plotly as any).Plots.resize(plotRef.current);
+          } catch (e) { /* ignore resize errors */ }
+        }
+      }, 200);
+    } catch (err) {
+      console.warn('Fullscreen not supported or failed:', err);
+    }
+  };
+
+  // Listen for fullscreen changes
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      setIsFullscreen(!!document.fullscreenElement);
+      // Resize plot when exiting fullscreen
+      if (!document.fullscreenElement) {
+        setTimeout(() => {
+          if (plotRef.current && (Plotly as any).Plots?.resize) {
+            try {
+              (Plotly as any).Plots.resize(plotRef.current);
+            } catch (e) { /* ignore resize errors */ }
+          }
+        }, 200);
+      }
+    };
+
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    return () => document.removeEventListener('fullscreenchange', handleFullscreenChange);
+  }, []);
+
   // Render scatter plot view
   const renderScatterPlot = () => {
     if (isRunning) {
@@ -400,7 +448,7 @@ export default function ScatterPlot() {
       );
     }
     return (
-      <div className="flex-1 flex flex-col bg-card">
+      <div ref={containerRef} className={`flex-1 flex flex-col bg-card ${isFullscreen ? 'fixed inset-0 z-50' : ''}`}>
         {/* Toolbar */}
         <div className="p-4 border-b border-border">
           <div className="flex items-center justify-between">
@@ -471,6 +519,15 @@ export default function ScatterPlot() {
             >
               <Maximize className="h-4 w-4" />
             </Button>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={toggleFullscreen}
+              title={isFullscreen ? "Exit Fullscreen" : "Enter Fullscreen"}
+              data-testid="tool-fullscreen"
+            >
+              <Expand className="h-4 w-4" />
+            </Button>
             
             {/* Download buttons */}
             <div className="border-l border-border pl-2 ml-2 flex items-center gap-1">
@@ -501,7 +558,7 @@ export default function ScatterPlot() {
         </div>
 
         {/* Plot Container */}
-        <Card className="flex-1 p-4">
+        <Card className={`flex-1 p-4 ${isFullscreen ? 'h-full' : ''}`}>
           <div
             ref={plotRef}
             className="w-full h-full"
