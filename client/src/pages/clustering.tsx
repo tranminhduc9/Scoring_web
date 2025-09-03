@@ -69,20 +69,21 @@ export default function ClusteringPage() {
                               enterprise.cluster_label ??
                               0;
 
-          // Z (height) calculation without logarithmic scaling
+          // Calculate Z coordinate using specified formula: z = 30/100 * (s_DT_TTM + s_TTS + s_VCSH) + 0.1 * s_EMPL
           const s_DT_TTM = enterprise.s_DT_TTM || 0;
           const s_TTS = enterprise.s_TTS || 0;
           const s_VCSH = enterprise.s_VCSH || 0;
           const s_EMPL = enterprise.s_EMPL || enterprise.empl_qtty || enterprise.employees || 0;
 
-          // Simple weighted calculation without log function
-          const calculatedZ = (30/100) * (s_DT_TTM + s_TTS + s_VCSH) + 0.1 * s_EMPL;
+          const calculatedZ = (s_DT_TTM + s_TTS + s_VCSH) * 0.3 + s_EMPL * 0.1;
 
           // Fixed small size for all points
           const fixedSize = 0.2; // Small fixed size
 
-          // Validate that we have meaningful coordinates
-          const hasValidCoords = finalX !== 0 || finalY !== 0;
+          // Check if coordinates are valid (not null/undefined)
+          const hasValidCoords = finalX !== null && finalX !== undefined &&
+                                finalY !== null && finalY !== undefined &&
+                                !isNaN(finalX) && !isNaN(finalY);
 
           if (hasValidCoords) {
             transformedData.push({
@@ -292,7 +293,7 @@ export default function ClusteringPage() {
                   >
                     Industry Scatter Plot
                   </button>
-                  
+
                 </div>
                 <div className="h-[calc(100%-40px)]">
                   <div style={{ display: activeTab === "zoom" ? 'block' : 'none' }}>
@@ -308,7 +309,7 @@ export default function ClusteringPage() {
                       height={600}
                     />
                   </div>
-                  
+
                 </div>
               </div>
             ) : (

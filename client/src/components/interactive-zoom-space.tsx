@@ -88,25 +88,35 @@ export default function InteractiveZoomSpace({
           if (company.enterprise && Array.isArray(company.enterprise)) {
             company.enterprise.forEach((enterprise: any, enterpriseIndex: number) => {
               const clusterLabel = enterprise.cluster !== undefined ? enterprise.cluster : (enterprise.Label || 0);
-              const embX = enterprise.emb_x || 0;  // Use emb_x instead of pca2_x
-              const embY = enterprise.emb_y || 0;  // Use emb_y instead of pca2_y
-              const employeeCount = enterprise.empl_qtty || 1;
-              const size = Math.max(0.1, Math.log10(employeeCount + 1) * 0.3); // logarithmic scaling
+              const embX = enterprise.emb_x;
+              const embY = enterprise.emb_y;
+              
+              // Only process if we have valid coordinates
+              if (embX !== null && embX !== undefined && embY !== null && embY !== undefined && !isNaN(embX) && !isNaN(embY)) {
+                const employeeCount = enterprise.empl_qtty || 1;
+                
+                // Calculate Z using the specified formula
+                const s_DT_TTM = enterprise.s_DT_TTM || 0;
+                const s_TTS = enterprise.s_TTS || 0;
+                const s_VCSH = enterprise.s_VCSH || 0;
+                const s_EMPL = enterprise.s_EMPL || 0;
+                const calculatedZ = (s_DT_TTM + s_TTS + s_VCSH) * 0.3 + s_EMPL * 0.1;
 
-              sourceData.push({
-                x: embX,
-                y: embY,
-                z: size,
-                cluster: clusterLabel,
-                size: size,
-                index: companyIndex * 1000 + enterpriseIndex,
-                info: {
-                  name: enterprise.name || `Company ${companyIndex}-${enterpriseIndex}`,
-                  taxcode: enterprise.taxcode || '',
-                  sector: enterprise.sector_name || '',
-                  employees: employeeCount
-                }
-              });
+                sourceData.push({
+                  x: embX,
+                  y: embY,
+                  z: calculatedZ,
+                  cluster: clusterLabel,
+                  size: Math.max(0.1, Math.log10(employeeCount + 1) * 0.3),
+                  index: companyIndex * 1000 + enterpriseIndex,
+                  info: {
+                    name: enterprise.name || `Company ${companyIndex}-${enterpriseIndex}`,
+                    taxcode: enterprise.taxcode || '',
+                    sector: enterprise.sector_name || '',
+                    employees: employeeCount
+                  }
+                });
+              }
             });
           }
         });
