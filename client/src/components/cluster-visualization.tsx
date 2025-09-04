@@ -39,6 +39,7 @@ export default function ClusterVisualization({
   // increase default height so page lengthens and becomes scrollable
   height = 1000
 }: ClusterVisualizationProps) {
+  const { parameters } = useClusteringStore();
   const plotRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [data, setData] = useState<DataPoint[]>([]);
@@ -235,7 +236,7 @@ export default function ClusterVisualization({
 
   const layout = {
         title: {
-        text: 'Bar Plot with Lambda (λ) - Company Clustering Analysis',
+        text: `Bar Plot with Lambda (λ): ${parameters.lambda} và Clusters: ${clusterResult.best_k || parameters.k}`,
         font: { size: 16 }
       },
       scene: {
@@ -278,6 +279,27 @@ export default function ClusterVisualization({
         xanchor: "right",
         x: 0.99 // Position at the right
       },
+      annotations: [
+        {
+          x: 0.99,
+          y: 0.01,
+          xref: 'paper',
+          yref: 'paper',
+          text: '<b>Chú thích:</b><br>' +
+                'X: Sectorcode after embedded<br>' +
+                'Y: Sectorcode after embedded<br>' +
+                'Z: Weighted Aggregate Scale',
+          showarrow: false,
+          align: 'left',
+          bgcolor: 'rgba(255, 255, 255, 0.9)',
+          bordercolor: '#666',
+          borderwidth: 1,
+          borderpad: 8,
+          font: { size: 11, color: '#333' },
+          xanchor: 'right',
+          yanchor: 'bottom'
+        }
+      ],
       // size to container so CSS-driven height/width controls page scroll
       width: computedWidth,
       height: computedHeight,
@@ -481,10 +503,9 @@ export default function ClusterVisualization({
     <div className="cluster-visualization relative" ref={containerRef}>
       <div className="mb-4 flex items-center justify-between">
         <div>
-          <h3 className="text-lg font-semibold">Cluster Visualization</h3>
+          <h3 className="text-lg font-semibold">Bar Plot</h3>
           <p className="text-sm text-gray-600">
-            Bar Plot with Lambda (λ) showing company metrics by cluster • Dataset: {clusterResult.dataset_id} •
-            Clusters: {clusterResult.best_k} • Companies: {data.length}
+            Lambda (λ): {parameters.lambda} • Clusters: {clusterResult.best_k || parameters.k} • Companies: {data.length}
           </p>
         </div>
         <div className="flex gap-2">
