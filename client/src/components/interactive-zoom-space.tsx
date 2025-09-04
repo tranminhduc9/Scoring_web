@@ -811,6 +811,11 @@ export default function InteractiveZoomSpace({
             </CardHeader>
 
             <CardContent className="space-y-4">
+              {/* Chart Info */}
+              <div className="text-sm text-muted-foreground">
+                Lambda (λ): {lambdaValue} • Clusters: {clusters.length} • Companies: {data.length}
+              </div>
+
               {/* Controls Panel - Centered */}
               <div className="flex justify-center">
                 <div className="p-4 bg-muted/50 rounded-lg max-w-4xl w-full">
