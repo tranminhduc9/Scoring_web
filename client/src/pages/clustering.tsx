@@ -33,6 +33,8 @@ export default function ClusteringPage() {
 
   // Enhanced wrapper to transform clustering results for InteractiveZoomSpace component
   const InteractiveZoomSpaceWrapper = ({ results, height }: { results: any; height: number }) => {
+    const { parameters } = useClusteringStore();
+    
     if (!results || !results.clusterResult?.companies) {
       console.warn('No clustering results or companies data found');
       return <div className="text-center text-muted-foreground p-8">No data available for zoom space</div>;
@@ -132,7 +134,7 @@ export default function ClusteringPage() {
       <InteractiveZoomSpace
         data={transformedData}
         height={height}
-        title="Interactive Clustering Analysis"
+        title={`Scatter Plot: Mã ngành: ${parameters.level_value?.join(', ') || 'N/A'}, Lambda (λ): ${parameters.lambda}, Clusters: ${Array.from(new Set(transformedData.map(d => d.cluster))).sort().join(', ')}`}
         is3D={true}
         onSelectionChange={(points) => {
           console.log(`🔥 Selected ${points.length} points for zoom/focus`);
