@@ -228,7 +228,28 @@ export default function InteractiveZoomSpace({
       },
       paper_bgcolor: 'white',
       plot_bgcolor: 'white',
-      margin: { l: 60, r: 100, t: 80, b: 60 }
+      margin: { l: 60, r: 100, t: 80, b: 60 },
+      annotations: [
+        {
+          x: 0.98,
+          y: 0.98,
+          xref: 'paper',
+          yref: 'paper',
+          text: '<b>Chú thích:</b><br>' +
+                'X: Sectorcode after embedded<br>' +
+                'Y: Sectorcode after embedded<br>' +
+                (is3D ? 'Z: Weighted Aggregate Scale' : ''),
+          showarrow: false,
+          align: 'left',
+          bgcolor: 'rgba(255, 255, 255, 0.9)',
+          bordercolor: '#666',
+          borderwidth: 1,
+          borderpad: 8,
+          font: { size: 11, color: '#333' },
+          xanchor: 'right',
+          yanchor: 'top'
+        }
+      ]
     };
 
     if (is3D) {
