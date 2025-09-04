@@ -1,4 +1,3 @@
-
 import { useEffect, useRef, useState } from "react";
 import { useClusteringStore } from "@/lib/clustering-store";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -27,16 +26,16 @@ export default function ClusterVisualization() {
 
     // Transform API data for visualization
     let data: any[] = [];
-    
+
     if (clusterResult.companies && Array.isArray(clusterResult.companies)) {
       // Process new API format with companies array
       let pointIndex = 0;
-      
+
       clusterResult.companies.forEach((company: any) => {
         if (company.enterprise && Array.isArray(company.enterprise)) {
           company.enterprise.forEach((enterprise: any) => {
             const clusterLabel = enterprise.cluster || enterprise.Label || 0;
-            
+
             // Get coordinates
             let embX, embY;
             if (enterprise.pca2_x !== undefined && enterprise.pca2_y !== undefined) {
@@ -49,14 +48,14 @@ export default function ClusterVisualization() {
               embX = 0;
               embY = 0;
             }
-            
+
             // Calculate size based on employee count
             let calculatedSize = 0.1;
             if (enterprise.empl_qtty && enterprise.empl_qtty > 0) {
               calculatedSize = Math.log10(enterprise.empl_qtty + 1) * 0.5;
             }
             calculatedSize = Math.max(0.1, calculatedSize);
-            
+
             data.push({
               id: `company-${pointIndex}`,
               name: enterprise.name || 'Unknown Company',
@@ -76,7 +75,7 @@ export default function ClusterVisualization() {
     }
 
     console.log("🎨 Creating visualization with", data.length, "data points");
-    
+
     if (data.length === 0) {
       console.log("⚠️ No data or plotRef:", { dataLength: data.length, plotRef: !!plotRef.current });
       return;
@@ -84,7 +83,7 @@ export default function ClusterVisualization() {
 
     const clusters = Array.from(new Set(data.map(d => d.cluster).filter(c => c !== null && c !== undefined))).sort();
     console.log("🎯 Found clusters:", clusters);
-    
+
     // Color palette for clusters
     const colors = [
       '#1976D2', '#4CAF50', '#F44336', '#FF9800', '#9C27B0', '#FF5722',
@@ -93,19 +92,19 @@ export default function ClusterVisualization() {
 
     // Create 3D bar/column traces for each cluster
     const traces: any[] = [];
-    
+
     clusters.forEach((clusterId, index) => {
       const clusterPoints = data.filter(d => d.cluster === clusterId);
       const showCluster = selectedClusters.length === 0 || selectedClusters.includes(clusterId!);
       const clusterColor = colors[index % colors.length];
-      
+
       clusterPoints.forEach((point, pointIndex) => {
         const x = point.x;
         const y = point.y;
         const height = Math.max(0.1, point.size * 1.5);
         const columnWidth = 0.002;
         const w = columnWidth / 2;
-        
+
         // Create detailed hover text
         let hoverText = `<b>${point.name}</b><br>`;
         hoverText += `Tọa độ: (${x.toFixed(3)}, ${y.toFixed(3)})<br>`;
@@ -114,7 +113,7 @@ export default function ClusterVisualization() {
         hoverText += `Tên ngành: ${point.sector}<br>`;
         hoverText += `Sector ID: ${point.sector_unique_id}<br>`;
         hoverText += `Số nhân viên: ${point.employees.toLocaleString()}`;
-        
+
         // 8 vertices of rectangular column
         const vertices = [
           [x-w, y-w, 0],      // 0: bottom-left-back
@@ -126,7 +125,7 @@ export default function ClusterVisualization() {
           [x+w, y+w, height], // 6: top-right-front
           [x-w, y+w, height]  // 7: top-left-front
         ];
-        
+
         // 12 triangular faces
         const faces = [
           [0,1,2], [0,2,3], // Bottom
@@ -136,7 +135,7 @@ export default function ClusterVisualization() {
           [0,3,7], [0,7,4], // Left
           [1,5,6], [1,6,2]  // Right
         ];
-        
+
         traces.push({
           type: 'mesh3d',
           x: vertices.map(v => v[0]),
@@ -254,16 +253,16 @@ export default function ClusterVisualization() {
     // Set up tool interactions
     if (plotRef.current) {
       const plotDiv = plotRef.current as any;
-      
+
       switch (activeTool) {
-        case 'pan':
-          Plotly.relayout(plotDiv, { 'scene.dragmode': 'pan' });
+        case 'orbit':
+          Plotly.relayout(plotDiv, { 'scene.dragmode': 'orbit' });
           break;
         case 'zoom':
           Plotly.relayout(plotDiv, { 'scene.dragmode': 'zoom' });
           break;
-        case 'orbit':
-          Plotly.relayout(plotDiv, { 'scene.dragmode': 'orbit' });
+        case 'pan':
+          Plotly.relayout(plotDiv, { 'scene.dragmode': 'pan' });
           break;
       }
     }
@@ -404,7 +403,7 @@ export default function ClusterVisualization() {
   // Transform data for display
   let processedData: any[] = [];
   const clusterResult = results.clusterResult;
-  
+
   if (clusterResult.companies && Array.isArray(clusterResult.companies)) {
     let pointIndex = 0;
     clusterResult.companies.forEach((company: any) => {
