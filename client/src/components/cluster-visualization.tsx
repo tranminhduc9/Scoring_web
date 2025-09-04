@@ -3,6 +3,8 @@ import { ClusterResult } from '../../../shared/schema';
 import Plotly from 'plotly.js-dist';
 import { Button } from "@/components/ui/button";
 import { Download, FileImage, Maximize, Move, ZoomIn, Square } from "lucide-react";
+import { useClusteringStore } from "@/lib/clustering-store";
+
 
 interface ClusterVisualizationProps {
   clusterResult: ClusterResult;
@@ -233,26 +235,26 @@ export default function ClusterVisualization({
 
   const layout = {
         title: {
-        text: '3D Column Chart - Company Clustering Analysis',
+        text: 'Bar Plot with Lambda (λ) - Company Clustering Analysis',
         font: { size: 16 }
       },
       scene: {
         xaxis: {
-          title: 'Embedding X',
+          title: 'Sectorcode after embeded',
           showgrid: true,
           gridcolor: 'rgba(0,0,0,0.1)',
           zeroline: true,
           zerolinecolor: 'rgba(0,0,0,0.3)',
         },
         yaxis: {
-          title: 'Embedding Y',
+          title: 'Sectorcode after embeded',
           showgrid: true,
           gridcolor: 'rgba(0,0,0,0.1)',
           zeroline: true,
           zerolinecolor: 'rgba(0,0,0,0.3)',
         },
         zaxis: {
-          title: 'Company Metrics (Height)',
+          title: 'Weighted Aggregate Scale',
           showgrid: true,
           gridcolor: 'rgba(0,0,0,0.1)',
           zeroline: true,
@@ -270,13 +272,11 @@ export default function ClusterVisualization({
       margin: { l: 60, r: 200, t: 60, b: 60 },
       showlegend: true,
       legend: {
-        x: 1.02,
-        xanchor: 'left',
-        y: 1,
-        yanchor: 'top',
-        bgcolor: 'rgba(255,255,255,0.95)',
-        bordercolor: 'rgba(0,0,0,0.15)',
-        borderwidth: 1,
+        orientation: 'v', // Vertical orientation for the legend
+        yanchor: "bottom",
+        y: 0.01, // Position at the bottom
+        xanchor: "right",
+        x: 0.99 // Position at the right
       },
       // size to container so CSS-driven height/width controls page scroll
       width: computedWidth,
@@ -483,7 +483,7 @@ export default function ClusterVisualization({
         <div>
           <h3 className="text-lg font-semibold">Cluster Visualization</h3>
           <p className="text-sm text-gray-600">
-            3D Column Chart showing company metrics by cluster • Dataset: {clusterResult.dataset_id} •
+            Bar Plot with Lambda (λ) showing company metrics by cluster • Dataset: {clusterResult.dataset_id} •
             Clusters: {clusterResult.best_k} • Companies: {data.length}
           </p>
         </div>
