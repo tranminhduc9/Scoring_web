@@ -51,9 +51,18 @@ export default function ClusteringPage() {
         company.enterprise.forEach((enterprise: any) => {
           totalPoints++;
 
-          // Use emb_x and emb_y directly from API data
-          const finalX = enterprise.emb_x || 0;
-          const finalY = enterprise.emb_y || 0;
+          // Check for new format with pca2_x/pca2_y, fallback to emb_x/emb_y
+          let finalX, finalY;
+          if (enterprise.pca2_x !== undefined && enterprise.pca2_y !== undefined) {
+            finalX = enterprise.pca2_x;
+            finalY = enterprise.pca2_y;
+          } else if (enterprise.emb_x !== undefined && enterprise.emb_y !== undefined) {
+            finalX = enterprise.emb_x;
+            finalY = enterprise.emb_y;
+          } else {
+            finalX = 0;
+            finalY = 0;
+          }
 
           // Enhanced cluster label detection
           const clusterLabel = enterprise.cluster ??

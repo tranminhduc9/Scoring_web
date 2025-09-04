@@ -79,8 +79,19 @@ export default function ScatterPlot() {
         if (company.enterprise && Array.isArray(company.enterprise)) {
           company.enterprise.forEach((enterprise: any) => {
             const clusterLabel = enterprise.cluster || enterprise.Label || 0;
-            const embX = enterprise.emb_x || 0;
-            const embY = enterprise.emb_y || 0;
+            
+            // Check for new format with pca2_x/pca2_y
+            let embX, embY;
+            if (enterprise.pca2_x !== undefined && enterprise.pca2_y !== undefined) {
+              embX = enterprise.pca2_x;
+              embY = enterprise.pca2_y;
+            } else if (enterprise.emb_x !== undefined && enterprise.emb_y !== undefined) {
+              embX = enterprise.emb_x;
+              embY = enterprise.emb_y;
+            } else {
+              embX = 0;
+              embY = 0;
+            }
             
             // Calculate size based on employee count or use default
             let calculatedSize = 0.1; // default minimum size
@@ -96,9 +107,13 @@ export default function ScatterPlot() {
                 taxcode: enterprise.taxcode || '',
                 sector: enterprise.sector_name || '',
                 sector_unique_id: enterprise.sector_unique_id || company.sector_unique_id || '',
-                employees: enterprise.empl_qtty || 0
+                employees: enterprise.empl_qtty || 0,
+                s_DT_TTM: enterprise.s_DT_TTM || 0,
+                s_EMPL: enterprise.s_EMPL || 0,
+                s_TTS: enterprise.s_TTS || 0,
+                s_VCSH: enterprise.s_VCSH || 0
               },
-              embedding: [embX, embY],
+              embedding: enterprise.embedding || [embX, embY],
               pca: {
                 x: embX,
                 y: embY,

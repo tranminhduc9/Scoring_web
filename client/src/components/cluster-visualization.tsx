@@ -31,11 +31,11 @@ interface DataPoint {
   };
 }
 
-export default function ClusterVisualization({ 
-  clusterResult, 
-  width = 800, 
+export default function ClusterVisualization({
+  clusterResult,
+  width = 800,
   // increase default height so page lengthens and becomes scrollable
-  height = 1000 
+  height = 1000
 }: ClusterVisualizationProps) {
   const plotRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -63,16 +63,27 @@ export default function ClusterVisualization({
       clusterResult.companies.forEach((company: any) => {
         if (company.enterprise && Array.isArray(company.enterprise)) {
           company.enterprise.forEach((enterprise: any) => {
-            const embX = enterprise.emb_x || 0;
-            const embY = enterprise.emb_y || 0;
+            // Check for new format with pca2_x/pca2_y
+            let embX, embY;
+            if (enterprise.pca2_x !== undefined && enterprise.pca2_y !== undefined) {
+              embX = enterprise.pca2_x;
+              embY = enterprise.pca2_y;
+            } else if (enterprise.emb_x !== undefined && enterprise.emb_y !== undefined) {
+              embX = enterprise.emb_x;
+              embY = enterprise.emb_y;
+            } else {
+              embX = 0;
+              embY = 0;
+            }
+
             const clusterLabel = enterprise.cluster || enterprise.Label || 0;
-            const employeeSize = enterprise.empl_qtty ? Math.log10(enterprise.empl_qtty + 1) * 0.5 : 0.1;
+            const size = enterprise.empl_qtty ? Math.log10(enterprise.empl_qtty + 1) * 0.5 : 0.1;
 
             processedData.push({
               x: embX,
               y: embY,
               cluster: clusterLabel,
-              size: Math.max(0.1, employeeSize),
+              size: Math.max(0.1, size),
               index: pointIndex,
               companyInfo: {
                 name: enterprise.name || 'Unknown Company',
@@ -80,11 +91,16 @@ export default function ClusterVisualization({
                 sector_name: enterprise.sector_name || '',
                 sector_unique_id: enterprise.sector_unique_id || company.sector_unique_id || '',
                 empl_qtty: enterprise.empl_qtty || 0,
-                yearreport: enterprise.yearreport || 2024,
+                yearreport: enterprise.yearreport || 0,
                 s_DT_TTM: enterprise.s_DT_TTM || 0,
                 s_EMPL: enterprise.s_EMPL || 0,
                 s_TTS: enterprise.s_TTS || 0,
-                s_VCSH: enterprise.s_VCSH || 0
+                s_VCSH: enterprise.s_VCSH || 0,
+                // Include STD_RTD fields for detailed analysis
+                ...Object.keys(enterprise).filter(key => key.startsWith('STD_RTD')).reduce((acc, key) => {
+                  acc[key] = enterprise[key];
+                  return acc;
+                }, {} as any)
               }
             });
             pointIndex++;
@@ -167,7 +183,7 @@ export default function ClusterVisualization({
         // 8 vertices of rectangular column
         const vertices = [
           [x-w, y-w, 0],      // 0: bottom-left-back
-          [x+w, y-w, 0],      // 1: bottom-right-back  
+          [x+w, y-w, 0],      // 1: bottom-right-back
           [x+w, y+w, 0],      // 2: bottom-right-front
           [x-w, y+w, 0],      // 3: bottom-left-front
           [x-w, y-w, height], // 4: top-left-back
@@ -179,7 +195,7 @@ export default function ClusterVisualization({
         // 12 triangular faces (6 faces × 2 triangles each)
         const faces = [
           [0,1,2], [0,2,3], // Bottom face
-          [4,6,5], [4,7,6], // Top face  
+          [4,6,5], [4,7,6], // Top face
           [3,2,6], [3,6,7], // Front face
           [0,4,5], [0,5,1], // Back face
           [0,3,7], [0,7,4], // Left face
@@ -189,7 +205,7 @@ export default function ClusterVisualization({
         traces.push({
           type: 'mesh3d',
           x: vertices.map(v => v[0]),
-          y: vertices.map(v => v[1]), 
+          y: vertices.map(v => v[1]),
           z: vertices.map(v => v[2]),
           i: faces.map(f => f[0]),
           j: faces.map(f => f[1]),
@@ -391,7 +407,7 @@ export default function ClusterVisualization({
     if (!plotRef.current || !plotReady || !selectedArea) return;
 
     // Find points in selected area
-    const pointsInArea = data.filter(point => 
+    const pointsInArea = data.filter(point =>
       point.x >= selectedArea.xmin && point.x <= selectedArea.xmax &&
       point.y >= selectedArea.ymin && point.y <= selectedArea.ymax
     );
@@ -405,7 +421,7 @@ export default function ClusterVisualization({
     for (let i = 0; i < pointsInArea.length; i++) {
       for (let j = i + 1; j < pointsInArea.length; j++) {
         const distance = Math.sqrt(
-          Math.pow(pointsInArea[i].x - pointsInArea[j].x, 2) + 
+          Math.pow(pointsInArea[i].x - pointsInArea[j].x, 2) +
           Math.pow(pointsInArea[i].y - pointsInArea[j].y, 2)
         );
         totalDistance += distance;
@@ -467,7 +483,7 @@ export default function ClusterVisualization({
         <div>
           <h3 className="text-lg font-semibold">Cluster Visualization</h3>
           <p className="text-sm text-gray-600">
-            3D Column Chart showing company metrics by cluster • Dataset: {clusterResult.dataset_id} • 
+            3D Column Chart showing company metrics by cluster • Dataset: {clusterResult.dataset_id} •
             Clusters: {clusterResult.best_k} • Companies: {data.length}
           </p>
         </div>

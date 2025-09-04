@@ -43,8 +43,19 @@ export default function SimpleClusterVisualization({
     clusterResult.companies.forEach((company: any) => {
       if (company.enterprise && Array.isArray(company.enterprise)) {
         company.enterprise.forEach((enterprise: any) => {
-          const embX = enterprise.emb_x || 0;
-          const embY = enterprise.emb_y || 0;
+          // Check for new format with pca2_x/pca2_y
+          let embX, embY;
+          if (enterprise.pca2_x !== undefined && enterprise.pca2_y !== undefined) {
+            embX = enterprise.pca2_x;
+            embY = enterprise.pca2_y;
+          } else if (enterprise.emb_x !== undefined && enterprise.emb_y !== undefined) {
+            embX = enterprise.emb_x;
+            embY = enterprise.emb_y;
+          } else {
+            embX = 0;
+            embY = 0;
+          }
+          
           const clusterLabel = enterprise.cluster || enterprise.Label || 0;
           const size = enterprise.empl_qtty ? Math.log10(enterprise.empl_qtty + 1) * 0.5 : 0.1;
           
@@ -53,7 +64,18 @@ export default function SimpleClusterVisualization({
             y: embY,
             cluster: clusterLabel,
             size: Math.max(0.1, size),
-            index: pointIndex
+            index: pointIndex,
+            companyInfo: {
+              name: enterprise.name || 'Unknown Company',
+              taxcode: enterprise.taxcode || '',
+              sector_name: enterprise.sector_name || '',
+              sector_unique_id: enterprise.sector_unique_id || company.sector_unique_id || '',
+              empl_qtty: enterprise.empl_qtty || 0,
+              s_DT_TTM: enterprise.s_DT_TTM || 0,
+              s_EMPL: enterprise.s_EMPL || 0,
+              s_TTS: enterprise.s_TTS || 0,
+              s_VCSH: enterprise.s_VCSH || 0
+            }
           });
           pointIndex++;
         });

@@ -21,24 +21,24 @@ interface ClusteringState {
   // Parameters
   parameters: ClusteringParams;
   apiConfig: ApiConfig;
-  
+
   // File uploads
   embeddingsFile: File | null;
   infoFile: File | null;
-  
+
   // Processing state
   isRunning: boolean;
   progress: number;
   logs: LogEntry[];
-  
+
   // Results
   results: ClusteringResults | null;
   error: string | null;
-  
+
   // UI state
   selectedProjectionType: "pca" | "tsne" | "umap";
   selectedMetricType: "silhouette" | "calinski_harabasz" | "davies_bouldin";
-  
+
   // Actions
   updateParameters: (params: Partial<ClusteringParams>) => void;
   updateApiConfig: (config: Partial<ApiConfig>) => void;
@@ -110,7 +110,7 @@ export const useClusteringStore = create<ClusteringState>()(
 
       runClustering: async (infoFile?: File) => {
         const { parameters, apiConfig } = get();
-        
+
         if (!apiConfig.endpoint) {
           throw new Error("API endpoint not configured");
         }
@@ -129,7 +129,7 @@ export const useClusteringStore = create<ClusteringState>()(
           // Step 1: Validate parameters and prepare data (20%)
           set({ progress: 20 });
           get().addLog({ type: "info", message: "Validating parameters..." });
-          
+
           if (!parameters.lambda || !parameters.k || !parameters.level_value) {
             throw new Error("Missing required parameters: lambda, k, and level_value");
           }
@@ -146,10 +146,10 @@ export const useClusteringStore = create<ClusteringState>()(
 
           // Convert info file to base64 if provided
           let infoFileBase64: string | undefined;
-          
+
           // Try parameter first, then fallback to store
           const fileToUse = infoFile || get().infoFile;
-          
+
           if (fileToUse) {
             get().addLog({ type: "info", message: "Processing info CSV file..." });
             console.log("📄 Info file found:", fileToUse.name, "size:", fileToUse.size);
@@ -173,67 +173,79 @@ export const useClusteringStore = create<ClusteringState>()(
           // Step 2: Call clustering API (50%)
           set({ progress: 50 });
           get().addLog({ type: "info", message: "Calling clustering API..." });
-          
+
           const clusterResult = await clusteringApi.runClustering(apiConfig, parameters, infoFileBase64);
-          
+
           console.log("🔍 Store: Received cluster result from API:");
           console.log("📋 ClusterResult object:", JSON.stringify(clusterResult, null, 2));
-          
+
           set({ progress: 70 });
           get().addLog({ type: "success", message: "Clustering API completed successfully" });
 
           // Step 3: Process results (30%)
           set({ progress: 80 });
           get().addLog({ type: "info", message: "Processing clustering results..." });
-          
+
           // Process cluster result data
           let finalDataPoints: DataPoint[] = [];
-          
+
           // Handle new API response format with companies array
           if (clusterResult.companies && Array.isArray(clusterResult.companies)) {
             console.log("🔧 Processing new API response format with companies array");
             console.log("🏢 Number of companies:", clusterResult.companies.length);
-            
+
             let pointIndex = 0;
             clusterResult.companies.forEach((company: Company) => {
               if (company.enterprise && Array.isArray(company.enterprise)) {
-                company.enterprise.forEach((enterprise: Enterprise) => {
+                company.enterprise.forEach((enterprise: any) => {
                   const clusterLabel = enterprise.cluster || enterprise.Label || 0;
-                  const embedding = enterprise.embedding || [];
-                  const pcaX = enterprise.pca2_x || 0;
-                  const pcaY = enterprise.pca2_y || 0;
-                  
-                  // Extract company information
-                  const companyInfo = {
-                    name: enterprise.name || 'Unknown Company',
-                    taxcode: enterprise.taxcode || '',
-                    sector_name: enterprise.sector_name || '',
-                    sector_unique_id: enterprise.sector_unique_id || company.sector_unique_id || '',
-                    empl_qtty: enterprise.empl_qtty || 0,
-                    yearreport: enterprise.yearreport || 2024,
-                    s_DT_TTM: enterprise.s_DT_TTM || 0,
-                    s_EMPL: enterprise.s_EMPL || 0,
-                    s_TTS: enterprise.s_TTS || 0,
-                    s_VCSH: enterprise.s_VCSH || 0
-                  };
-                  
+
+                  // Check for new format with pca2_x/pca2_y
+                  let embX, embY;
+                  if (enterprise.pca2_x !== undefined && enterprise.pca2_y !== undefined) {
+                    embX = enterprise.pca2_x;
+                    embY = enterprise.pca2_y;
+                  } else if (enterprise.emb_x !== undefined && enterprise.emb_y !== undefined) {
+                    embX = enterprise.emb_x;
+                    embY = enterprise.emb_y;
+                  } else {
+                    embX = 0;
+                    embY = 0;
+                  }
+
+                  // Calculate size based on employee count or use default
+                  let calculatedSize = 0.1; // default minimum size
+                  if (enterprise.empl_qtty && enterprise.empl_qtty > 0) {
+                    calculatedSize = Math.log10(enterprise.empl_qtty + 1) * 0.5; // logarithmic scaling
+                  }
+                  calculatedSize = Math.max(0.1, calculatedSize); // ensure minimum size
+
                   finalDataPoints.push({
-                    id: pointIndex.toString(),
-                    info: companyInfo,
-                    embedding: embedding,
-                    pca: {
-                      x: pcaX,
-                      y: pcaY
+                    id: `company-${pointIndex}`,
+                    info: {
+                      name: enterprise.name || 'Unknown Company',
+                      taxcode: enterprise.taxcode || '',
+                      sector: enterprise.sector_name || '',
+                      sector_unique_id: enterprise.sector_unique_id || company.sector_unique_id || '',
+                      employees: enterprise.empl_qtty || 0,
+                      s_DT_TTM: enterprise.s_DT_TTM || 0,
+                      s_EMPL: enterprise.s_EMPL || 0,
+                      s_TTS: enterprise.s_TTS || 0,
+                      s_VCSH: enterprise.s_VCSH || 0
                     },
-                    cluster: clusterLabel,
-                    size: 1, // Default size, can be calculated later
+                    embedding: enterprise.embedding || [embX, embY],
+                    pca: {
+                      x: embX,
+                      y: embY,
+                      z: calculatedSize
+                    },
+                    cluster: clusterLabel
                   });
-                  
                   pointIndex++;
                 });
               }
             });
-            
+
             console.log("✅ Created", finalDataPoints.length, "data points from companies data");
             console.log("📋 Sample data point:", finalDataPoints[0]);
           } else if (clusterResult.embedding && clusterResult.labels) {
@@ -241,11 +253,11 @@ export const useClusteringStore = create<ClusteringState>()(
             console.log("🔧 Processing direct embedding data from backend (legacy format)");
             console.log("📊 Embedding length:", clusterResult.embedding.length);
             console.log("🏷️ Labels length:", clusterResult.labels.length);
-            
+
             clusterResult.embedding.forEach((coords: number[], index: number) => {
               const clusterLabel = clusterResult.labels![index];
               const clusterSize = clusterResult.size ? clusterResult.size[clusterLabel] : 1;
-              
+
               finalDataPoints.push({
                 id: index.toString(),
                 info: {},
@@ -258,7 +270,7 @@ export const useClusteringStore = create<ClusteringState>()(
                 size: clusterSize,
               });
             });
-            
+
             console.log("✅ Created", finalDataPoints.length, "data points for visualization");
             console.log("📋 Sample data point:", finalDataPoints[0]);
           } else {
@@ -273,7 +285,7 @@ export const useClusteringStore = create<ClusteringState>()(
                 labels = [];
               }
             }
-            
+
             // Apply cluster labels to data points
             labels.forEach((label: number, index: number) => {
               finalDataPoints.push({
