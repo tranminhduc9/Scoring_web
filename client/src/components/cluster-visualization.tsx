@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { ClusterResult } from '../../../shared/schema';
 import Plotly from 'plotly.js-dist';
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Download, FileImage, Maximize, Move, ZoomIn, Square } from "lucide-react";
+import { Move, ZoomIn, Lasso, Maximize, Download, FileImage, Expand } from "lucide-react";
 import { useClusteringStore } from "@/lib/clustering-store";
 
 
@@ -401,7 +402,7 @@ export default function ClusterVisualization({
 
     // Calculate zoom factor to expand the selected area
     const xRange = area.xmax - area.xmin;
-    const yRange = area.ymax - area.ymin;
+    const yRange = area.ymin - area.ymin;
     const padding = 0.1; // 10% padding
 
     const update = {
@@ -500,113 +501,127 @@ export default function ClusterVisualization({
   }, []);
 
   return (
-    <div className="cluster-visualization relative" ref={containerRef}>
-      <div className="mb-4 flex items-center justify-between">
-        <div>
-          <h3 className="text-lg font-semibold">Bar Plot</h3>
-          <p className="text-sm text-gray-600">
-            Lambda (λ): {parameters.lambda} • Clusters: {clusterResult.best_k || parameters.k} • Companies: {data.length}
-          </p>
-        </div>
-        <div className="flex gap-2">
-          {/* Interaction Tools */}
-          <div className="flex border rounded-md mr-2">
-            <Button
-              variant={activeTool === "orbit" ? "default" : "ghost"}
-              size="sm"
-              onClick={() => setActiveTool("orbit")}
-              className="rounded-r-none"
-              title="3D Orbit Tool"
-              data-testid="tool-orbit"
-            >
-              <Move className="h-4 w-4" />
-            </Button>
-            <Button
-              variant={activeTool === "zoom" ? "default" : "ghost"}
-              size="sm"
-              onClick={() => setActiveTool("zoom")}
-              className="rounded-none border-l border-r"
-              title="Zoom Tool"
-              data-testid="tool-zoom"
-            >
-              <ZoomIn className="h-4 w-4" />
-            </Button>
-            <Button
-              variant={activeTool === "select" ? "default" : "ghost"}
-              size="sm"
-              onClick={() => setActiveTool("select")}
-              className="rounded-l-none"
-              title="Box Select Tool - Chọn vùng không gian để phóng to"
-              data-testid="tool-select"
-            >
-              <Square className="h-4 w-4" />
-            </Button>
-          </div>
+    <div className="w-full h-full" ref={containerRef}>
+      <div className="w-full space-y-4 pb-6 px-4">
+        <Card className="w-full">
+          <CardHeader>
+            <CardTitle className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <span>3D Bar Plot Visualization</span>
+              </div>
 
-          {/* Zoom Actions */}
-          {selectedArea && (
-            <div className="flex gap-1 mr-2">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={scaleBetweenPoints}
-                title="Tăng scale distance giữa các điểm trong vùng đã chọn"
-                data-testid="scale-points"
-              >
-                🔍 Scale Up
-              </Button>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={resetZoom}
-                title="Reset zoom về ban đầu"
-                data-testid="reset-zoom"
-              >
-                🔄 Reset
-              </Button>
+              <div className="flex items-center gap-2 flex-wrap">
+                {/* Tool Selection */}
+                <div className="flex border rounded-md">
+                  <Button
+                    variant={activeTool === "orbit" ? "default" : "ghost"}
+                    size="sm"
+                    onClick={() => setActiveTool("orbit")}
+                    className="rounded-r-none"
+                    title="3D Orbit Tool - Xoay biểu đồ 3D"
+                    data-testid="tool-orbit"
+                  >
+                    <Move className="h-4 w-4" />
+                  </Button>
+                  <Button
+                    variant={activeTool === "zoom" ? "default" : "ghost"}
+                    size="sm"
+                    onClick={() => setActiveTool("zoom")}
+                    className="rounded-none border-l border-r"
+                    title="Zoom Tool"
+                    data-testid="tool-zoom"
+                  >
+                    <ZoomIn className="h-4 w-4" />
+                  </Button>
+                  <Button
+                    variant={activeTool === "select" ? "default" : "ghost"}
+                    size="sm"
+                    onClick={() => setActiveTool("select")}
+                    className="rounded-l-none"
+                    title="Select Tool"
+                    data-testid="tool-select"
+                  >
+                    <Lasso className="h-4 w-4" />
+                  </Button>
+                </div>
+
+                {/* Navigation */}
+                <div className="flex gap-1">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={resetZoom}
+                    title="Reset View"
+                    data-testid="reset-view"
+                  >
+                    <Maximize className="h-4 w-4 mr-1" />
+                    Reset
+                  </Button>
+                </div>
+
+                {/* Download Options */}
+                <div className="flex gap-1">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={downloadPlotAsPNG}
+                    title="Download as PNG"
+                    data-testid="download-png"
+                    disabled={!plotReady}
+                  >
+                    <Download className="h-4 w-4 mr-1" />
+                    PNG
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={downloadPlotAsSVG}
+                    title="Download as SVG"
+                    data-testid="download-svg"
+                    disabled={!plotReady}
+                  >
+                    <FileImage className="h-4 w-4 mr-1" />
+                    SVG
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={toggleFullscreen}
+                    title={isFullscreen ? "Exit fullscreen" : "Fullscreen"}
+                    data-testid="fullscreen"
+                  >
+                    <Expand className="h-4 w-4 mr-1" />
+                    {isFullscreen ? 'Exit' : 'Full'}
+                  </Button>
+                </div>
+              </div>
+            </CardTitle>
+          </CardHeader>
+
+          <CardContent className="space-y-4">
+            {/* Chart Info */}
+            <div className="text-sm text-muted-foreground">
+              Lambda (λ): {parameters.lambda} • Clusters: {clusterResult.best_k || parameters.k} • Companies: {data.length}
             </div>
-          )}
 
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={downloadPlotAsPNG}
-            title="Download as PNG"
-            data-testid="download-cluster-png"
-            disabled={!plotReady}
-          >
-            <Download className="h-4 w-4 mr-1" />
-            PNG
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={downloadPlotAsSVG}
-            title="Download as SVG"
-            data-testid="download-cluster-svg"
-            disabled={!plotReady}
-          >
-            <FileImage className="h-4 w-4 mr-1" />
-            SVG
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={toggleFullscreen}
-            title={isFullscreen ? "Exit fullscreen" : "Fullscreen"}
-            data-testid="fullscreen-cluster"
-          >
-            <Maximize className="h-4 w-4 mr-1" />
-            {isFullscreen ? 'Exit' : 'Fullscreen'}
-          </Button>
-        </div>
-      </div>
-      <div className="border border-gray-200 rounded overflow-auto" style={{ width: '100%', height: `${height}px`, maxHeight: '80vh' }}>
-        <div
-          ref={plotRef}
-          className="w-full h-full min-h-full"
-          style={{ width: '100%', height: '100%', minHeight: `${height}px` }}
-        />
+            {/* Plot Container */}
+            <div className="flex">
+              <div
+                className="border border-gray-200 rounded overflow-hidden w-full"
+                style={{
+                  height: Math.max(700, 600),
+                  minHeight: '700px'
+                }}
+              >
+                <div
+                  ref={plotRef}
+                  className="w-full h-full"
+                  data-testid="bar-plot"
+                />
+              </div>
+            </div>
+          </CardContent>
+        </Card>
       </div>
     </div>
   );
