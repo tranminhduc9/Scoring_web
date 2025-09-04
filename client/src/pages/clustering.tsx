@@ -3,6 +3,7 @@ import { useClusteringStore } from "../lib/clustering-store";
 import FileUploadZone from "@/components/file-upload-zone";
 import ClusteringForm from "@/components/clustering-form";
 import ScatterPlot from "@/components/scatter-plot";
+import ClusterVisualization from "@/components/cluster-visualization";
 import InteractiveZoomSpace from "@/components/interactive-zoom-space";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -294,7 +295,11 @@ export default function ClusteringPage() {
                     <InteractiveZoomSpaceWrapper results={results} height={600} />
                   </div>
                   <div style={{ display: activeTab === "clustering" ? 'block' : 'none' }}>
-                    <ScatterPlot />
+                    {results?.clusterResult ? (
+                      <ClusterVisualization clusterResult={results.clusterResult} />
+                    ) : (
+                      <div className="text-center text-muted-foreground p-8">No clustering results available</div>
+                    )}
                   </div>
                 </div>
               </div>
