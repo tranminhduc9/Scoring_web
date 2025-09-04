@@ -681,10 +681,6 @@ export default function InteractiveZoomSpace({
   const { parameters } = useClusteringStore();
   const lambdaValue = parameters?.lambda || 0.5;
 
-  // Dynamically construct the title
-  const dynamicTitle = `Scatter Plot theo Lambda (λ): ${lambdaValue}, Clusters: ${clusters.join(', ')}`;
-
-
   if (!data.length) {
     return (
       <Card className="w-full">
@@ -707,7 +703,7 @@ export default function InteractiveZoomSpace({
             <CardHeader>
               <CardTitle className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <span>{dynamicTitle}</span>
+                  <span>Scatter Plot</span>
                   {selectedPoints.length > 0 && (
                     <Badge variant="secondary">
                       {selectedPoints.length} points selected
