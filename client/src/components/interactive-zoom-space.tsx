@@ -90,11 +90,11 @@ export default function InteractiveZoomSpace({
               const clusterLabel = enterprise.cluster !== undefined ? enterprise.cluster : (enterprise.Label || 0);
               const embX = enterprise.emb_x;
               const embY = enterprise.emb_y;
-
+              
               // Only process if we have valid coordinates
               if (embX !== null && embX !== undefined && embY !== null && embY !== undefined && !isNaN(embX) && !isNaN(embY)) {
                 const employeeCount = enterprise.empl_qtty || 1;
-
+                
                 // Calculate Z using the specified formula
                 const s_DT_TTM = enterprise.s_DT_TTM || 0;
                 const s_TTS = enterprise.s_TTS || 0;
@@ -349,10 +349,10 @@ export default function InteractiveZoomSpace({
   // Auto-update plot when scale factor changes
   useEffect(() => {
     if (!plotRef.current || !plotReady || scaleFactor[0] === 1) return;
-
+    
     // Re-render plot with new scaled data
     const filteredData = getFilteredData();
-
+    
     if (!selectedArea || scaleFactor[0] === 1) return;
 
     const centerX = (selectedArea.xmin + selectedArea.xmax) / 2;
@@ -483,9 +483,9 @@ export default function InteractiveZoomSpace({
 
     // Auto-scale: increase scale factor based on zoom level
     const autoScaleFactor = Math.min(5, Math.max(1, Math.log2(avgZoomRatio + 1) * 1.5));
-
+    
     console.log(`🔍 Auto-scaling: Zoom ratio ${avgZoomRatio.toFixed(2)}x, Scale factor ${autoScaleFactor.toFixed(2)}x`);
-
+    
     // Update scale factor automatically
     setScaleFactor([autoScaleFactor]);
 
@@ -668,15 +668,6 @@ export default function InteractiveZoomSpace({
     );
   }
 
-  // Placeholder for parameters and transformedData, assuming they are passed or defined elsewhere
-  // For the purpose of this example, we'll use dummy values.
-  // In a real application, these would come from props or state.
-  const parameters = {
-    level_value: ["ABC", "XYZ"], // Example sector values
-    lambda: 0.75                  // Example lambda value
-  };
-  const transformedData = scaledData; // Use the already transformed data
-
   return (
     <div className="w-full h-full" ref={containerRef}>
       {/* Container with Scroll */}
@@ -826,17 +817,10 @@ export default function InteractiveZoomSpace({
                     minHeight: '700px'
                   }}
                 >
-                  {/* This is where the InteractiveZoomSpace component is rendered */}
-                  {/* The title prop is updated to reflect the new requirement */}
-                  <InteractiveZoomSpace
-                    data={transformedData}
-                    height={height}
-                    title={`Scatter Plot: Mã ngành: ${parameters.level_value?.join(', ') || 'N/A'}, Lambda (λ): ${parameters.lambda}, Clusters: ${Array.from(new Set(transformedData.map(d => d.cluster))).sort().join(', ')}`}
-                    is3D={true}
-                    onSelectionChange={(points) => {
-                      console.log(`🔥 Selected ${points.length} points for zoom/focus`);
-                      console.log('📍 Selected points sample:', points.slice(0, 2));
-                    }}
+                  <div
+                    ref={plotRef}
+                    className="w-full h-full"
+                    data-testid="interactive-zoom-space"
                   />
                 </div>
               </div>
