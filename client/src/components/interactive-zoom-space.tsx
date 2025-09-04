@@ -90,11 +90,11 @@ export default function InteractiveZoomSpace({
               const clusterLabel = enterprise.cluster !== undefined ? enterprise.cluster : (enterprise.Label || 0);
               const embX = enterprise.emb_x;
               const embY = enterprise.emb_y;
-              
+
               // Only process if we have valid coordinates
               if (embX !== null && embX !== undefined && embY !== null && embY !== undefined && !isNaN(embX) && !isNaN(embY)) {
                 const employeeCount = enterprise.empl_qtty || 1;
-                
+
                 // Calculate Z using the specified formula
                 const s_DT_TTM = enterprise.s_DT_TTM || 0;
                 const s_TTS = enterprise.s_TTS || 0;
@@ -349,10 +349,10 @@ export default function InteractiveZoomSpace({
   // Auto-update plot when scale factor changes
   useEffect(() => {
     if (!plotRef.current || !plotReady || scaleFactor[0] === 1) return;
-    
+
     // Re-render plot with new scaled data
     const filteredData = getFilteredData();
-    
+
     if (!selectedArea || scaleFactor[0] === 1) return;
 
     const centerX = (selectedArea.xmin + selectedArea.xmax) / 2;
@@ -483,9 +483,9 @@ export default function InteractiveZoomSpace({
 
     // Auto-scale: increase scale factor based on zoom level
     const autoScaleFactor = Math.min(5, Math.max(1, Math.log2(avgZoomRatio + 1) * 1.5));
-    
+
     console.log(`🔍 Auto-scaling: Zoom ratio ${avgZoomRatio.toFixed(2)}x, Scale factor ${autoScaleFactor.toFixed(2)}x`);
-    
+
     // Update scale factor automatically
     setScaleFactor([autoScaleFactor]);
 
@@ -655,6 +655,14 @@ export default function InteractiveZoomSpace({
   // Get unique clusters for cluster selector
   const clusters = Array.from(new Set(data.map(d => d.cluster))).sort();
 
+  // Extracting lambda and sector values for the title
+  const lambdaValue = (data as any)?.lambda || 'N/A'; // Assuming lambda is available in data or a prop
+  const sectorValues = (data as any)?.sectorValues || []; // Assuming sector values are available
+
+  // Dynamically construct the title
+  const dynamicTitle = `Scatter Plot theo Lambda (λ): ${lambdaValue}, Clusters: ${clusters.join(', ')}`;
+
+
   if (!data.length) {
     return (
       <Card className="w-full">
@@ -677,7 +685,7 @@ export default function InteractiveZoomSpace({
             <CardHeader>
               <CardTitle className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <span>{title}</span>
+                  <span>{dynamicTitle}</span>
                   {selectedPoints.length > 0 && (
                     <Badge variant="secondary">
                       {selectedPoints.length} points selected

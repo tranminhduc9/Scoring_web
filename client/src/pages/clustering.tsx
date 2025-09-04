@@ -128,11 +128,15 @@ export default function ClusteringPage() {
       </div>;
     }
 
+    // Access parameters from the store if available, otherwise use defaults or null
+    const parameters = useClusteringStore.getState().parameters || {};
+
+
     return (
       <InteractiveZoomSpace
         data={transformedData}
         height={height}
-        title="Interactive Clustering Analysis"
+        title={`Scatter Plot - Lambda (λ): ${parameters.lambda}, Clusters: ${Array.from(new Set(transformedData.map(d => d.cluster))).sort().join(', ')}`}
         is3D={true}
         onSelectionChange={(points) => {
           console.log(`🔥 Selected ${points.length} points for zoom/focus`);
