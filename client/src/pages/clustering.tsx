@@ -276,7 +276,7 @@ export default function ClusteringPage() {
                     }`}
                     onClick={() => setActiveTab("zoom")}
                   >
-                    Interactive Zoom Space
+                    Scatter Plot
                   </button>
                   <button
                     className={`px-4 py-2 font-medium border-b-2 transition-colors ${
