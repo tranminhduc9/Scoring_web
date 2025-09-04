@@ -6,6 +6,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Download, FileImage, Maximize, Move, ZoomIn, Square, RotateCcw, Target, Expand } from "lucide-react";
 import { Slider } from "@/components/ui/slider";
 import { Badge } from "@/components/ui/badge";
+import { useClusteringStore } from "@/lib/clustering-store";
 
 interface DataPoint {
   x: number;
@@ -655,9 +656,9 @@ export default function InteractiveZoomSpace({
   // Get unique clusters for cluster selector
   const clusters = Array.from(new Set(data.map(d => d.cluster))).sort();
 
-  // Extracting lambda and sector values for the title
-  const lambdaValue = (data as any)?.lambda || 'N/A'; // Assuming lambda is available in data or a prop
-  const sectorValues = (data as any)?.sectorValues || []; // Assuming sector values are available
+  // Get lambda value from clustering store
+  const { parameters } = useClusteringStore();
+  const lambdaValue = parameters?.lambda || 0.5;
 
   // Dynamically construct the title
   const dynamicTitle = `Scatter Plot theo Lambda (λ): ${lambdaValue}, Clusters: ${clusters.join(', ')}`;
