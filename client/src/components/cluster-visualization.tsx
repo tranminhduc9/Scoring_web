@@ -236,7 +236,7 @@ export default function ClusterVisualization({
 
   const layout = {
         title: {
-        text: `Bar Plot with Lambda (λ): ${parameters.lambda} và Clusters: ${clusterResult.best_k || parameters.k}`,
+        text: `Bar Plot với Lambda (λ): ${parameters.lambda} Number of Clusters (k): ${clusterResult.best_k || parameters.k}`,
         font: { size: 16 }
       },
       scene: {

@@ -286,7 +286,7 @@ export default function ClusteringPage() {
                     }`}
                     onClick={() => setActiveTab("clustering")}
                   >
-                    Cluster Visualization
+                    Bar Plot
                   </button>
                 </div>
                 <div className="h-[calc(100%-40px)]">
