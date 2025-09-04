@@ -437,12 +437,12 @@ export default function ClusterVisualization() {
                 {/* Tool Selection */}
                 <div className="flex border rounded-md">
                   <Button
-                    variant={activeTool === "orbit" ? "default" : "ghost"}
+                    variant={activeTool === "pan" ? "default" : "ghost"}
                     size="sm"
-                    onClick={() => setActiveTool("orbit")}
+                    onClick={() => setActiveTool("pan")}
                     className="rounded-r-none"
-                    title="Orbit Tool - Xoay biểu đồ"
-                    data-testid="tool-orbit"
+                    title="Pan Tool - Di chuyển biểu đồ"
+                    data-testid="tool-pan"
                   >
                     <Move className="h-4 w-4" />
                   </Button>
@@ -457,12 +457,12 @@ export default function ClusterVisualization() {
                     <ZoomIn className="h-4 w-4" />
                   </Button>
                   <Button
-                    variant={activeTool === "pan" ? "default" : "ghost"}
+                    variant={activeTool === "orbit" ? "default" : "ghost"}
                     size="sm"
-                    onClick={() => setActiveTool("pan")}
+                    onClick={() => setActiveTool("orbit")}
                     className="rounded-l-none"
-                    title="Pan Tool"
-                    data-testid="tool-pan"
+                    title="Orbit Tool - Xoay biểu đồ"
+                    data-testid="tool-orbit"
                   >
                     <Lasso className="h-4 w-4" />
                   </Button>
