@@ -51,18 +51,18 @@ export default function ClusterVisualization() {
 
             // Calculate size based on employee count
             let calculatedSize = 0.1;
-            if (enterprise.empl_qtty && enterprise.empl_qtty > 0) {
-              calculatedSize = Math.log10(enterprise.empl_qtty + 1) * 0.5;
+            if (enterprise.employee_quantity && enterprise.employee_quantity > 0) {
+              calculatedSize = Math.log10(enterprise.employee_quantity + 1) * 0.5;
             }
             calculatedSize = Math.max(0.1, calculatedSize);
 
             data.push({
               id: `company-${pointIndex}`,
               name: enterprise.name || 'Unknown Company',
-              taxcode: enterprise.taxcode || '',
+              tax_code: enterprise.tax_code || '',
               sector: enterprise.sector_name || '',
               sector_unique_id: enterprise.sector_unique_id || company.sector_unique_id || '',
-              employees: enterprise.empl_qtty || 0,
+              employees: enterprise.employee_quantity || 0,
               x: embX,
               y: embY,
               size: calculatedSize,
@@ -107,12 +107,12 @@ export default function ClusterVisualization() {
 
         // Create detailed hover text
         let hoverText = `<b>${point.name}</b><br>`;
-        hoverText += `Tọa độ: (${x.toFixed(3)}, ${y.toFixed(3)})<br>`;
-        hoverText += `Kích thước quy mô: ${point.size.toFixed(2)}<br>`;
-        hoverText += `Mã số thuế: ${point.taxcode}<br>`;
-        hoverText += `Tên ngành: ${point.sector}<br>`;
+        hoverText += `Coordinates: (${x.toFixed(3)}, ${y.toFixed(3)})<br>`;
+        hoverText += `Scale Size: ${point.size.toFixed(2)}<br>`;
+        hoverText += `Tax Code: ${point.tax_code}<br>`;
+        hoverText += `Sector Name: ${point.sector}<br>`;
         hoverText += `Sector ID: ${point.sector_unique_id}<br>`;
-        hoverText += `Số nhân viên: ${point.employees.toLocaleString()}`;
+        hoverText += `Employees: ${point.employees.toLocaleString()}`;
 
         // 8 vertices of rectangular column
         const vertices = [

@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import Plotly from 'plotly.js-dist';
 import { Button } from "@/components/ui/button";
@@ -62,10 +61,10 @@ export default function IndustryVoronoiTab({
             x_sum: number;
             y_sum: number;
             count: number;
-            vcsh_sum: number;
-            tttdm_sum: number;
-            tts_sum: number;
-            empl_sum: number;
+            capital_sum: number;
+            turnover_sum: number;
+            total_assets_sum: number;
+            employee_sum: number;
           }>();
 
           // Collect ALL enterprises across all companies that have the same sector_name
@@ -85,23 +84,24 @@ export default function IndustryVoronoiTab({
                       x_sum: 0,
                       y_sum: 0,
                       count: 0,
-                      vcsh_sum: 0,
-                      tttdm_sum: 0,
-                      tts_sum: 0,
-                      empl_sum: 0
+                      capital_sum: 0,
+                      turnover_sum: 0,
+                      total_assets_sum: 0,
+                      employee_sum: 0
                     });
                   }
 
                   console.log(`Adding enterprise: ${enterprise.name || 'Unknown'} to sector: ${sectorName}`);
-                  const sector = sectorMap.get(sectorName)!;
-                  sector.enterprises.push(enterprise);
-                  sector.x_sum += parseFloat(enterprise.pca2_x) || 0;
-                  sector.y_sum += parseFloat(enterprise.pca2_y) || 0;
-                  sector.vcsh_sum += parseFloat(enterprise.vcsh || 0) || 0;
-                  sector.tttdm_sum += parseFloat(enterprise.tttdm || 0) || 0;
-                  sector.tts_sum += parseFloat(enterprise.tts || 0) || 0;
-                  sector.empl_sum += parseFloat(enterprise.empl || 0) || 0;
-                  sector.count += 1;
+                  const sectorData = sectorMap.get(sectorName)!;
+                  sectorData.enterprises.push(enterprise);
+                  sectorData.x_sum += parseFloat(enterprise.pca2_x) || 0;
+                  sectorData.y_sum += parseFloat(enterprise.pca2_y) || 0;
+                  // Aggregate metrics
+                  sectorData.capital_sum += parseFloat(enterprise.capital) || 0;
+                  sectorData.turnover_sum += parseFloat(enterprise.turnover) || 0;
+                  sectorData.total_assets_sum += parseFloat(enterprise.total_assets) || 0;
+                  sectorData.employee_sum += parseInt(enterprise.employee_quantity) || 0;
+                  sectorData.count += 1;
                 }
               });
             }
@@ -153,10 +153,10 @@ export default function IndustryVoronoiTab({
             .filter(sector => sector.count > 0)
             .forEach(sector => {
               // Calculate averages for metrics
-              const avgVcsh = sector.vcsh_sum / sector.count;
-              const avgTttdm = sector.tttdm_sum / sector.count;
-              const avgTts = sector.tts_sum / sector.count;
-              const avgEmpl = sector.empl_sum / sector.count;
+              const avgVcsh = sector.capital_sum / sector.count;
+              const avgTttdm = sector.turnover_sum / sector.count;
+              const avgTts = sector.total_assets_sum / sector.count;
+              const avgEmpl = sector.employee_sum / sector.count;
 
               // Calculate marker size based on formula: 0.3*(VCSH+TTTDM+TTS) + 0.1*EMPL
               const markerSize = 0.3 * (avgVcsh + avgTttdm + avgTts) + 0.1 * avgEmpl;
